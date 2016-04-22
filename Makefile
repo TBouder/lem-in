@@ -6,7 +6,7 @@
 #    By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/04/22 12:12:36 by tbouder           #+#    #+#              #
-#    Updated: 2016/04/22 12:16:21 by tbouder          ###   ########.fr        #
+#    Updated: 2016/04/22 15:52:07 by tbouder          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CC			= 	gcc
 CFLAGS		= 	-Wall -Werror -Wextra
 OPTI		=	-g -O3
 
-SRC 		= 	ft_lemin.c
+SRC 		= 	ft_lemin.c ft_open.c ft_tools.c
 
 LIB			=	-Lft_printf -lftprintf
 

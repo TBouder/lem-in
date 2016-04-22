@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:16:28 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/22 12:28:29 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/22 17:09:59 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,44 +18,39 @@
 ** - Lecture entree standard
 */
 
-void	ft_exit(char *str)
-{
-	ft_putendl_fd(str, 2);
-	exit(EXIT_FAILURE);
-}
-
 int		main(int ac, char **av)
 {
-	int		fd;
 	int		i;
-	char	*str;
+	t_env	*env;
 
-	i = 1;
+	i = 0;
+	if (!(env = (t_env *)malloc(sizeof(t_env))))
+		return (0);
 	if (ac == 1)
 	{
-		while (get_next_line(0, &str)) //REFAIRE GET NEXT LINE
-			ft_putstr(str);
+		ft_open_stdin(env);
+		ft_nbrendl(env->ant);
+		ft_putstr(env->rooms->name);
+		
 	}
-
-	if (ac == 2)
+	else if (ac == 2)
 	{
-		if ((fd = open(av[1], O_RDONLY)) == -1)
-			ft_exit("Opening error : wrong map");
-		else
-			ft_putnbr(fd);
-
+		ft_open_one(env, av);
+		ft_nbrendl(env->ant);
+		ft_putstr(env->rooms->name);
+		
 	}
-
-	if (ac > 2)
+	else if (ac > 2)
 	{
-		while (i < ac)
+		while (++i < ac)
 		{
-			if ((fd = open(av[i], O_RDONLY)) == -1)
-				ft_exit("Opening error : wrong map");
-			else
-				ft_putnbr(fd);
-			i++;
+			ft_open_mult(env, av[i]);
+			ft_nbrendl(env->ant);
+			ft_putstr(env->rooms->name);
+			
+			ft_putchar(' ');
 		}
 	}
+	ft_putchar('\n');
 	return (0);
 }
