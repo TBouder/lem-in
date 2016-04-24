@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 12:28:01 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/24 16:29:53 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/24 18:28:55 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,14 @@ static void	ft_verif_pipes(t_datas datas, t_rooms **rooms)
 			j++;
 		if (i == 1 && j == 1)
 		{
-			ft_pipesend_next(rooms, datas);
-			ft_printf("{y}%s{0}\n", (*rooms)->pipes_next->id);
-			// ft_pipesend_prev(&tmp, *datas);
+			tmp = *rooms;
+			while (tmp && ft_strcmp(datas.name, tmp->name))
+				tmp = tmp->next;
+			ft_pipesend(&tmp->pipes_next, datas);
+			tmp = *rooms;
+			while (tmp && ft_strcmp(datas.name_two, tmp->name))
+				tmp = tmp->next;
+			ft_pipesend(&tmp->pipes_next, datas);
 		}
 		tmp = tmp->next;
 	}

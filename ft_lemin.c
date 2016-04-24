@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:16:28 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/24 16:28:17 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/24 18:23:35 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,14 @@ static void		ft_print_infos(t_env *env)
 	while (env->rooms)
 	{
 		if (env->rooms->pos == 1)
-			ft_printf("Start room (%d) name : %s (%d, %d)\n", env->rooms->id, env->rooms->name, env->rooms->x, env->rooms->y);
+			ft_printf("{g}Start room (%d) name {0}: %s (%d, %d)\n", env->rooms->id, env->rooms->name, env->rooms->x, env->rooms->y);
 		else if (env->rooms->pos == 2)
-			ft_printf("End room (%d) name : %s (%d, %d)\n", env->rooms->id, env->rooms->name, env->rooms->x, env->rooms->y);
+			ft_printf("{g}End room (%d) name {0}: %s (%d, %d)\n", env->rooms->id, env->rooms->name, env->rooms->x, env->rooms->y);
 		else
-			ft_printf("Room %d : %s (%d, %d)\n", env->rooms->id, env->rooms->name, env->rooms->x, env->rooms->y);
+			ft_printf("{g}Room %d {0}: %s (%d, %d)\n", env->rooms->id, env->rooms->name, env->rooms->x, env->rooms->y);
 		while (ROOMS->pipes_next)
 		{
-			ft_printf("Pipe : %s\n", ROOMS->pipes_next->id);
+			ft_printf("{c}Pipe{0} : %s\n", ROOMS->pipes_next->id);
 			ROOMS->pipes_next = ROOMS->pipes_next->next;
 		}
 		env->rooms = env->rooms->next;
