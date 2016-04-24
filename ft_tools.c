@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 15:51:08 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/22 16:35:02 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/23 11:38:46 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,14 @@ long	ft_atoi_onum(const char *str)
 	if (result / 10 * sign == 0)
 		ft_error("Ant error : number of ant cannot be 0");
 	return (result / 10 * sign);
+}
+
+int	ft_dbtablelen(char **str)
+{
+	int		i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
 }

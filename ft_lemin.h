@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:14:46 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/22 16:00:57 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/24 16:22:05 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,11 @@
 # include "ft_printf/ft_printf.h"
 # include <fcntl.h>
 
+# define ROOMS env->rooms
+
 typedef struct		s_pipes
 {
+	char			*id;
 	long			ant;
 	int				occuped;
 	struct s_pipes	*prev;
@@ -26,10 +29,13 @@ typedef struct		s_pipes
 
 typedef struct		s_rooms
 {
+	int				id;
+	int				pos;
 	char			*name;
 	int				x;
 	int				y;
-	struct s_pipes	*rooms;
+	struct s_pipes	*pipes_next;
+	struct s_pipes	*pipes_prev;
 	struct s_rooms	*prev;
 	struct s_rooms	*next;
 }					t_rooms;
@@ -40,12 +46,27 @@ typedef struct		s_env
 	struct s_rooms	*rooms;
 }					t_env;
 
+typedef struct		s_datas
+{
+	char			*name;
+	char			*name_two;
+	int				x;
+	int				y;
+	int				id;
+	int				pos;
+}					t_datas;
+
 void	ft_error(char *str);
 long	ft_atoi_onum(const char *str);
+int		ft_dbtablelen(char **str);
 
 void	ft_open_stdin(t_env *env);
-void	ft_open_one(t_env *env, char **av);
-void	ft_open_mult(t_env *env, char *map);
+void	ft_open_file(t_env *env, char *map);
 
+void	ft_extract_map(t_env *env, int fd, char *buff, char **str);
+
+void	ft_roomsend(t_rooms **rooms, t_datas datas);
+void	ft_pipesend_next(t_rooms **rooms, t_datas datas);
+void	ft_pipesend_prev(t_rooms **rooms, t_datas datas);
 
 #endif
