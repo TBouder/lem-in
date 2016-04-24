@@ -6,7 +6,7 @@
 #    By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/04/22 12:12:36 by tbouder           #+#    #+#              #
-#    Updated: 2016/04/22 15:52:07 by tbouder          ###   ########.fr        #
+#    Updated: 2016/04/23 12:34:27 by tbouder          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CC			= 	gcc
 CFLAGS		= 	-Wall -Werror -Wextra
 OPTI		=	-g -O3
 
-SRC 		= 	ft_lemin.c ft_open.c ft_tools.c
+SRC 		= 	ft_lemin.c ft_open.c ft_tools.c ft_structs.c ft_extract.c
 
 LIB			=	-Lft_printf -lftprintf
 
@@ -28,20 +28,20 @@ all: $(NAME)
 
 .SILENT : $(NAME)
 $(NAME): $(OBJ)
-	$(MAKE) re -C ft_printf
+	# $(MAKE) re -C ft_printf
 	$(CC) $(CFLAGS) $(OPTI) -c $(HEADER) $(SRC)
 	$(CC) -o $(NAME) $(OBJ) $(LIB)
 
 .SILENT : clean
 clean:
-	$(MAKE) clean -C ft_printf
+	# $(MAKE) clean -C ft_printf
 	rm -f $(OBJ)
 	rm -f **/*.gch
 	rm -f *.dSYM
 
 .SILENT : fclean
 fclean: clean
-	$(MAKE) fclean -C ft_printf
+	# $(MAKE) fclean -C ft_printf
 	rm -f $(NAME)
 
 re: fclean all
