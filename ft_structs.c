@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 11:23:22 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/24 16:26:53 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/24 18:26:44 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,45 +71,12 @@ static t_pipes	*ft_pipesnew(t_pipes *prev, t_datas datas)
 	return (pipes);
 }
 
-void			ft_pipesend_next(t_rooms **rooms, t_datas datas)
+void			ft_pipesend(t_pipes **pipes, t_datas datas)
 {
-	t_rooms	*new_rooms;
 	t_pipes	*new_pipes;
 	t_pipes	**tmp;
 
-	new_rooms = *rooms;
-	while (new_rooms && ft_strcmp(new_rooms->name, datas.name))
-		new_rooms = new_rooms->next;
-	new_pipes = new_rooms->pipes_next;
-	if (new_pipes)
-	{
-		tmp = &new_pipes;
-		while (new_pipes->next != NULL)
-		{
-			tmp = &new_pipes;
-			new_pipes = new_pipes->next;
-		}
-
-		new_pipes->next = ft_pipesnew(*tmp, datas);
-	}
-	else
-		new_pipes = ft_pipesnew(NULL, datas);
-	(*rooms)->pipes_next = new_pipes;
-
-}
-
-void			ft_pipesend_prev(t_rooms **rooms, t_datas datas)
-{
-	t_rooms	*new_rooms;
-	t_pipes	*new_pipes;
-	t_pipes	**tmp;
-
-	new_rooms = *rooms;
-	while (new_rooms && ft_strcmp(new_rooms->name, datas.name_two))
-	{
-		new_rooms = new_rooms->next;
-	}
-	new_pipes = (*rooms)->pipes_prev;
+	new_pipes = *pipes;
 	if (new_pipes)
 	{
 		tmp = &new_pipes;
@@ -121,5 +88,5 @@ void			ft_pipesend_prev(t_rooms **rooms, t_datas datas)
 		new_pipes->next = ft_pipesnew(*tmp, datas);
 	}
 	else
-		new_pipes = ft_pipesnew(NULL, datas);
+		*pipes = ft_pipesnew(NULL, datas);
 }

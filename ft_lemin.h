@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:14:46 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/24 16:22:05 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/24 18:26:49 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ void	ft_open_file(t_env *env, char *map);
 void	ft_extract_map(t_env *env, int fd, char *buff, char **str);
 
 void	ft_roomsend(t_rooms **rooms, t_datas datas);
-void	ft_pipesend_next(t_rooms **rooms, t_datas datas);
-void	ft_pipesend_prev(t_rooms **rooms, t_datas datas);
+void	ft_pipesend(t_pipes **pipes, t_datas datas);
 
 #endif
