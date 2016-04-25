@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/25 13:27:41 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/25 14:36:50 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/25 19:09:18 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static void		ft_pipes_push(t_datas datas, t_rooms **rooms)
 	t_rooms		*tmp;
 
 	tmp = *rooms;
+	//AJOUTER FONCTIONS DE VERIF
 	while (tmp && ft_strcmp(datas.name, tmp->name))
 		tmp = tmp->next;
 	ft_pipesend(&tmp->pipes_next, datas);
