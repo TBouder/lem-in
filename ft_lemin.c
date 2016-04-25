@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:16:28 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/25 14:06:20 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/25 16:35:44 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,6 @@ static int		ft_zero(t_env *env)
 	return (1);
 }
 
-static int		ft_one(t_env *env, char **av)
-{
-	ft_open_file(env, av[1]);
-
-	ft_print_infos(env);
-	return (1);
-}
-
 static int		ft_more(t_env *env, int ac, char **av)
 {
 	int		i;
@@ -83,8 +75,6 @@ int		main(int ac, char **av)
 		return (0);
 	if (ac == 1)
 		ft_zero(env);
-	else if (ac == 2)
-		ft_one(env, av);
 	else if (ac > 2)
 		ft_more(env, ac, av);
 	ft_putchar('\n');

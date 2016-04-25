@@ -6,34 +6,58 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 12:28:01 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/25 14:22:06 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/25 17:43:17 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_lemin.h"
 
-static void	ft_verif_rooms(t_rooms rooms)
+static void	ft_verif_rooms(t_rooms *tmp)
 {
 	int		start;
 	int		end;
+	t_rooms	*rooms;
 
 	start = 0;
 	end = 0;
+	rooms = tmp;
 	while (1)
 	{
-		if (rooms.pos == 1)
+		if (rooms->pos == 1)
 			start++;
-		if (rooms.pos == 2)
+		if (rooms->pos == 2)
 			end++;
-		if (!(rooms.next))
+		if (!(rooms->next))
 			break ;
-		rooms = (*rooms.next);
+		rooms = rooms->next;
 	}
-	start < 1 ? ft_error("Room {r}error{0} : no start room") : 0;
+	tmp = rooms;
 	start > 1 ? ft_error("Room {r}error{0} : multiple start room") : 0;
-	end < 1 ? ft_error("Room {r}error{0} : no end room") : 0;
 	end > 1 ? ft_error("Room {r}error{0} : multiple end room") : 0;
 }
+//
+// static void	ft_verif_rooms(t_rooms rooms)
+// {
+// 	int		start;
+// 	int		end;
+//
+// 	start = 0;
+// 	end = 0;
+// 	while (1)
+// 	{
+// 		if (rooms.pos == 1)
+// 			start++;
+// 		if (rooms.pos == 2)
+// 			end++;
+// 		if (!(rooms.next))
+// 			break ;
+// 		rooms = (*rooms.next);
+// 	}
+// 	start < 1 ? ft_error("Room {r}error{0} : no start room") : 0;
+// 	start > 1 ? ft_error("Room {r}error{0} : multiple start room") : 0;
+// 	end < 1 ? ft_error("Room {r}error{0} : no end room") : 0;
+// 	end > 1 ? ft_error("Room {r}error{0} : multiple end room") : 0;
+// }
 
 static void	ft_extract_rooms(t_datas *datas, char **str, int id, int pos)
 {
@@ -60,7 +84,7 @@ static void	ft_extract_cmd(t_env *env, char *status)
 			ft_extract_rooms(&datas, str, env->id, 1);
 		else
 			ft_extract_rooms(&datas, str, env->id, 2);
-			ft_roomsend(&(ROOMS), datas);
+		ft_roomsend(&(ROOMS), datas);
 	}
 }
 
@@ -69,7 +93,9 @@ int			ft_launch_extract(t_env *env, char **str, char *buff, int part)
 	t_datas	datas;
 
 	if (part == 0)
+	{
 		ft_extract_cmd(env, buff);
+	}
 	if (part == 1)
 	{
 		ft_extract_rooms(&datas, str, env->id, 0);
@@ -94,8 +120,11 @@ void		ft_extract_map(t_env *env, char *buff, char **str)
 	while (get_next_line(env->fd, &buff) == 1 && !verif)
 	{
 		str = ft_strsplit(buff, ' ');
-		if (ft_strcmp("##start", buff) == 0 || ft_strcmp("##end", buff) == 0)
+		if (ft_strcmp("##start", buff) == 0)
 			ft_launch_extract(env, str, buff, 0);
+		else if (ft_strcmp("##end", buff) == 0)
+			ft_launch_extract(env, str, buff, 0);
+
 		else if (ft_dbtablelen(str) == 3)
 			ft_launch_extract(env, str, NULL, 1);
 		else if (str[0][0] == '#' && str[0][1] != '#') // COMMENTAIRES
@@ -103,8 +132,9 @@ void		ft_extract_map(t_env *env, char *buff, char **str)
 		else
 			verif = ft_pipes(env, buff);
 		ft_strdel(str);
+		ft_nbrendl(env->id);
+		ft_verif_rooms((env->rooms));
 		env->id++;
 	}
-	ft_verif_rooms(*(env->rooms));
 	ft_verif_pipes(*(env->rooms));
 }
