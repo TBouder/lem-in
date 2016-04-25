@@ -37,8 +37,11 @@ echo "\033[33;1mNo end rooms\033[00;0m : \c" && ./lem-in < lem-in_maps/no_end
 
 echo "\033[33;1mMultiple start rooms\033[00;0m : \c" && ./lem-in < lem-in_maps/multi_start
 echo "\033[33;1mMultiple end rooms\033[00;0m : \c" && ./lem-in < lem-in_maps/multi_end
+echo "\033[33;1mSame room\033[00;0m : \c" && ./lem-in < lem-in_maps/same_room
+echo "\033[33;1mSame room2\033[00;0m : \c" && ./lem-in < lem-in_maps/same_room2
+echo "\033[33;1mSame coo\033[00;0m : \c" && ./lem-in < lem-in_maps/same_coo
 echo "\033[33;1mPipe to itself\033[00;0m : \c" && ./lem-in < lem-in_maps/pipe_to_itself
 echo
-# echo "\033[33;1mOne map\033[00;0m :" && ./lem-in < lem-in_maps/subject0.map
-# echo "\033[33;1mTwo maps\033[00;0m :" && ./lem-in < lem-in_maps/subject0.map lem-in_maps/subject1.map
-# echo "\033[33;1mThree maps\033[00;0m :" && ./lem-in < lem-in_maps/subject0.map lem-in_maps/subject1.map lem-in_maps/subject2.map
+echo "\033[33;1mOne map\033[00;0m :" && ./lem-in < lem-in_maps/subject0.map
+echo "\033[33;1mTwo maps\033[00;0m :" && ./lem-in < lem-in_maps/subject0.map < lem-in_maps/subject1.map
+echo "\033[33;1mThree maps\033[00;0m :" && ./lem-in < lem-in_maps/subject0.map lem-in_maps/subject1.map lem-in_maps/subject2.map
