@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 15:25:58 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/23 12:28:16 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/25 14:36:17 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,11 @@ void		ft_open_stdin(t_env *env)
 
 void		ft_open_file(t_env *env, char *map)
 {
-	int		fd;
 	char	*buff;
 
-	if ((fd = open(map, O_RDONLY)) == -1)
-		ft_error("Opening error : wrong map");
-	get_next_line(fd, &buff) != -1 ? env->ant = ft_atoi_onum(buff)
-		: ft_error("File error : arg must be a file");
-	ft_extract_map(env, fd, NULL, NULL);
+	if ((env->fd = open(map, O_RDONLY)) == -1)
+		ft_error("Opening {r}error{0} : wrong map");
+	get_next_line(env->fd, &buff) != -1 ? env->ant = ft_atoi_onum(buff)
+		: ft_error("File {r}error{0} : arg must be a file");
+	ft_extract_map(env, NULL, NULL);
 }
