@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:16:28 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/26 11:50:05 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/26 14:36:16 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** - Lecture plusieurs fichiers a la fois (Neccessite OPEN)
 */
 
-static void		ft_print_infos(t_env *env)
+void		ft_print_infos(t_env *env)
 {
 	ft_printf("Number of ant(s) : %d\n", env->ant);
 	while (ROOMS)
@@ -45,8 +45,8 @@ static void		ft_print_infos(t_env *env)
 static int		ft_zero(t_env *env)
 {
 	ft_open_stdin(env);
-
-	ft_print_infos(env);
+	ft_putstr(env->map);
+	// ft_print_infos(env);
 	return (1);
 }
 
@@ -58,8 +58,8 @@ static int		ft_more(t_env *env, int ac, char **av)
 	while (++i < ac)
 	{
 		ft_open_file(env, av[i]);
-
-		ft_print_infos(env);
+		ft_putstr(env->map);
+		// ft_print_infos(env);
 	}
 	return (1);
 }

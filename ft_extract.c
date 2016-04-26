@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 12:28:01 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/26 14:04:17 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/26 14:34:57 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ static void	ft_extract_cmd(t_env *env, char *status)
 
 	if (get_next_line(env->fd, &buff) >= 0)
 	{
+		// ft_strcat_endl(env->map, buff);
 		str = ft_strsplit(buff, ' ');
 		if (ft_dbtablelen(str) != 3)
 			ft_error("Map {r}error{0} : Start or End room not well formated");
@@ -92,12 +93,11 @@ void		ft_extract_map(t_env *env, char *buff, char **str)
 	ROOMS = NULL;
 	while (get_next_line(env->fd, &buff) == 1 && !verif)
 	{
+		ft_strcat_endl(env->map, buff);
 		if (buff[0] == '\0')
 			ft_error("Map {r}error{0} : empty line");
 		str = ft_strsplit(buff, ' ');
-		if (ft_strcmp("##start", buff) == 0)
-			ft_launch_extract(env, str, buff, 0);
-		else if (ft_strcmp("##end", buff) == 0)
+		if (ft_strcmp("##start", buff) == 0 || ft_strcmp("##end", buff) == 0)
 			ft_launch_extract(env, str, buff, 0);
 		else if (ft_dbtablelen(str) == 3)
 			ft_launch_extract(env, str, NULL, 1);

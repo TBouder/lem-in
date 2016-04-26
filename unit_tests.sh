@@ -31,6 +31,7 @@ echo "\033[33;1m0 ant\033[00;0m : \c" && ./lem-in < lem-in_maps/error/ants/zero_
 echo
 echo "Rooms"
 echo "\033[33;1mNo room\033[00;0m : \c" && ./lem-in < lem-in_maps/error/rooms/no_room
+echo "\033[33;1mLroom\033[00;0m : \c" && ./lem-in < lem-in_maps/error/rooms/Lroom
 echo "\033[33;1mSame room\033[00;0m : \c" && ./lem-in < lem-in_maps/error/rooms/same_room
 echo "\033[33;1mSame room2\033[00;0m : \c" && ./lem-in < lem-in_maps/error/rooms/same_room2
 echo "\033[33;1mSame coo\033[00;0m : \c" && ./lem-in < lem-in_maps/error/rooms/same_coo

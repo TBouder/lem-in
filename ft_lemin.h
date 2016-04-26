@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:14:46 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/26 12:12:28 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/26 14:29:33 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct		s_env
 	long			ant;
 	int				id;
 	int				fd;
+	char			*map;
 	struct s_rooms	*rooms;
 }					t_env;
 
@@ -61,6 +62,9 @@ typedef struct		s_datas
 void	ft_error(char *str);
 long	ft_atoi_onum(const char *str);
 int		ft_dbtablelen(char **str);
+void	ft_strcat_endl(char *s1, const char *s2);
+void	ft_strcpy_endl(char *dst, const char *src);
+
 
 void	ft_open_stdin(t_env *env);
 void	ft_open_file(t_env *env, char *map);

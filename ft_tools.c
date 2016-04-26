@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 15:51:08 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/25 14:23:29 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/26 14:38:51 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,18 @@ int	ft_dbtablelen(char **str)
 	while (str[i])
 		i++;
 	return (i);
+}
+
+void	ft_strcat_endl(char *s1, const char *s2)
+{
+	ft_printf("{g}%s{0}", s1);
+	ft_printf("{r}%s{0}\n", s2);
+	ft_strcat(s1, s2);
+	ft_strcat(s1, "\n");
+}
+
+void	ft_strcpy_endl(char *dst, const char *src)
+{
+	ft_strcpy(dst, src);
+	ft_strcat(dst, "\n");
 }
