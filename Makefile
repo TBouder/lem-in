@@ -6,7 +6,7 @@
 #    By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/04/22 12:12:36 by tbouder           #+#    #+#              #
-#    Updated: 2016/04/26 12:07:50 by tbouder          ###   ########.fr        #
+#    Updated: 2016/04/26 14:53:31 by tbouder          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ clean:
 	# $(MAKE) clean -C ft_printf
 	rm -f $(OBJ)
 	rm -f **/*.gch
-	rm -f *.dSYM
+	rm -rf *.dSYM
 
 .SILENT : fclean
 fclean: clean
