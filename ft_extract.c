@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 12:28:01 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/26 17:38:35 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/26 17:59:58 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,11 @@ static void	ft_extract_rooms(t_datas *datas, char **str, int id, int pos)
 	datas->y = ft_atoi(str[2]); //verif le ft_atoi
 }
 
-static void	ft_extract_cmd(t_env *env, char *status, t_datas *datas)
+static void	ft_extract_cmd(t_env *env, char *status)
 {
 	char	*buff;
 	char	**str;
+	t_datas	datas;
 
 	if (get_next_line(env->fd, &buff) >= 0)
 	{
@@ -54,11 +55,10 @@ static void	ft_extract_cmd(t_env *env, char *status, t_datas *datas)
 		if (ft_dbtablelen(str) != 3)
 			ft_error("Map {r}error{0} : Start or End room not well formated");
 		if (!ft_strcmp("##start", status))
-			ft_extract_rooms(datas, str, env->id, 1);
+			ft_extract_rooms(&datas, str, env->id, 1);
 		else
-			ft_extract_rooms(datas, str, env->id, 2);
-		ft_roomsend(&(ROOMS), *datas);
-		ft_strdel(&datas->name);
+			ft_extract_rooms(&datas, str, env->id, 2);
+		ft_roomsend(&(ROOMS), datas);
 		ft_strdel(&buff);
 		ft_strdel(str);
 	}
@@ -66,30 +66,27 @@ static void	ft_extract_cmd(t_env *env, char *status, t_datas *datas)
 
 int			ft_launch_extract(t_env *env, char **str, char *buff, int part)
 {
-	t_datas	*datas;
+	t_datas	datas;
 
-	if (!(datas = (t_datas*)malloc(sizeof(t_datas))))
-		ft_error("Error DATAS");
 	if (part == 0)
-		ft_extract_cmd(env, buff, datas);
+		ft_extract_cmd(env, buff);
 	if (part == 1)
 	{
-		ft_extract_rooms(datas, str, env->id, 0);
-		ft_verif_duplicates_rooms(ROOMS, *datas);
-		ft_roomsend(&(ROOMS), *datas);
+		ft_extract_rooms(&datas, str, env->id, 0);
+		ft_verif_duplicates_rooms(ROOMS, datas);
+		ft_roomsend(&(ROOMS), datas);
+		ft_strdel(&datas.name);
 	}
 	if (part == 2)
 	{
-		ft_extract_pipes(datas, str);
-		if (ft_put_pipes(*datas, &(ROOMS)) == 1)
+		ft_extract_pipes(&datas, str);
+		if (ft_put_pipes(datas, &(ROOMS)) == 1)
 		{
-			ft_strdel(&datas->name_two);
+			ft_strdel(&datas.name_two);
 			return (1);
 		}
-		ft_strdel(&datas->name_two);
+		ft_strdel(&datas.name_two);
 	}
-	ft_strdel(&datas->name);
-	free(datas);
 	return (0);
 }
 

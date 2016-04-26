@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/25 13:27:41 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/26 17:40:45 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/26 18:06:17 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,6 @@ int				ft_put_pipes(t_datas datas, t_rooms **rooms)
 	j = 0;
 	if (*rooms == NULL)
 		ft_error("Room {r}error{0} : no room");
-		ft_putstr("|||");
-		ft_putstr(datas.name);
-		ft_putstr("|||");
-		ft_putstr(tmp->name);
-		ft_putendl("|||");
 	while (tmp && (!i || !j) && (ft_strcmp(datas.name, tmp->name) || ft_strcmp(datas.name_two, tmp->name)))
 	{
 		if (!ft_strcmp(datas.name, datas.name_two))
