@@ -56,6 +56,5 @@ echo "Should work"
 # echo "\033[33;1mOne map\033[00;0m :" && ./lem-in < lem-in_maps/subject0.map
 # echo "\033[33;1mTwo maps\033[00;0m :" && ./lem-in < lem-in_maps/subject0.map < lem-in_maps/subject1.map
 # echo "\033[33;1mThree maps\033[00;0m :" && ./lem-in < lem-in_maps/subject0.map lem-in_maps/subject1.map lem-in_maps/subject2.map
-echo "\033[31;1mSpace middle of pipe\033[00;0m"
-echo "\033[31;1mSpace before pipe\033[00;0m"
-echo "\033[31;1mSpace after of pipe\033[00;0m"
+# echo "\033[33;1mSpace middle of pipe\033[00;0m :" && ./lem-in < lem-in_maps/space_middle_pipe
+# echo "\033[33;1mSpace after of pipe\033[00;0m :" && ./lem-in < lem-in_maps/space_after_pipe
