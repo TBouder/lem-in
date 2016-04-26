@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 15:25:58 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/26 14:36:33 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/26 14:47:36 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void		ft_open_stdin(t_env *env)
 	if (get_next_line(env->fd, &buff) != -1)
 	{
 		env->map = ft_strnew(ft_strlen(buff));
-		ft_strcpy_endl(env->map, buff);
+		ft_strcpy(env->map, buff);
 		env->ant = ft_atoi_onum(buff);
 	}
 	else
