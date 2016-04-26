@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 12:28:01 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/26 12:06:29 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/26 12:45:04 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ static void	ft_extract_rooms(t_datas *datas, char **str, int id, int pos)
 {
 	datas->name = ft_strnew(ft_strlen(str[0]));
 	ft_strcpy(datas->name, str[0]); //verif commence pas par L et ?
+	if (datas->name[0] == 'L')
+		ft_error("Room {r}error{0} : room name cannot start with 'L'");
 	datas->id = id;
 	datas->pos = pos;
 	datas->x = ft_atoi(str[1]); //verif le ft_atoi
