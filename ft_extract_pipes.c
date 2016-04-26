@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/25 13:27:41 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/26 12:16:42 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/26 13:26:11 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,9 @@ void			ft_verif_pipes(t_rooms rooms)
 void			ft_extract_pipes(t_datas *datas, char **str)
 {
 	datas->name = ft_strnew(ft_strlen(str[0]));
-	ft_strcpy(datas->name, str[0]); //verif commence pas par L et ?
+	ft_strcpy(datas->name, str[0]);
 	datas->name_two = ft_strnew(ft_strlen(str[1]));
-	ft_strcpy(datas->name_two, str[1]); //verif commence pas par L et ?
+	ft_strcpy(datas->name_two, str[1]);
 }
 
 int				ft_put_pipes(t_datas datas, t_rooms **rooms)
@@ -83,9 +83,8 @@ int				ft_put_pipes(t_datas datas, t_rooms **rooms)
 			return (1);
 		!ft_strcmp(datas.name, tmp->name) ? i++ : 0;
 		!ft_strcmp(datas.name_two, tmp->name) ? j++ : 0;
-		if (i == 1 && j == 1)
-			if (ft_pipes_push(datas, rooms))
-				return (1);
+		if (i == 1 && j == 1 && ft_pipes_push(datas, rooms))
+			return (1);
 		tmp = tmp->next;
 	}
 	if (i == 0 || j == 0)
@@ -99,6 +98,8 @@ int				ft_pipes(t_env *env, char *buff)
 	int		verif;
 
 	verif = 0;
+	if (buff[0] == '\0')
+		return (1);
 	str = ft_strsplit(buff, '-');
 	if (ft_dbtablelen(str) == 2)
 		verif = ft_launch_extract(env, str, NULL, 2);
@@ -106,6 +107,8 @@ int				ft_pipes(t_env *env, char *buff)
 		ft_putendl(buff);
 	while (get_next_line(env->fd, &buff) == 1 && !verif)
 	{
+		if (buff[0] == '\0')
+			return (1);
 		ft_strdel(str);
 		str = ft_strsplit(buff, '-');
 		if (ft_dbtablelen(str) == 2)

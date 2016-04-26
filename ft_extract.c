@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 12:28:01 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/26 12:45:04 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/26 13:24:54 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	ft_verif_rooms(t_rooms *rooms)
 static void	ft_extract_rooms(t_datas *datas, char **str, int id, int pos)
 {
 	datas->name = ft_strnew(ft_strlen(str[0]));
-	ft_strcpy(datas->name, str[0]); //verif commence pas par L et ?
+	ft_strcpy(datas->name, str[0]);
 	if (datas->name[0] == 'L')
 		ft_error("Room {r}error{0} : room name cannot start with 'L'");
 	datas->id = id;
@@ -92,6 +92,8 @@ void		ft_extract_map(t_env *env, char *buff, char **str)
 	ROOMS = NULL;
 	while (get_next_line(env->fd, &buff) == 1 && !verif)
 	{
+		if (buff[0] == '\0')
+			ft_error("NOP");
 		str = ft_strsplit(buff, ' ');
 		if (ft_strcmp("##start", buff) == 0)
 			ft_launch_extract(env, str, buff, 0);
@@ -99,7 +101,7 @@ void		ft_extract_map(t_env *env, char *buff, char **str)
 			ft_launch_extract(env, str, buff, 0);
 		else if (ft_dbtablelen(str) == 3)
 			ft_launch_extract(env, str, NULL, 1);
-		else if (str[0][0] == '#' && str[0][1] != '#') // COMMENTAIRES
+		else if (str[0][0] == '#' && str[0][1] != '#')
 			ft_putendl(buff);
 		else
 			verif = ft_pipes(env, buff);
