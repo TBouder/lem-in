@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/25 13:27:41 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/26 19:00:16 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/26 19:18:29 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,8 +105,8 @@ int				ft_pipes(t_env *env, char *buff)
 		verif = ft_launch_extract(env, str, NULL, 2);
 		ft_freesplit(str);
 	}
-	else if (str[0][0] == '#' && str[0][1] != '#') // COMMENTAIRES
-		ft_putendl(buff);
+	else if (str[0][0] == '#' && str[0][1] != '#')
+		ft_putendl(buff); // COMMENTAIRES
 	while (get_next_line(env->fd, &buff) == 1 && !verif)
 	{
 		if (buff[0] == '\0')
@@ -114,8 +114,8 @@ int				ft_pipes(t_env *env, char *buff)
 		str = ft_strsplit(buff, '-');
 		if (ft_dbtablelen(str) == 2)
 			verif = ft_launch_extract(env, str, NULL, 2);
-		else if (str[0][0] == '#' && str[0][1] != '#') // COMMENTAIRES
-			ft_putendl(buff);
+		else if (str[0][0] == '#' && str[0][1] != '#')
+			ft_putendl(buff); // COMMENTAIRES
 		ft_strdel(&buff);
 		ft_freesplit(str);
 	}

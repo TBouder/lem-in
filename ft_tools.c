@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 15:51:08 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/26 19:12:09 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/26 19:17:12 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ long	ft_atoi_onum(const char *str)
 	return (result / 10 * sign);
 }
 
-int	ft_dbtablelen(char **str)
+int		ft_dbtablelen(char **str)
 {
 	int		i;
 

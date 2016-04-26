@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 12:28:01 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/26 19:05:06 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/26 19:21:55 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ static void	ft_extract_cmd(t_env *env, char *status)
 		ft_strdel(&datas.name);
 		ft_strdel(&buff);
 		ft_freesplit(str);
-
 	}
 }
 

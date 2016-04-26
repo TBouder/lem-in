@@ -49,6 +49,7 @@ echo "\033[33;1mMultiple start rooms\033[00;0m : \c" && ./lem-in < lem-in_maps/e
 echo "\033[33;1mMultiple end rooms\033[00;0m : \c" && ./lem-in < lem-in_maps/error/start_end/multi_end
 echo
 echo "Should work"
+
 # echo "\033[33;1mPipe to itself\033[00;0m :" && ./lem-in < lem-in_maps/pipe_to_itself
 # echo "\033[33;1mError middle pipe (Room not found)\033[00;0m :" && ./lem-in < lem-in_maps/error_middle_pipe
 # echo "\033[33;1mSame pipe\033[00;0m :" && ./lem-in < lem-in_maps/same_pipe
