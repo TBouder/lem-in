@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 15:51:08 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/26 15:35:20 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/26 16:09:19 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,9 @@ int	ft_dbtablelen(char **str)
 	return (i);
 }
 
-void	ft_strcat_endl(char *s1, const char *s2)
+char	*ft_strjoin_endl(char *s1, char *s2, char *str)
 {
-	ft_strcat(s1, s2);
-	ft_strcat(s1, "\n");
-}
-
-void	ft_strcpy_endl(char *dst, const char *src)
-{
-	ft_strcpy(dst, src);
-	ft_strcat(dst, "\n");
+	str = ft_strjoin(s1, s2);
+	str = ft_strjoin(s1, "\n");
+	return (str);
 }
