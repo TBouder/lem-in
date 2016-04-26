@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/25 13:27:41 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/26 15:03:13 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/26 15:16:50 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ int				ft_pipes(t_env *env, char *buff)
 			verif = ft_launch_extract(env, str, NULL, 2);
 		else if (str[0][0] == '#' && str[0][1] != '#') // COMMENTAIRES
 			ft_putendl(buff);
+		ft_strdel(str);
 	}
 	return (verif);
 }
