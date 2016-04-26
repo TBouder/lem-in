@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 12:28:01 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/25 18:50:36 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/26 12:06:29 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,6 @@ static void	ft_verif_rooms(t_rooms *rooms)
 	end > 1 ? ft_error("Room {r}error{0} : multiple end room") : 0;
 	start < 1 ? ft_error("Room {r}error{0} : no start room") : 0;
 	end < 1 ? ft_error("Room {r}error{0} : no end room") : 0;
-}
-
-static void	ft_verif_duplicates(t_rooms *rooms, t_datas datas)
-{
-	while (rooms)
-	{
-		if (!ft_strcmp(datas.name, rooms->name))
-			ft_error("Room {r}error{0} : duplicate");
-		if (datas.x == rooms->x && datas.y == rooms->y)
-			ft_error("Coo {r}error{0} : duplicate");
-		rooms = rooms->next;
-	}
 }
 
 static void	ft_extract_rooms(t_datas *datas, char **str, int id, int pos)
@@ -81,7 +69,7 @@ int			ft_launch_extract(t_env *env, char **str, char *buff, int part)
 	if (part == 1)
 	{
 		ft_extract_rooms(&datas, str, env->id, 0);
-		ft_verif_duplicates(ROOMS, datas);
+		ft_verif_duplicates_rooms(ROOMS, datas);
 		ft_roomsend(&(ROOMS), datas);
 	}
 	if (part == 2)

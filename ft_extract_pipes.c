@@ -6,25 +6,29 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/25 13:27:41 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/25 19:09:18 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/26 12:16:42 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_lemin.h"
 
-static void		ft_pipes_push(t_datas datas, t_rooms **rooms)
+static int		ft_pipes_push(t_datas datas, t_rooms **rooms)
 {
-	t_rooms		*tmp;
+	t_rooms		*tmp_next;
+	t_rooms		*tmp_prev;
 
-	tmp = *rooms;
-	//AJOUTER FONCTIONS DE VERIF
-	while (tmp && ft_strcmp(datas.name, tmp->name))
-		tmp = tmp->next;
-	ft_pipesend(&tmp->pipes_next, datas);
-	tmp = *rooms;
-	while (tmp && ft_strcmp(datas.name_two, tmp->name))
-		tmp = tmp->next;
-	ft_pipesend(&tmp->pipes_prev, datas);
+	tmp_next = *rooms;
+	tmp_prev = *rooms;
+	while (tmp_next && ft_strcmp(datas.name, tmp_next->name))
+		tmp_next = tmp_next->next;
+	while (tmp_prev && ft_strcmp(datas.name_two, tmp_prev->name))
+		tmp_prev = tmp_prev->next;
+	if (ft_verif_duplicates_pipes(*tmp_next, datas) ||
+		ft_verif_duplicates_pipes(*tmp_prev, datas))
+		return (1);
+	ft_pipesend(&tmp_next->pipes_next, datas);
+	ft_pipesend(&tmp_prev->pipes_prev, datas);
+	return (0);
 }
 
 void			ft_verif_pipes(t_rooms rooms)
@@ -80,7 +84,8 @@ int				ft_put_pipes(t_datas datas, t_rooms **rooms)
 		!ft_strcmp(datas.name, tmp->name) ? i++ : 0;
 		!ft_strcmp(datas.name_two, tmp->name) ? j++ : 0;
 		if (i == 1 && j == 1)
-			ft_pipes_push(datas, rooms);
+			if (ft_pipes_push(datas, rooms))
+				return (1);
 		tmp = tmp->next;
 	}
 	if (i == 0 || j == 0)

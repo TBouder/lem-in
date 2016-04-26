@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:16:28 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/25 19:06:17 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/26 11:50:05 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,9 @@ int		main(int ac, char **av)
 	i = 0;
 	if (!(env = (t_env *)malloc(sizeof(t_env))))
 		return (0);
-	if (ac == 1 || ac == 2)
+	if (ac == 1)
 		ft_zero(env);
-	else if (ac > 2)
+	else if (ac >= 2)
 		ft_more(env, ac, av);
 	ft_putchar('\n');
 	return (0);
