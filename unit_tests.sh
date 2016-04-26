@@ -35,9 +35,9 @@ echo "\033[33;1mSame room\033[00;0m : \c" && ./lem-in < lem-in_maps/error/rooms/
 echo "\033[33;1mSame room2\033[00;0m : \c" && ./lem-in < lem-in_maps/error/rooms/same_room2
 echo "\033[33;1mSame coo\033[00;0m : \c" && ./lem-in < lem-in_maps/error/rooms/same_coo
 echo "\033[33;1mNo pipe\033[00;0m : \c" && ./lem-in < lem-in_maps/error/rooms/no_pipe
-echo "\033[31;1mSpace middle of rooms\033[00;0m"
-echo "\033[31;1mSpace before rooms\033[00;0m"
-echo "\033[31;1mSpace after of rooms\033[00;0m"
+echo "\033[33;1mSpace middle of rooms\033[00;0m : \c" && ./lem-in < lem-in_maps/error/rooms/space_middle_room
+echo "\033[33;1mSpace before rooms\033[00;0m : \c" && ./lem-in < lem-in_maps/error/rooms/space_before_room
+echo "\033[33;1mSpace after of rooms\033[00;0m : \c" && ./lem-in < lem-in_maps/error/rooms/space_after_room
 echo
 echo "Start & end"
 echo "\033[33;1mNo access after start\033[00;0m : \c" && ./lem-in < lem-in_maps/error/start_end/no_path_start
@@ -56,6 +56,6 @@ echo "Should work"
 # echo "\033[33;1mOne map\033[00;0m :" && ./lem-in < lem-in_maps/subject0.map
 # echo "\033[33;1mTwo maps\033[00;0m :" && ./lem-in < lem-in_maps/subject0.map < lem-in_maps/subject1.map
 # echo "\033[33;1mThree maps\033[00;0m :" && ./lem-in < lem-in_maps/subject0.map lem-in_maps/subject1.map lem-in_maps/subject2.map
-echo "\033[31;1mSpace middle of rooms\033[00;0m"
-echo "\033[31;1mSpace before rooms\033[00;0m"
-echo "\033[31;1mSpace after of rooms\033[00;0m"
+echo "\033[31;1mSpace middle of pipe\033[00;0m"
+echo "\033[31;1mSpace before pipe\033[00;0m"
+echo "\033[31;1mSpace after of pipe\033[00;0m"
