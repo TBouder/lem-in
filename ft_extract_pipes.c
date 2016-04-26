@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/25 13:27:41 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/26 17:02:31 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/26 17:40:45 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,12 @@ int				ft_put_pipes(t_datas datas, t_rooms **rooms)
 	j = 0;
 	if (*rooms == NULL)
 		ft_error("Room {r}error{0} : no room");
-	while (tmp && (!i || !j) && (ft_strcmp(datas.name, tmp->name)
-		|| ft_strcmp(datas.name_two, tmp->name)))
+		ft_putstr("|||");
+		ft_putstr(datas.name);
+		ft_putstr("|||");
+		ft_putstr(tmp->name);
+		ft_putendl("|||");
+	while (tmp && (!i || !j) && (ft_strcmp(datas.name, tmp->name) || ft_strcmp(datas.name_two, tmp->name)))
 	{
 		if (!ft_strcmp(datas.name, datas.name_two))
 			return (1);
@@ -115,7 +119,7 @@ int				ft_pipes(t_env *env, char *buff)
 			verif = ft_launch_extract(env, str, NULL, 2);
 		else if (str[0][0] == '#' && str[0][1] != '#') // COMMENTAIRES
 			ft_putendl(buff);
-		ft_strdel(str);
 	}
+	ft_strdel(str);
 	return (verif);
 }
