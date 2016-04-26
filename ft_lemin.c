@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:16:28 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/26 19:06:25 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/26 19:14:38 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int		ft_zero(t_env *env)
 	ft_open_stdin(env);
 	ft_putstr(env->map);
 	ft_strdel(&env->map);
-	// ft_print_infos(env);
+	ft_print_infos(env);
 	return (1);
 }
 
@@ -61,51 +61,9 @@ static int		ft_more(t_env *env, int ac, char **av)
 		ft_open_file(env, av[i]);
 		ft_putstr(env->map);
 		ft_strdel(&env->map);
-		// ft_print_infos(env);
+		ft_print_infos(env);
 	}
 	return (1);
-}
-
-void	ft_free_allp(t_pipes **env)
-{
-	t_pipes	*free_list;
-	t_pipes	*temp;
-
-	if (env != NULL)
-	{
-		free_list = *env;
-		while (free_list)
-		{
-			temp = free_list;
-			free_list = free_list->next;
-			ft_strdel(&temp->id);
-			free(temp);
-		}
-		*env = NULL;
-	}
-	env = NULL;
-}
-
-void	ft_free_all(t_rooms **env)
-{
-	t_rooms	*free_list;
-	t_rooms	*temp;
-
-	if (env != NULL)
-	{
-		free_list = *env;
-		while (free_list)
-		{
-			temp = free_list;
-			free_list = free_list->next;
-			ft_strdel(&temp->name);
-			ft_free_allp(&temp->pipes_next);
-			ft_free_allp(&temp->pipes_prev);
-			free(temp);
-		}
-		*env = NULL;
-	}
-	env = NULL;
 }
 
 int		main(int ac, char **av)
