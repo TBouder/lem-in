@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 15:25:58 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/26 16:41:39 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/26 17:33:58 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ void		ft_open_stdin(t_env *env)
 		str = ft_strnew(ft_strlen(buff));
 		env->map = ft_strjoin_endl(str, buff);
 		env->ant = ft_atoi_onum(buff);
-		ft_strdel(&buff);
 		ft_strdel(&str);
 	}
 	else
 		ft_error("File {r}error{0} : arg must be a file");
+	ft_strdel(&buff);
 	ft_extract_map(env, NULL, NULL);
 }
 
@@ -43,10 +43,10 @@ void		ft_open_file(t_env *env, char *map)
 		str = ft_strnew(ft_strlen(buff));
 		env->map = ft_strjoin_endl(str, buff);
 		env->ant = ft_atoi_onum(buff);
-		ft_strdel(&buff);
 		ft_strdel(&str);
 	}
 	else
 		ft_error("File {r}error{0} : arg must be a file");
+	ft_strdel(&buff);
 	ft_extract_map(env, NULL, NULL);
 }

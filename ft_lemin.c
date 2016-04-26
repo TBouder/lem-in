@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:16:28 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/26 17:09:45 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/26 17:24:00 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,8 @@ void	ft_free_all(t_rooms **env)
 		{
 			temp = free_list;
 			free_list = free_list->next;
-			ft_strdel(&temp->name);
+			// ft_strdel(&temp->name);
+			free(temp->name);
 			ft_free_allp(&temp->pipes_next);
 			ft_free_allp(&temp->pipes_prev);
 			free(temp);
@@ -121,8 +122,6 @@ int		main(int ac, char **av)
 	else if (ac >= 2)
 		ft_more(env, ac, av);
 	ft_putchar('\n');
-
-	ft_putstr("HELLLOOOO");
 
 	ft_free_all(&ROOMS);
 	ft_strdel(&env->map);
