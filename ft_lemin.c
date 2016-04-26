@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:16:28 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/26 18:06:27 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/26 19:06:25 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,6 @@ int		main(int ac, char **av)
 
 	ft_free_all(&ROOMS);
 	ft_strdel(&env->map);
-	env = NULL;
+	free(env);
 	return (0);
 }

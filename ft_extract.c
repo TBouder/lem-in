@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 12:28:01 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/26 18:39:32 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/26 19:05:06 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ static void	ft_extract_cmd(t_env *env, char *status)
 		ft_roomsend(&(ROOMS), datas);
 		ft_strdel(&datas.name);
 		ft_strdel(&buff);
-		ft_strdel(str);
+		ft_freesplit(str);
+
 	}
 }
 
@@ -114,9 +115,9 @@ void		ft_extract_map(t_env *env, char *buff, char **str)
 			ft_putendl(buff);
 		else
 			verif = ft_pipes(env, buff);
-		ft_strdel(str);
 		env->id++;
 		ft_strdel(&buff);
+		ft_freesplit(str);
 	}
 	ft_strdel(&buff);
 	ft_verif_rooms(env->rooms);
