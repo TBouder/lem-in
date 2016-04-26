@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 15:51:08 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/26 18:59:34 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/26 19:12:09 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,17 +63,4 @@ char	*ft_strjoin_endl(char *s1, char *s2)
 	ft_strcat(str, s2);
 	ft_strcat(str, "\n");
 	return (str);
-}
-
-void		ft_freesplit(char **str)
-{
-	int		i;
-
-	i = 0;
-	while (str[i])
-	{
-		ft_strdel(&str[i]);
-		i++;
-	}
-	free(str);
 }
