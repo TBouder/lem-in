@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:16:28 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/26 16:36:52 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/26 17:09:45 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,48 @@ static int		ft_more(t_env *env, int ac, char **av)
 	return (1);
 }
 
+void	ft_free_allp(t_pipes **env)
+{
+	t_pipes	*free_list;
+	t_pipes	*temp;
+
+	if (env != NULL)
+	{
+		free_list = *env;
+		while (free_list)
+		{
+			temp = free_list;
+			free_list = free_list->next;
+			ft_strdel(&temp->id);
+			free(temp);
+		}
+		*env = NULL;
+	}
+	env = NULL;
+}
+
+void	ft_free_all(t_rooms **env)
+{
+	t_rooms	*free_list;
+	t_rooms	*temp;
+
+	if (env != NULL)
+	{
+		free_list = *env;
+		while (free_list)
+		{
+			temp = free_list;
+			free_list = free_list->next;
+			ft_strdel(&temp->name);
+			ft_free_allp(&temp->pipes_next);
+			ft_free_allp(&temp->pipes_prev);
+			free(temp);
+		}
+		*env = NULL;
+	}
+	env = NULL;
+}
+
 int		main(int ac, char **av)
 {
 	int		i;
@@ -79,5 +121,11 @@ int		main(int ac, char **av)
 	else if (ac >= 2)
 		ft_more(env, ac, av);
 	ft_putchar('\n');
+
+	ft_putstr("HELLLOOOO");
+
+	ft_free_all(&ROOMS);
+	ft_strdel(&env->map);
+	env = NULL;
 	return (0);
 }

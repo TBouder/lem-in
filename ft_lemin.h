@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:14:46 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/26 16:39:41 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/26 16:41:25 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,7 @@ typedef struct		s_datas
 void	ft_error(char *str);
 long	ft_atoi_onum(const char *str);
 int		ft_dbtablelen(char **str);
-// char	*ft_strjoin_endl(char *s1, char *s2);
-void	ft_strjoin_endl(char *s1, char *s2, char *str);
+char	*ft_strjoin_endl(char *s1, char *s2);
 
 
 void	ft_open_stdin(t_env *env);
