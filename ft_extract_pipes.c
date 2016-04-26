@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/25 13:27:41 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/26 18:06:17 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/26 18:37:22 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void			ft_verif_pipes(t_rooms rooms)
 void			ft_extract_pipes(t_datas *datas, char **str)
 {
 	datas->name = ft_strnew(ft_strlen(str[0]));
-	ft_strcpy(datas->name, str[0]);
+	ft_strncpy(datas->name, str[0], ft_strlen(str[0]));
 	datas->name_two = ft_strnew(ft_strlen(str[1]));
 	ft_strcpy(datas->name_two, str[1]);
 }
@@ -114,7 +114,9 @@ int				ft_pipes(t_env *env, char *buff)
 			verif = ft_launch_extract(env, str, NULL, 2);
 		else if (str[0][0] == '#' && str[0][1] != '#') // COMMENTAIRES
 			ft_putendl(buff);
+		ft_strdel(&buff);
 	}
+	ft_strdel(&buff);
 	ft_strdel(str);
 	return (verif);
 }
