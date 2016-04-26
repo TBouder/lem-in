@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 12:28:01 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/26 16:08:00 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/26 16:31:31 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void		ft_extract_map(t_env *env, char *buff, char **str)
 	ROOMS = NULL;
 	while (get_next_line(env->fd, &buff) == 1 && !verif)
 	{
-		env->map = ft_strjoin_endl(env->map, buff);
+		// env->map = ft_strjoin_endl(env->map, buff);
 		if (buff[0] == '\0')
 			ft_error("Map {r}error{0} : empty line");
 		str = ft_strsplit(buff, ' ');

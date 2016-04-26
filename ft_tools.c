@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 15:51:08 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/26 16:09:19 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/26 16:39:33 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,23 @@ int	ft_dbtablelen(char **str)
 	return (i);
 }
 
-char	*ft_strjoin_endl(char *s1, char *s2, char *str)
+char	*ft_strjoin_here(char const *s1, char const *s2)
 {
-	str = ft_strjoin(s1, s2);
-	str = ft_strjoin(s1, "\n");
-	return (str);
+	char	*str;
+
+	if (s1 != NULL && s2 != NULL)
+	{
+		if (!(str = ft_strnew((ft_strlen(s1) + ft_strlen(s2) + 1))))
+			return (NULL);
+		ft_strcpy(str, (char *)s1);
+		str = ft_strcat(str, s2);
+		return (str);
+	}
+	return (NULL);
+}
+
+void	ft_strjoin_endl(char *s1, char *s2, char *str)
+{
+	str = ft_strjoin_here(s1, s2);
+	str = ft_strjoin_here(str, "\n");
 }
