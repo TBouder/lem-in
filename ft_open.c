@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 15:25:58 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/26 16:39:23 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/26 16:41:39 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void		ft_open_stdin(t_env *env)
 	if (get_next_line(env->fd, &buff) != -1)
 	{
 		str = ft_strnew(ft_strlen(buff));
-		ft_strjoin_endl(str, buff, env->map);
+		env->map = ft_strjoin_endl(str, buff);
 		env->ant = ft_atoi_onum(buff);
 		ft_strdel(&buff);
 		ft_strdel(&str);
@@ -41,7 +41,7 @@ void		ft_open_file(t_env *env, char *map)
 	if (get_next_line(env->fd, &buff) != -1)
 	{
 		str = ft_strnew(ft_strlen(buff));
-		ft_strjoin_endl(str, buff, env->map);
+		env->map = ft_strjoin_endl(str, buff);
 		env->ant = ft_atoi_onum(buff);
 		ft_strdel(&buff);
 		ft_strdel(&str);
