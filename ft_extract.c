@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 12:28:01 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/26 13:24:54 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/26 14:04:17 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void		ft_extract_map(t_env *env, char *buff, char **str)
 	while (get_next_line(env->fd, &buff) == 1 && !verif)
 	{
 		if (buff[0] == '\0')
-			ft_error("NOP");
+			ft_error("Map {r}error{0} : empty line");
 		str = ft_strsplit(buff, ' ');
 		if (ft_strcmp("##start", buff) == 0)
 			ft_launch_extract(env, str, buff, 0);
