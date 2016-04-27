@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 15:51:08 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/27 12:36:42 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/27 15:10:26 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	ft_error(t_env *env, char *str)
 {
 	ft_printf("%s\n", str);
+	ft_clear_gnl(env);
 	if (!env)
 		ft_free_all(&env, 0);
 	exit(EXIT_FAILURE);
