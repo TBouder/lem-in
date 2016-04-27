@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/25 13:27:41 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/26 19:18:29 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/27 11:44:32 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,21 @@ static int		ft_pipes_push(t_datas datas, t_rooms **rooms)
 	return (0);
 }
 
-void			ft_verif_pipes(t_rooms rooms)
+void			ft_verif_pipes(t_env *env)
 {
+	t_rooms	rooms;
 	int		i;
-	int		start;
+	int		st;
 	int		end;
 
 	i = 0;
-	start = 0;
+	st = 0;
 	end = 0;
+	rooms = *env->rooms;
 	while (1)
 	{
 		if (rooms.pos == 1 && !rooms.pipes_next && !rooms.pipes_prev)
-			start = 1;
+			st = 1;
 		if (rooms.pos == 2 && !rooms.pipes_prev && !rooms.pipes_next)
 			end = 1;
 		if (rooms.pipes_next || rooms.pipes_prev)
@@ -52,9 +54,9 @@ void			ft_verif_pipes(t_rooms rooms)
 			break ;
 		rooms = (*rooms.next);
 	}
-	i == 0 ? ft_error("Pipe {r}error{0} : no pipes") : 0;
-	start == 1 ? ft_error("Pipe {r}error{0} : start room is a dead-end") : 0;
-	end == 1 ? ft_error("Pipe {r}error{0} : no access to end room") : 0;
+	i == 0 ? ft_error(env, "Pipe {r}error{0} : no pipes") : 0;
+	st == 1 ? ft_error(env, "Pipe {r}error{0} : start room is a dead-end") : 0;
+	end == 1 ? ft_error(env, "Pipe {r}error{0} : no access to end room") : 0;
 }
 
 void			ft_extract_pipes(t_datas *datas, char **str)
@@ -65,24 +67,24 @@ void			ft_extract_pipes(t_datas *datas, char **str)
 	ft_strcpy(datas->name_two, str[1]);
 }
 
-int				ft_put_pipes(t_datas datas, t_rooms **rooms)
+int				ft_put_pipes(t_datas datas, t_env *env)
 {
 	t_rooms		*tmp;
 	int			i;
 	int			j;
 
-	tmp = *rooms;
+	tmp = env->rooms;
 	i = 0;
 	j = 0;
-	if (*rooms == NULL)
-		ft_error("Room {r}error{0} : no room");
+	if (env->rooms == NULL)
+		ft_error(env, "Room {r}error{0} : no room");
 	while (tmp && (!i || !j) && (ft_strcmp(datas.name, tmp->name) || ft_strcmp(datas.name_two, tmp->name)))
 	{
 		if (!ft_strcmp(datas.name, datas.name_two))
 			return (1);
 		!ft_strcmp(datas.name, tmp->name) ? i++ : 0;
 		!ft_strcmp(datas.name_two, tmp->name) ? j++ : 0;
-		if (i == 1 && j == 1 && ft_pipes_push(datas, rooms))
+		if (i == 1 && j == 1 && ft_pipes_push(datas, &env->rooms))
 			return (1);
 		tmp = tmp->next;
 	}

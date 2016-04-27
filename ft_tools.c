@@ -6,19 +6,21 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 15:51:08 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/26 19:17:12 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/27 12:36:42 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_lemin.h"
 
-void	ft_error(char *str)
+void	ft_error(t_env *env, char *str)
 {
 	ft_printf("%s\n", str);
+	if (!env)
+		ft_free_all(&env, 0);
 	exit(EXIT_FAILURE);
 }
 
-long	ft_atoi_onum(const char *str)
+long	ft_atoi_onum(char *str)
 {
 	long	result;
 	int		sign;
@@ -26,7 +28,7 @@ long	ft_atoi_onum(const char *str)
 	sign = 1;
 	result = 0;
 	if (ft_strlen(str) == 0 || (*str < 32 && !ft_isspace(*str)))
-		ft_error("Ant {r}error{0} : number of ant cannot be 0");
+		return (-1);
 	while (*str <= 32)
 		str++;
 	if ((*str == '-' || *str == '+'))
@@ -37,10 +39,8 @@ long	ft_atoi_onum(const char *str)
 	}
 	while (ft_isnumber(*str))
 		result = (result + *str++ - '0') * 10;
-	if (!(ft_isnumber(*str)) && *str != '\0')
-		ft_error("Ant {r}error{0} : number of ant must be a number");
-	if (result / 10 * sign == 0)
-		ft_error("Ant {r}error{0} : number of ant cannot be 0");
+	if ((!(ft_isnumber(*str)) && *str != '\0') || (result / 10 * sign == 0))
+		return (-1);
 	return (result / 10 * sign);
 }
 
