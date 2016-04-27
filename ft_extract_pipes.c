@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/25 13:27:41 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/27 11:44:32 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/27 22:54:10 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,34 +29,6 @@ static int		ft_pipes_push(t_datas datas, t_rooms **rooms)
 	ft_pipesend(&tmp_next->pipes_next, datas);
 	ft_pipesend(&tmp_prev->pipes_prev, datas);
 	return (0);
-}
-
-void			ft_verif_pipes(t_env *env)
-{
-	t_rooms	rooms;
-	int		i;
-	int		st;
-	int		end;
-
-	i = 0;
-	st = 0;
-	end = 0;
-	rooms = *env->rooms;
-	while (1)
-	{
-		if (rooms.pos == 1 && !rooms.pipes_next && !rooms.pipes_prev)
-			st = 1;
-		if (rooms.pos == 2 && !rooms.pipes_prev && !rooms.pipes_next)
-			end = 1;
-		if (rooms.pipes_next || rooms.pipes_prev)
-			i = 1;
-		if (!(rooms.next))
-			break ;
-		rooms = (*rooms.next);
-	}
-	i == 0 ? ft_error(env, "Pipe {r}error{0} : no pipes") : 0;
-	st == 1 ? ft_error(env, "Pipe {r}error{0} : start room is a dead-end") : 0;
-	end == 1 ? ft_error(env, "Pipe {r}error{0} : no access to end room") : 0;
 }
 
 void			ft_extract_pipes(t_datas *datas, char **str)
@@ -104,18 +76,19 @@ int				ft_pipes(t_env *env, char *buff)
 	str = ft_strsplit(buff, '-');
 	if (ft_dbtablelen(str) == 2)
 	{
-		verif = ft_launch_extract(env, str, NULL, 2);
+		verif = ft_launch_extract(env, str, 2);
 		ft_freesplit(str);
 	}
 	else if (str[0][0] == '#' && str[0][1] != '#')
 		ft_putendl(buff); // COMMENTAIRES
+
 	while (get_next_line(env->fd, &buff) == 1 && !verif)
 	{
 		if (buff[0] == '\0')
 			return (1);
 		str = ft_strsplit(buff, '-');
 		if (ft_dbtablelen(str) == 2)
-			verif = ft_launch_extract(env, str, NULL, 2);
+			verif = ft_launch_extract(env, str, 2);
 		else if (str[0][0] == '#' && str[0][1] != '#')
 			ft_putendl(buff); // COMMENTAIRES
 		ft_strdel(&buff);

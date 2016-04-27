@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 15:25:58 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/27 15:16:13 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/27 22:55:27 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ void		ft_open_stdin(t_env *env)
 		ft_printf("File {r}error{0} : arg must be a file\n");
 		exit(EXIT_FAILURE);
 	}
-	ft_extract_map(env, NULL, NULL);
+	ft_strdel(&env->buff);
+	ft_extract_map(env, NULL);
 }
 
 void		ft_open_file(t_env *env, char *map)
@@ -58,5 +59,6 @@ void		ft_open_file(t_env *env, char *map)
 		ft_printf("File {r}error{0} : arg must be a file\n");
 		exit(EXIT_FAILURE);
 	}
-	ft_extract_map(env, NULL, NULL);
+	ft_strdel(&env->buff);
+	ft_extract_map(env, NULL);
 }
