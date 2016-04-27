@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:16:28 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/26 19:21:35 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/27 12:09:40 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ static int	ft_zero(t_env *env)
 {
 	ft_open_stdin(env);
 	ft_putstr(env->map);
-	ft_strdel(&env->map);
 	// ft_print_infos(env);
 	return (1);
 }
@@ -60,7 +59,6 @@ static int	ft_more(t_env *env, int ac, char **av)
 	{
 		ft_open_file(env, av[i]);
 		ft_putstr(env->map);
-		ft_strdel(&env->map);
 		// ft_print_infos(env);
 	}
 	return (1);
@@ -80,8 +78,6 @@ int			main(int ac, char **av)
 		ft_more(env, ac, av);
 	ft_putchar('\n');
 
-	ft_free_all(&ROOMS);
-	ft_strdel(&env->map);
-	free(env);
+	ft_free_all(&env, 1);
 	return (0);
 }

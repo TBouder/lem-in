@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_verifs.c                                        :+:      :+:    :+:   */
+/*   ft_verifs_duplicates.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 12:06:13 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/26 17:45:43 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/27 12:00:24 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,14 +61,17 @@ int			ft_verif_duplicates_pipes(t_rooms pipes, t_datas datas)
 	return (0);
 }
 
-void		ft_verif_duplicates_rooms(t_rooms *rooms, t_datas datas)
+void		ft_verif_duplicates_rooms(t_env *env, t_datas datas)
 {
+	t_rooms	*rooms;
+
+	rooms = env->rooms;
 	while (rooms)
 	{
 		if (!ft_strcmp(datas.name, rooms->name))
-			ft_error("Room {r}error{0} : duplicate");
+			ft_error(env, "Room {r}error{0} : duplicate");
 		if (datas.x == rooms->x && datas.y == rooms->y)
-			ft_error("Coo {r}error{0} : duplicate");
+			ft_error(env, "Coo {r}error{0} : duplicate");
 		rooms = rooms->next;
 	}
 }
