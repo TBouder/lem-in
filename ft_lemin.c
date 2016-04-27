@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:16:28 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/27 12:09:40 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/27 15:17:22 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ int			main(int ac, char **av)
 		ft_more(env, ac, av);
 	ft_putchar('\n');
 
+	ft_clear_gnl(env);
 	ft_free_all(&env, 1);
 	return (0);
 }
