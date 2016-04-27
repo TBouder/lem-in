@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 19:11:55 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/27 12:54:38 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/27 15:06:53 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,6 @@ void		ft_free_all(t_env **env, int i)
 	t_rooms	*temp;
 
 	ft_strdel(&(*env)->map);
-	ft_strdel(&(*env)->buff);
-	while (get_next_line((*env)->fd, &(*env)->buff) == 1)
-		ft_strdel(&(*env)->buff);
-	ft_strdel(&(*env)->buff);
 	if (*env && i && (*env)->rooms != NULL)
 	{
 		free_list = (*env)->rooms;
@@ -71,4 +67,12 @@ void		ft_freesplit(char **str)
 		i++;
 	}
 	free(str);
+}
+
+void	ft_clear_gnl(t_env *env)
+{
+	ft_strdel(&env->buff);
+	while (get_next_line(env->fd, &env->buff) == 1)
+		ft_strdel(&env->buff);
+	ft_strdel(&env->buff);
 }

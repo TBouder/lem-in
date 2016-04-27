@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:14:46 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/27 12:42:27 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/27 14:59:53 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ char				*ft_strjoin_endl(char *s1, char *s2);
 
 void				ft_freesplit(char **str);
 void				ft_free_all(t_env **env, int i);
+void				ft_clear_gnl(t_env *env);
 
 void				ft_open_stdin(t_env *env);
 void				ft_open_file(t_env *env, char *map);
