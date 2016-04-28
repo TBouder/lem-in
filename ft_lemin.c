@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:16:28 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/28 17:27:26 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/28 18:06:45 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,21 @@
 ** BONUS
 ** - Lecture plusieurs fichiers a la fois (Neccessite OPEN)
 */
+
+void		ft_putstrr(char *str)
+{
+	int		i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '\n' && str[i + 1] == '\0')
+			break;
+		ft_putchar(str[i]);
+		i++;
+	}
+	ft_putchar('\n');
+}
 
 void		ft_print_infos(t_env *env)
 {
@@ -96,8 +111,8 @@ static int	ft_zero(void)
 	env->id = 0;
 	ROOMS = NULL;
 	ft_open(env);
-	// ft_putstr(env->map);
-	ft_print_infos(env);
+	ft_putstrr(env->map);
+	// ft_print_infos(env);
 	ft_clear_gnl(env);
 	ft_free_all(&env, 1);
 	return (1);
@@ -137,6 +152,7 @@ int			main(int ac, char **av)
 		ft_zero();
 	else if (ac >= 2)
 		ft_more(ac, av);
-	ft_putchar('\n');
+	else
+		ft_putchar('\n');
 	return (0);
 }

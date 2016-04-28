@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/25 13:27:41 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/28 15:19:17 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/28 18:11:46 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int		ft_pipes_push(t_datas datas, t_rooms **rooms)
 	return (0);
 }
 
-static int		ft_pipe_before(t_env *env)
+ int		ft_pipe_before(t_env *env)
 {
 	char	**str;
 	int		verif;
@@ -92,7 +92,7 @@ int				ft_pipes(t_env *env)
 	int		verif;
 
 	verif = 0;
-	ft_pipe_before(env);
+	// ft_pipe_before(env);
 	while (get_next_line(env->fd, &env->buff) == 1 && !verif)
 	{
 		if (!env->buff[0])
