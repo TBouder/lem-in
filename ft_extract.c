@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 12:28:01 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/27 22:56:04 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/28 11:55:17 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,15 +87,19 @@ void		ft_extract_map(t_env *env, char **str)
 		if (env->buff[0] == '\0')
 			ft_error(env, "Map {r}error{0} : empty line");
 		str = ft_strsplit(env->buff, ' ');
-		if (ft_strcmp("##start", env->buff) == 0 || ft_strcmp("##end", env->buff) == 0)
-			ft_extract_cmd(env);
-		else if (ft_dbtablelen(str) == 3)
-			ft_launch_extract(env, str, 1);
-		else if (str[0][0] == '#' && str[0][1] != '#')
-			ft_putendl(env->buff);
-		else
-			verif = ft_pipes(env, env->buff);
-		env->id++;
+		if (str[0][1] != '#' || ft_strcmp("##start", env->buff) == 0 || ft_strcmp("##end", env->buff) == 0)
+		{
+			env->map = ft_strjoin_endl(env->map, env->buff);
+			if (ft_strcmp("##start", env->buff) == 0 || ft_strcmp("##end", env->buff) == 0)
+				ft_extract_cmd(env);
+			else if (ft_dbtablelen(str) == 3)
+				ft_launch_extract(env, str, 1);
+			else if (str[0][0] == '#' && str[0][1] != '#')
+				env->id--;
+			else
+				verif = ft_pipes(env, env->buff);
+			env->id++;
+		}
 		ft_strdel(&env->buff);
 		ft_freesplit(str);
 	}
