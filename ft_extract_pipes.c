@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/25 13:27:41 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/28 18:11:46 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/28 19:18:11 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ int				ft_pipes(t_env *env)
 
 	verif = 0;
 	// ft_pipe_before(env);
+	ft_strdel(&env->buff);
 	while (get_next_line(env->fd, &env->buff) == 1 && !verif)
 	{
 		if (!env->buff[0])
