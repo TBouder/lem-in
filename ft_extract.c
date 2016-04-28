@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 12:28:01 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/28 17:15:42 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/28 17:15:50 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ static void	ft_extract_cmd(t_env *env, char **str, int v, char *status)
 {
 	t_datas	datas;
 
-	// status = ft_strnew(ft_strlen(env->buff));
 	ft_strcpy(status, env->buff);
 	ft_strdel(&env->buff);
 	while (v == 0 && get_next_line(env->fd, &env->buff) == 1)

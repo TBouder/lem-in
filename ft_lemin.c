@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:16:28 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/28 16:57:34 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/28 17:27:26 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,8 @@ static int	ft_zero(void)
 	env->id = 0;
 	ROOMS = NULL;
 	ft_open(env);
-	ft_putstr(env->map);
-	// ft_print_infos(env);
+	// ft_putstr(env->map);
+	ft_print_infos(env);
 	ft_clear_gnl(env);
 	ft_free_all(&env, 1);
 	return (1);
