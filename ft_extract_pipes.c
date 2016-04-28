@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/25 13:27:41 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/27 22:54:10 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/28 15:13:50 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,35 +65,40 @@ int				ft_put_pipes(t_datas datas, t_env *env)
 	return (0);
 }
 
-int				ft_pipes(t_env *env, char *buff)
+int				ft_pipes(t_env *env)
 {
 	char	**str;
 	int		verif;
 
 	verif = 0;
-	if (buff[0] == '\0')
+	if (env->buff[0] == '\0')
 		return (1);
-	str = ft_strsplit(buff, '-');
-	if (ft_dbtablelen(str) == 2)
-	{
-		verif = ft_launch_extract(env, str, 2);
-		ft_freesplit(str);
-	}
-	else if (str[0][0] == '#' && str[0][1] != '#')
-		ft_putendl(buff); // COMMENTAIRES
 
-	while (get_next_line(env->fd, &buff) == 1 && !verif)
+	str = ft_strsplit(env->buff, '-');
+
+	if (!ft_is_cmd(env, str))
 	{
-		if (buff[0] == '\0')
-			return (1);
-		str = ft_strsplit(buff, '-');
+		env->map = ft_strjoin_endl(&env->map, env->buff);
 		if (ft_dbtablelen(str) == 2)
 			verif = ft_launch_extract(env, str, 2);
-		else if (str[0][0] == '#' && str[0][1] != '#')
-			ft_putendl(buff); // COMMENTAIRES
-		ft_strdel(&buff);
 		ft_freesplit(str);
 	}
-	ft_strdel(&buff);
+	ft_strdel(&env->buff);
+
+	while (get_next_line(env->fd, &env->buff) == 1 && !verif)
+	{
+		if (!env->buff[0])
+			return (1);
+		str = ft_strsplit(env->buff, '-');
+		if (!ft_is_cmd(env, str))
+		{
+			env->map = ft_strjoin_endl(&env->map, env->buff);
+			if (ft_dbtablelen(str) == 2)
+				verif = ft_launch_extract(env, str, 2);
+		}
+		ft_strdel(&env->buff);
+		ft_freesplit(str);
+	}
+	ft_strdel(&env->buff);
 	return (verif);
 }

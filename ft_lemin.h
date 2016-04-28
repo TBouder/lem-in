@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:14:46 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/28 14:40:50 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/28 15:10:51 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <fcntl.h>
 
 # define ROOMS env->rooms
+# define CMP ft_strcmp
 
 typedef struct		s_pipes
 {
@@ -64,6 +65,7 @@ void				ft_error(t_env *env, char *str);
 long				ft_atoi_onum(char *str);
 int					ft_dbtablelen(char **str);
 char				*ft_strjoin_endl(char **s1, char *s2);
+int					ft_is_cmd(t_env *e, char **str);
 
 void				ft_freesplit(char **str);
 void				ft_free_all(t_env **env, int i);
@@ -74,7 +76,7 @@ void				ft_extract_map(t_env *env, char **str);
 
 void				ft_extract_pipes(t_datas *datas, char **str);
 int					ft_put_pipes(t_datas datas, t_env *env);
-int					ft_pipes(t_env *env, char *buff);
+int					ft_pipes(t_env *env);
 
 void				ft_roomsend(t_rooms **rooms, t_datas datas);
 void				ft_pipesend(t_pipes **pipes, t_datas datas);
