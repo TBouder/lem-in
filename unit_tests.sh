@@ -55,24 +55,24 @@ echo "\033[33;1mMultiple start rooms\033[00;0m : \c" && $leaks ./lem-in < lem-in
 echo "\033[33;1mMultiple end rooms\033[00;0m : \c" && $leaks ./lem-in < lem-in_maps/error/start_end/multi_end
 echo
 echo "Comments (should work)"
-echo "\033[33;1mComment_before_ant\033[00;0m : " && $leaks ./lem-in < lem-in_maps/comment/comment_before_ant
-echo "\033[33;1mComment_after_ant\033[00;0m : " && $leaks ./lem-in < lem-in_maps/comment/comment_after_ant
-echo "\033[33;1mComment_b_a_ant\033[00;0m : " && $leaks ./lem-in < lem-in_maps/comment/comment_b_a_ant
-echo "\033[33;1mComment_before_end\033[00;0m : " && $leaks ./lem-in < lem-in_maps/comment/comment_before_end
-echo "\033[33;1mComment_after_end\033[00;0m : " && $leaks ./lem-in < lem-in_maps/comment/comment_after_end
-echo "\033[33;1mComment_before_pipes\033[00;0m : " && $leaks ./lem-in < lem-in_maps/comment/comment_before_pipes
-echo "\033[33;1mComment_after_pipes\033[00;0m : " && $leaks ./lem-in < lem-in_maps/comment/comment_after_pipes
-echo "\033[33;1mComment_b_a_pipes\033[00;0m : " && $leaks ./lem-in < lem-in_maps/comment/comment_b_a_pipes
-echo "\033[33;1mComment_mass_pipes\033[00;0m : " && $leaks ./lem-in < lem-in_maps/comment/comment_mass_pipes
-echo "\033[33;1mComment_before_rooms\033[00;0m : " && $leaks ./lem-in < lem-in_maps/comment/comment_before_rooms
-echo "\033[33;1mComment_after_rooms\033[00;0m : " && $leaks ./lem-in < lem-in_maps/comment/comment_after_rooms
-echo "\033[33;1mComment_b_a_rooms\033[00;0m : " && $leaks ./lem-in < lem-in_maps/comment/comment_b_a_rooms
-echo "\033[33;1mComment_mass_rooms\033[00;0m : " && $leaks ./lem-in < lem-in_maps/comment/comment_mass_rooms
-echo "\033[33;1mComment_before_start\033[00;0m : " && $leaks ./lem-in < lem-in_maps/comment/comment_before_start
-echo "\033[33;1mComment_after_start\033[00;0m : " && $leaks ./lem-in < lem-in_maps/comment/comment_after_start
+echo "\033[33;1mComment_before_ant\033[00;0m : " && diff <(cat < lem-in_maps/comment/comment_before_ant) <(./lem-in < lem-in_maps/comment/comment_before_ant)
+echo "\033[33;1mComment_after_ant\033[00;0m : " && diff <(cat < lem-in_maps/comment/comment_after_ant) <(./lem-in < lem-in_maps/comment/comment_after_ant)
+echo "\033[33;1mComment_b_a_ant\033[00;0m : " && diff <(cat < lem-in_maps/comment/comment_b_a_ant) <(./lem-in < lem-in_maps/comment/comment_b_a_ant)
+echo "\033[33;1mComment_before_end\033[00;0m : " && diff <(cat < lem-in_maps/comment/comment_before_end) <(./lem-in < lem-in_maps/comment/comment_before_end)
+echo "\033[33;1mComment_after_end\033[00;0m : " && diff <(cat < lem-in_maps/comment/comment_after_end) <(./lem-in < lem-in_maps/comment/comment_after_end)
+echo "\033[33;1mComment_before_pipes\033[00;0m : " && diff <(cat < lem-in_maps/comment/comment_before_pipes) <(./lem-in < lem-in_maps/comment/comment_before_pipes)
+echo "\033[33;1mComment_after_pipes\033[00;0m : " && diff <(cat < lem-in_maps/comment/comment_after_pipes) <(./lem-in < lem-in_maps/comment/comment_after_pipes)
+echo "\033[33;1mComment_b_a_pipes\033[00;0m : " && diff <(cat < lem-in_maps/comment/comment_b_a_pipes) <(./lem-in < lem-in_maps/comment/comment_b_a_pipes)
+echo "\033[33;1mComment_mass_pipes\033[00;0m : " && diff <(cat < lem-in_maps/comment/comment_mass_pipes) <(./lem-in < lem-in_maps/comment/comment_mass_pipes)
+echo "\033[33;1mComment_before_rooms\033[00;0m : " && diff <(cat < lem-in_maps/comment/comment_before_rooms) <(./lem-in < lem-in_maps/comment/comment_before_rooms)
+echo "\033[33;1mComment_after_rooms\033[00;0m : " && diff <(cat < lem-in_maps/comment/comment_after_rooms) <(./lem-in < lem-in_maps/comment/comment_after_rooms)
+echo "\033[33;1mComment_b_a_rooms\033[00;0m : " && diff <(cat < lem-in_maps/comment/comment_b_a_rooms) <(./lem-in < lem-in_maps/comment/comment_b_a_rooms)
+echo "\033[33;1mComment_mass_rooms\033[00;0m : " && diff <(cat < lem-in_maps/comment/comment_mass_rooms) <(./lem-in < lem-in_maps/comment/comment_mass_rooms)
+echo "\033[33;1mComment_before_start\033[00;0m : " && diff <(cat < lem-in_maps/comment/comment_before_start) <(./lem-in < lem-in_maps/comment/comment_before_start)
+echo "\033[33;1mComment_after_start\033[00;0m : " && diff <(cat < lem-in_maps/comment/comment_after_start) <(./lem-in < lem-in_maps/comment/comment_after_start)
 
 
-
+# diff <(cat < lem-in_maps/comment/comment_before_ant) <(./lem-in < lem-in_maps/comment/comment_before_ant)
 # echo "\033[33;1mPipe to itself\033[00;0m :" && ./lem-in < lem-in_maps/pipe_to_itself
 # echo "\033[33;1mError middle pipe (Room not found)\033[00;0m :" && ./lem-in < lem-in_maps/error_middle_pipe
 # echo "\033[33;1mSame pipe\033[00;0m :" && ./lem-in < lem-in_maps/same_pipe
