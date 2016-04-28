@@ -6,21 +6,11 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 12:28:01 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/28 14:34:22 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/28 15:11:02 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_lemin.h"
-#define CMP ft_strcmp
-
-static int	ft_is_cmd(t_env *e, char **str)
-{
-	if ((str[0][0] == '#' || str[0][0] != '#') && str[0][1] != '#')
-		return (0);
-	if (CMP("##start", e->buff) == 0 || CMP("##end", e->buff) == 0)
-		return (0);
-	return (1);
-}
 
 static void	ft_extract_rooms(t_datas *datas, char **str, t_env *env, int pos)
 {
@@ -106,7 +96,7 @@ void		ft_extract_map(t_env *env, char **str)
 			else if (str[0][0] == '#' && str[0][1] != '#')
 				env->id--;
 			else
-				verif = ft_pipes(env, env->buff);
+				verif = ft_pipes(env);
 			env->id++;
 		}
 		ft_strdel(&env->buff);
