@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 12:28:01 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/28 15:11:02 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/28 15:20:46 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void	ft_extract_cmd(t_env *env)
 	{
 		str = ft_strsplit(env->buff, ' ');
 		if (ft_dbtablelen(str) != 3)
-			ft_error(env, "Map {r}error{0} : Start or End room not well formated");
+			ft_error(env, "Map {r}error{0} : Start|End room not well formated");
 		if (!CMP("##start", status))
 			ft_extract_rooms(&datas, str, env, 1);
 		else
@@ -80,8 +80,6 @@ void		ft_extract_map(t_env *env, char **str)
 	int		verif;
 
 	verif = 0;
-	env->id = 0;
-	ROOMS = NULL;
 	while (get_next_line(env->fd, &env->buff) == 1 && !verif)
 	{
 		!env->buff[0] ? ft_error(env, "Map {r}error{0} : empty line") : 0;

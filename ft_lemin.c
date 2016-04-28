@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:16:28 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/28 14:43:54 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/28 15:21:23 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,11 @@ static void	ft_open(t_env *env)
 		str = ft_strnew(ft_strlen(env->buff));
 		env->map = ft_strjoin_endl(&str, env->buff);
 		if (!ft_isdigit(env->buff[0]))
-			ft_error(env, "Ant {r}error{0} : number of ant must be a number > to 0");
+			ft_error(env, "Ant {r}error{0} : must be number > to 0");
 		env->ant = ft_atoi_onum(env->buff);
 		ft_strdel(&str);
 		if (env->ant == -1)
-			ft_error(env, "Ant {r}error{0} : number of ant must be a number > to 0");
+			ft_error(env, "Ant {r}error{0} : must be number > to 0");
 	}
 	else
 	{
@@ -63,6 +63,8 @@ static void	ft_open(t_env *env)
 		exit(EXIT_FAILURE);
 	}
 	ft_strdel(&env->buff);
+	env->id = 0;
+	ROOMS = NULL;
 	ft_extract_map(env, NULL);
 }
 
