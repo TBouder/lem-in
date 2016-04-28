@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/25 13:27:41 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/28 15:13:50 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/28 15:19:17 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ static int		ft_pipes_push(t_datas datas, t_rooms **rooms)
 
 	tmp_next = *rooms;
 	tmp_prev = *rooms;
-	while (tmp_next && ft_strcmp(datas.name, tmp_next->name))
+	while (tmp_next && CMP(datas.name, tmp_next->name))
 		tmp_next = tmp_next->next;
-	while (tmp_prev && ft_strcmp(datas.name_two, tmp_prev->name))
+	while (tmp_prev && CMP(datas.name_two, tmp_prev->name))
 		tmp_prev = tmp_prev->next;
 	if (ft_verif_duplicates_pipes(*tmp_next, datas) ||
 		ft_verif_duplicates_pipes(*tmp_prev, datas))
@@ -29,6 +29,26 @@ static int		ft_pipes_push(t_datas datas, t_rooms **rooms)
 	ft_pipesend(&tmp_next->pipes_next, datas);
 	ft_pipesend(&tmp_prev->pipes_prev, datas);
 	return (0);
+}
+
+static int		ft_pipe_before(t_env *env)
+{
+	char	**str;
+	int		verif;
+
+	verif = 0;
+	if (env->buff[0] == '\0')
+		return (1);
+	str = ft_strsplit(env->buff, '-');
+	if (!ft_is_cmd(env, str))
+	{
+		env->map = ft_strjoin_endl(&env->map, env->buff);
+		if (ft_dbtablelen(str) == 2)
+			verif = ft_launch_extract(env, str, 2);
+		ft_freesplit(str);
+	}
+	ft_strdel(&env->buff);
+	return (verif);
 }
 
 void			ft_extract_pipes(t_datas *datas, char **str)
@@ -50,12 +70,13 @@ int				ft_put_pipes(t_datas datas, t_env *env)
 	j = 0;
 	if (env->rooms == NULL)
 		ft_error(env, "Room {r}error{0} : no room");
-	while (tmp && (!i || !j) && (ft_strcmp(datas.name, tmp->name) || ft_strcmp(datas.name_two, tmp->name)))
+	while (tmp && (!i || !j) && (CMP(datas.name, tmp->name)
+		|| CMP(datas.name_two, tmp->name)))
 	{
-		if (!ft_strcmp(datas.name, datas.name_two))
+		if (!CMP(datas.name, datas.name_two))
 			return (1);
-		!ft_strcmp(datas.name, tmp->name) ? i++ : 0;
-		!ft_strcmp(datas.name_two, tmp->name) ? j++ : 0;
+		!CMP(datas.name, tmp->name) ? i++ : 0;
+		!CMP(datas.name_two, tmp->name) ? j++ : 0;
 		if (i == 1 && j == 1 && ft_pipes_push(datas, &env->rooms))
 			return (1);
 		tmp = tmp->next;
@@ -71,20 +92,7 @@ int				ft_pipes(t_env *env)
 	int		verif;
 
 	verif = 0;
-	if (env->buff[0] == '\0')
-		return (1);
-
-	str = ft_strsplit(env->buff, '-');
-
-	if (!ft_is_cmd(env, str))
-	{
-		env->map = ft_strjoin_endl(&env->map, env->buff);
-		if (ft_dbtablelen(str) == 2)
-			verif = ft_launch_extract(env, str, 2);
-		ft_freesplit(str);
-	}
-	ft_strdel(&env->buff);
-
+	ft_pipe_before(env);
 	while (get_next_line(env->fd, &env->buff) == 1 && !verif)
 	{
 		if (!env->buff[0])

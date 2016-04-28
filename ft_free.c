@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 19:11:55 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/28 14:56:58 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/28 15:19:35 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void		ft_freesplit(char **str)
 	free(str);
 }
 
-void	ft_clear_gnl(t_env *env)
+void		ft_clear_gnl(t_env *env)
 {
 	ft_strdel(&env->buff);
 	while (get_next_line(env->fd, &env->buff) == 1)
