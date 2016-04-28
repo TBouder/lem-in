@@ -6,13 +6,13 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/27 17:58:34 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/27 18:00:26 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/28 14:33:05 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_lemin.h"
 
-void			ft_verif_pipes(t_env *env)
+static void	ft_verif_pipes(t_env *env)
 {
 	t_rooms	rooms;
 	int		i;
@@ -37,7 +37,7 @@ void			ft_verif_pipes(t_env *env)
 	end == 1 ? ft_error(env, "Pipe {r}error{0} : no access to end room") : 0;
 }
 
-void	ft_verif_rooms(t_env *env)
+static void	ft_verif_rooms(t_env *env)
 {
 	t_rooms	*rooms;
 	int		start;
@@ -56,4 +56,10 @@ void	ft_verif_rooms(t_env *env)
 	end > 1 ? ft_error(env, "Room {r}error{0} : multiple end room") : 0;
 	start < 1 ? ft_error(env, "Room {r}error{0} : no start room") : 0;
 	end < 1 ? ft_error(env, "Room {r}error{0} : no end room") : 0;
+}
+
+void		ft_verif_launcher(t_env *env)
+{
+	ft_verif_pipes(env);
+	ft_verif_rooms(env);
 }

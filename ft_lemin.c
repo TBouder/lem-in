@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:16:28 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/28 11:55:35 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/28 14:43:54 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,24 +42,62 @@ void		ft_print_infos(t_env *env)
 	}
 }
 
-static int	ft_zero(t_env *env)
+static void	ft_open(t_env *env)
 {
-	ft_open_stdin(env);
+	char	*str;
+
+	if (get_next_line(env->fd, &env->buff) == 1)
+	{
+		str = ft_strnew(ft_strlen(env->buff));
+		env->map = ft_strjoin_endl(&str, env->buff);
+		if (!ft_isdigit(env->buff[0]))
+			ft_error(env, "Ant {r}error{0} : number of ant must be a number > to 0");
+		env->ant = ft_atoi_onum(env->buff);
+		ft_strdel(&str);
+		if (env->ant == -1)
+			ft_error(env, "Ant {r}error{0} : number of ant must be a number > to 0");
+	}
+	else
+	{
+		ft_printf("File {r}error{0} : arg must be a file\n");
+		exit(EXIT_FAILURE);
+	}
+	ft_strdel(&env->buff);
+	ft_extract_map(env, NULL);
+}
+
+static int	ft_zero(void)
+{
+	t_env	*env;
+
+	if (!(env = (t_env *)malloc(sizeof(t_env))))
+		return (0);
+	env->fd = 0;
+	ft_open(env);
 	ft_putstr(env->map);
 	// ft_print_infos(env);
+	ft_clear_gnl(env);
+	ft_free_all(&env, 1);
 	return (1);
 }
 
-static int	ft_more(t_env *env, int ac, char **av)
+static int	ft_more(int ac, char **av)
 {
+	t_env	*env;
 	int		i;
 
 	i = 0;
 	while (++i < ac)
 	{
-		ft_open_file(env, av[i]);
+		if (!(env = (t_env *)malloc(sizeof(t_env))))
+			return (0);
+		if ((env->fd = open(av[i], O_RDONLY)) == -1)
+			ft_error(env, "Opening {r}error{0} : wrong map");
+		ft_open(env);
 		ft_putstr(env->map);
 		// ft_print_infos(env);
+		ft_clear_gnl(env);
+		ft_free_all(&env, 1);
 	}
 	return (1);
 }
@@ -67,18 +105,12 @@ static int	ft_more(t_env *env, int ac, char **av)
 int			main(int ac, char **av)
 {
 	int		i;
-	t_env	*env;
 
 	i = 0;
-	if (!(env = (t_env *)malloc(sizeof(t_env))))
-		return (0);
 	if (ac == 1)
-		ft_zero(env);
+		ft_zero();
 	else if (ac >= 2)
-		ft_more(env, ac, av);
+		ft_more(ac, av);
 	ft_putchar('\n');
-
-	ft_clear_gnl(env);
-	ft_free_all(&env, 1);
 	return (0);
 }
