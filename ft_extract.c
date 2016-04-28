@@ -6,11 +6,21 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 12:28:01 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/28 11:55:17 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/28 14:34:22 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_lemin.h"
+#define CMP ft_strcmp
+
+static int	ft_is_cmd(t_env *e, char **str)
+{
+	if ((str[0][0] == '#' || str[0][0] != '#') && str[0][1] != '#')
+		return (0);
+	if (CMP("##start", e->buff) == 0 || CMP("##end", e->buff) == 0)
+		return (0);
+	return (1);
+}
 
 static void	ft_extract_rooms(t_datas *datas, char **str, t_env *env, int pos)
 {
@@ -38,7 +48,7 @@ static void	ft_extract_cmd(t_env *env)
 		str = ft_strsplit(env->buff, ' ');
 		if (ft_dbtablelen(str) != 3)
 			ft_error(env, "Map {r}error{0} : Start or End room not well formated");
-		if (!ft_strcmp("##start", status))
+		if (!CMP("##start", status))
 			ft_extract_rooms(&datas, str, env, 1);
 		else
 			ft_extract_rooms(&datas, str, env, 2);
@@ -84,13 +94,12 @@ void		ft_extract_map(t_env *env, char **str)
 	ROOMS = NULL;
 	while (get_next_line(env->fd, &env->buff) == 1 && !verif)
 	{
-		if (env->buff[0] == '\0')
-			ft_error(env, "Map {r}error{0} : empty line");
+		!env->buff[0] ? ft_error(env, "Map {r}error{0} : empty line") : 0;
 		str = ft_strsplit(env->buff, ' ');
-		if (str[0][1] != '#' || ft_strcmp("##start", env->buff) == 0 || ft_strcmp("##end", env->buff) == 0)
+		if (!ft_is_cmd(env, str))
 		{
-			env->map = ft_strjoin_endl(env->map, env->buff);
-			if (ft_strcmp("##start", env->buff) == 0 || ft_strcmp("##end", env->buff) == 0)
+			env->map = ft_strjoin_endl(&env->map, env->buff);
+			if (CMP("##start", env->buff) == 0 || CMP("##end", env->buff) == 0)
 				ft_extract_cmd(env);
 			else if (ft_dbtablelen(str) == 3)
 				ft_launch_extract(env, str, 1);
@@ -104,6 +113,5 @@ void		ft_extract_map(t_env *env, char **str)
 		ft_freesplit(str);
 	}
 	ft_strdel(&env->buff);
-	ft_verif_rooms(env);
-	ft_verif_pipes(env);
+	ft_verif_launcher(env);
 }

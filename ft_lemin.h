@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:14:46 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/27 22:55:06 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/28 14:40:50 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,14 +63,11 @@ typedef struct		s_datas
 void				ft_error(t_env *env, char *str);
 long				ft_atoi_onum(char *str);
 int					ft_dbtablelen(char **str);
-char				*ft_strjoin_endl(char *s1, char *s2);
+char				*ft_strjoin_endl(char **s1, char *s2);
 
 void				ft_freesplit(char **str);
 void				ft_free_all(t_env **env, int i);
 void				ft_clear_gnl(t_env *env);
-
-void				ft_open_stdin(t_env *env);
-void				ft_open_file(t_env *env, char *map);
 
 int					ft_launch_extract(t_env *env, char **str, int part);
 void				ft_extract_map(t_env *env, char **str);
@@ -84,7 +81,7 @@ void				ft_pipesend(t_pipes **pipes, t_datas datas);
 
 void				ft_verif_duplicates_rooms(t_env *env, t_datas datas);
 int					ft_verif_duplicates_pipes(t_rooms pipes, t_datas datas);
-void				ft_verif_pipes(t_env *env);
-void				ft_verif_rooms(t_env *env);
+void				ft_verif_launcher(t_env *env);
+
 
 #endif
