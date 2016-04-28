@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 12:28:01 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/28 16:13:57 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/28 16:38:48 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,47 @@ int			ft_launch_extract(t_env *env, char **str, int part)
 	return (0);
 }
 
+
+
+
+void		ft_extract_before(t_env *env)
+{
+	char	**str;
+	int		verif;
+
+	verif = 0;
+	!env->buff[0] ? ft_error(env, "Map {r}error{0} : empty line") : 0;
+	str = ft_strsplit(env->buff, ' ');
+	if (!ft_is_cmd(env, str))
+	{
+		env->map = ft_strjoin_endl(&env->map, env->buff);
+		if (CMP("##start", env->buff) == 0 || CMP("##end", env->buff) == 0)
+			ft_extract_cmd(env);
+		else if (ft_dbtablelen(str) == 3)
+			ft_launch_extract(env, str, 1);
+		else if (str[0][0] == '#' && str[0][1] != '#')
+			env->id--;
+		else
+			verif = ft_pipes(env);
+		env->id++;
+		ft_strdel(&env->buff);
+
+	}
+	ft_strdel(&env->buff);
+	ft_freesplit(str);
+}
+
+
+
+
 void		ft_extract_map(t_env *env, char **str)
 {
 	int		verif;
 
 	verif = 0;
+
+	// ft_extract_before(env);
+
 	while (get_next_line(env->fd, &env->buff) == 1 && !verif)
 	{
 		!env->buff[0] ? ft_error(env, "Map {r}error{0} : empty line") : 0;

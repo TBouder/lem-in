@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:16:28 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/28 16:14:56 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/28 16:45:20 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,20 +45,34 @@ void		ft_print_infos(t_env *env)
 static void	ft_open(t_env *env)
 {
 	char	*str;
+	int		fd;
 
-	while (get_next_line(env->fd, &env->buff) == 1 && env->ant == 0)
+	env->ant = 0;
+	str = NULL;
+	while (env->ant == 0 && (fd = get_next_line(env->fd, &env->buff)) == 1)
 	{
-		str = ft_strnew(ft_strlen(env->buff));
-		env->map = ft_strjoin_endl(&str, env->buff);
-
-		if (!ft_isdigit(env->buff[0]))
+		if (!str)
+		{
+			str = ft_strnew(ft_strlen(env->buff));
+			env->map = ft_strjoin_endl(&str, env->buff);
+		}
+		else
+		{
+			env->map = ft_strjoin_endl(&env->map, env->buff);
+		}
+		if (env->buff[0] == '#')
+			;
+		else if (!ft_isdigit(env->buff[0]))
 			ft_error(env, "Ant {r}error{0} : must be number > to 0");
-		env->ant = ft_atoi_onum(env->buff);
-		ft_strdel(&str);
-		if (env->ant == -1)
-			ft_error(env, "Ant {r}error{0} : must be number > to 0");
+		else
+		{
+			env->ant = ft_atoi_onum(env->buff);
+			ft_strdel(&str);
+			if (env->ant == -1)
+				ft_error(env, "Ant {r}error{0} : must be number > to 0");
+		}
 	}
-	else
+	if (fd == -1)
 	{
 		ft_printf("File {r}error{0} : arg must be a file\n");
 		exit(EXIT_FAILURE);
@@ -76,7 +90,6 @@ static int	ft_zero(void)
 	if (!(env = (t_env *)malloc(sizeof(t_env))))
 		return (0);
 	env->fd = 0;
-	env->ant = 0;
 	ft_open(env);
 	ft_putstr(env->map);
 	// ft_print_infos(env);
@@ -97,8 +110,6 @@ static int	ft_more(int ac, char **av)
 			return (0);
 		if ((env->fd = open(av[i], O_RDONLY)) == -1)
 			ft_error(env, "Opening {r}error{0} : wrong map");
-		env->ant = 0;
-
 		ft_open(env);
 		ft_putstr(env->map);
 		// ft_print_infos(env);
