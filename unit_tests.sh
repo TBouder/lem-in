@@ -16,7 +16,7 @@ else
 fi
 echo
 
-if [ $1 = "leaks" ]; then
+if [ "$1" = "leaks" ]; then
 	leaks="sh /Volumes/USB/.files/valgrind/vg-in-place --leak-check=full -q"
 else
 	leaks=" "
@@ -55,29 +55,49 @@ echo "\033[33;1mMultiple start rooms\033[00;0m : \c" && $leaks ./lem-in < lem-in
 echo "\033[33;1mMultiple end rooms\033[00;0m : \c" && $leaks ./lem-in < lem-in_maps/error/start_end/multi_end
 echo
 echo "Comments (should work)"
-echo "\033[33;1mComment_before_ant\033[00;0m : " && bash -c 'diff <(cat lem-in_maps/comment/comment_before_ant) <($leaks ./lem-in < lem-in_maps/comment/comment_before_ant)'
 
-DIFF=$(bash -c 'diff -u <(cat lem-in_maps/comment/comment_before_ant) <($leaks ./lem-in < lem-in_maps/comment/comment_before_ant)')
-if [ "$DIFF" ]; then
-  echo "Directories differ"
-  # Do other stuff here
-fi
 
-# echo "\033[33;1mComment_after_ant\033[00;0m : " && bash -c 'diff <(cat < lem-in_maps/comment/comment_after_ant) <($leaks ./lem-in < lem-in_maps/comment/comment_after_ant)'
-# echo "\033[33;1mComment_b_a_ant\033[00;0m : " && bash -c 'diff <(cat < lem-in_maps/comment/comment_b_a_ant) <($leaks ./lem-in < lem-in_maps/comment/comment_b_a_ant)'
-# echo "\033[33;1mComment_before_end\033[00;0m : " && bash -c 'diff <(cat < lem-in_maps/comment/comment_before_end) <($leaks ./lem-in < lem-in_maps/comment/comment_before_end)'
-# echo "\033[33;1mComment_after_end\033[00;0m : " && bash -c 'diff <(cat < lem-in_maps/comment/comment_after_end) <($leaks ./lem-in < lem-in_maps/comment/comment_after_end)'
-# echo "\033[33;1mComment_before_pipes\033[00;0m : " && bash -c 'diff <(cat < lem-in_maps/comment/comment_before_pipes) <($leaks ./lem-in < lem-in_maps/comment/comment_before_pipes)'
-# echo "\033[33;1mComment_after_pipes\033[00;0m : " && bash -c 'diff <(cat < lem-in_maps/comment/comment_after_pipes) <($leaks ./lem-in < lem-in_maps/comment/comment_after_pipes)'
-# echo "\033[33;1mComment_b_a_pipes\033[00;0m : " && bash -c 'diff <(cat < lem-in_maps/comment/comment_b_a_pipes) <($leaks ./lem-in < lem-in_maps/comment/comment_b_a_pipes)'
-# echo "\033[33;1mComment_mass_pipes\033[00;0m : " && bash -c 'diff <(cat < lem-in_maps/comment/comment_mass_pipes) <($leaks ./lem-in < lem-in_maps/comment/comment_mass_pipes)'
-# echo "\033[33;1mComment_before_rooms\033[00;0m : " && bash -c 'diff <(cat < lem-in_maps/comment/comment_before_rooms) <($leaks ./lem-in < lem-in_maps/comment/comment_before_rooms)'
-# echo "\033[33;1mComment_after_rooms\033[00;0m : " && bash -c 'diff <(cat < lem-in_maps/comment/comment_after_rooms) <($leaks ./lem-in < lem-in_maps/comment/comment_after_rooms)'
-# echo "\033[33;1mComment_b_a_rooms\033[00;0m : " && bash -c 'diff <(cat < lem-in_maps/comment/comment_b_a_rooms) <($leaks ./lem-in < lem-in_maps/comment/comment_b_a_rooms)'
-# echo "\033[33;1mComment_mass_rooms\033[00;0m : " && bash -c 'diff <(cat < lem-in_maps/comment/comment_mass_rooms) <($leaks ./lem-in < lem-in_maps/comment/comment_mass_rooms)'
-# echo "\033[33;1mComment_before_start\033[00;0m : " && bash -c 'diff <(cat < lem-in_maps/comment/comment_before_start) <($leaks ./lem-in < lem-in_maps/comment/comment_before_start)'
-# echo "\033[33;1mComment_after_start\033[00;0m : " && bash -c 'diff <(cat < lem-in_maps/comment/comment_after_start) <($leaks ./lem-in < lem-in_maps/comment/comment_after_start)'
+fonc[0]=$(bash -c 'diff -u <(cat lem-in_maps/comment/comment_before_ant) <($leaks ./lem-in < lem-in_maps/comment/comment_before_ant)')
+name[0]="\033[33;1mComment_before_ant\033[00;0m"
+fonc[1]=$(bash -c 'diff <(cat < lem-in_maps/comment/comment_after_ant) <($leaks ./lem-in < lem-in_maps/comment/comment_after_ant)')
+name[1]="\033[33;1mComment_after_ant\033[00;0m"
+fonc[2]=$(bash -c 'diff <(cat < lem-in_maps/comment/comment_b_a_ant) <($leaks ./lem-in < lem-in_maps/comment/comment_b_a_ant)')
+name[2]="\033[33;1mComment_b_a_ant\033[00;0m"
+fonc[3]=$(bash -c 'diff <(cat < lem-in_maps/comment/comment_before_end) <($leaks ./lem-in < lem-in_maps/comment/comment_before_end)')
+name[3]="\033[33;1mComment_before_end\033[00;0m"
+fonc[4]=$(bash -c 'diff <(cat < lem-in_maps/comment/comment_after_end) <($leaks ./lem-in < lem-in_maps/comment/comment_after_end)')
+name[4]="\033[33;1mComment_after_end\033[00;0m"
+fonc[5]=$(bash -c 'diff <(cat < lem-in_maps/comment/comment_before_pipes) <($leaks ./lem-in < lem-in_maps/comment/comment_before_pipes)')
+name[5]="\033[33;1mComment_before_pipes\033[00;0m"
+fonc[6]=$(bash -c 'diff <(cat < lem-in_maps/comment/comment_after_pipes) <($leaks ./lem-in < lem-in_maps/comment/comment_after_pipes)')
+name[6]="\033[33;1mComment_after_pipes\033[00;0m"
+fonc[7]=$(bash -c 'diff <(cat < lem-in_maps/comment/comment_b_a_pipes) <($leaks ./lem-in < lem-in_maps/comment/comment_b_a_pipes)')
+name[7]="\033[33;1mComment_b_a_pipes\033[00;0m"
+fonc[8]=$(bash -c 'diff <(cat < lem-in_maps/comment/comment_mass_pipes) <($leaks ./lem-in < lem-in_maps/comment/comment_mass_pipes)')
+name[8]="\033[33;1mComment_mass_pipes\033[00;0m"
+fonc[9]=$(bash -c 'diff <(cat < lem-in_maps/comment/comment_before_rooms) <($leaks ./lem-in < lem-in_maps/comment/comment_before_rooms)')
+name[9]="\033[33;1mComment_before_rooms\033[00;0m"
+fonc[10]=$(bash -c 'diff <(cat < lem-in_maps/comment/comment_after_rooms) <($leaks ./lem-in < lem-in_maps/comment/comment_after_rooms)')
+name[10]="\033[33;1mComment_after_rooms\033[00;0m"
+fonc[11]=$(bash -c 'diff <(cat < lem-in_maps/comment/comment_b_a_rooms) <($leaks ./lem-in < lem-in_maps/comment/comment_b_a_rooms)')
+name[11]="\033[33;1mComment_b_a_rooms\033[00;0m"
+fonc[12]=$(bash -c 'diff <(cat < lem-in_maps/comment/comment_mass_rooms) <($leaks ./lem-in < lem-in_maps/comment/comment_mass_rooms)')
+name[12]="\033[33;1mComment_mass_rooms\033[00;0m"
+fonc[13]=$(bash -c 'diff <(cat < lem-in_maps/comment/comment_before_start) <($leaks ./lem-in < lem-in_maps/comment/comment_before_start)')
+name[13]="\033[33;1mComment_before_start\033[00;0m"
+fonc[14]=$(bash -c 'diff <(cat < lem-in_maps/comment/comment_after_start) <($leaks ./lem-in < lem-in_maps/comment/comment_after_start)')
+name[14]="\033[33;1mComment_after_start\033[00;0m"
 
+
+i=0
+while [ $i -ne ${#fonc[@]} ]; do
+	if [ "${fonc[i]}" ]; then
+		echo "${name[i]} : \033[31;1mKO\033[00;0m"
+	else
+		echo "${name[i]} : \033[32;1mOK\033[00;0m"
+	fi
+i=$((i+1))
+done
 
 # echo "\033[33;1mPipe to itself\033[00;0m :" && ./lem-in < lem-in_maps/pipe_to_itself
 # echo "\033[33;1mError middle pipe (Room not found)\033[00;0m :" && ./lem-in < lem-in_maps/error_middle_pipe
