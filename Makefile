@@ -6,7 +6,7 @@
 #    By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/04/22 12:12:36 by tbouder           #+#    #+#              #
-#    Updated: 2016/04/28 14:41:15 by tbouder          ###   ########.fr        #
+#    Updated: 2016/04/28 21:31:39 by tbouder          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ HEADER 		=	ft_lemin.h ft_printf/ft_printf.h
 
 all: $(NAME)
 
-.SILENT : $(NAME)
+.SILENT : $(NAME) $(OBJ)
 $(NAME): $(OBJ)
 	# $(MAKE) re -C ft_printf
 	$(CC) $(CFLAGS) $(OPTI) -c $(HEADER) $(SRC)
