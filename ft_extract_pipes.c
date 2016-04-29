@@ -40,9 +40,9 @@ static int		ft_pipes_push(t_datas datas, t_rooms **rooms)
 	if (env->buff[0] == '\0')
 		return (1);
 	str = ft_strsplit(env->buff, '-');
-	if (!ft_is_cmd(env, str))
+	if (!ft_cmd(env, str))
 	{
-		env->map = ft_strjoin_endl(&env->map, env->buff);
+		env->map = ft_push_map(&env->map, env->buff);
 		if (ft_dbtablelen(str) == 2)
 			verif = ft_launch_extract(env, str, 2);
 		ft_freesplit(str);
@@ -99,9 +99,9 @@ int				ft_pipes(t_env *env)
 		if (!env->buff[0])
 			return (1);
 		str = ft_strsplit(env->buff, '-');
-		if (!ft_is_cmd(env, str))
+		if (!ft_cmd(env, str))
 		{
-			env->map = ft_strjoin_endl(&env->map, env->buff);
+			env->map = ft_push_map(&env->map, env->buff);
 			if (ft_dbtablelen(str) == 2)
 				verif = ft_launch_extract(env, str, 2);
 		}

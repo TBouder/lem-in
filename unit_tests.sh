@@ -14,8 +14,41 @@ yellow=$(tput bold ; tput setaf 3)
 blue=$(tput bold ; tput setaf 6)
 normal=$(tput sgr0)
 
+function signal
+{
+	signres=1
+	if [[ $1 -eq 129 ]]; then
+		printf "%34s\n" "$red[SIGHUP]$normal"
+	elif [[ $1 -eq 130 ]]; then
+		printf "%34s\n" "$red[SIGINT]$normal"
+	elif [[ $1 -eq 131 ]]; then
+		printf "%35s\n" "$red[SIGQUIT]$normal"
+	elif [[ $1 -eq 132 ]]; then
+		printf "%34s\n" "$red[SIGILL]$normal"
+	elif [[ $1 -eq 133 ]]; then
+		printf "%35s\n" "$red[SIGTRAP]$normal"
+	elif [[ $1 -eq 134 ]]; then
+		printf "%36s\n" "$red[SIGABORT]$normal"
+	elif [[ $1 -eq 135 ]]; then
+		printf "%34s\n" "$red[SIGEMT]$normal"
+	elif [[ $1 -eq 136 ]]; then
+		printf "%34s\n" "$red[SIGFPE]$normal"
+	elif [[ $1 -eq 137 ]]; then
+		printf "%35s\n" "$red[SIGKILL]$normal"
+	elif [[ $1 -eq 138 ]]; then
+		printf "%36s\n" "$red[BUSERROR]$normal"
+	elif [[ $1 -eq 139 ]]; then
+		printf "%36s\n" "$red[SEGFAULT]$normal"
+	elif [[ $1 -eq 140 ]]; then
+		printf "%36s\n" "$red[SIGSYS]$normal"
+	else
+		signres=0
+	fi
+}
+
 # Extract args
 # ---------------------------------------------------------------------------- #
+WAY=/Volumes/USB/lem-in/lem-in_maps
 i=0
 all=0
 autor=0
@@ -82,30 +115,40 @@ if [[ norme -eq 1 || all -eq 1 ]]; then
 	fi
 	echo
 fi
+if [ -e "lemintest.log" ]; then
+	rm -rf lemintest.log
+else
+	touch lemintest.log
+fi
 make fclean && make
 # ---------------------------------------------------------------------------- #
-
 
 # Errors tests
 # ---------------------------------------------------------------------------- #
 echo "$blue~ERRORS~$normal"
-# FILES=/Volumes/USB/lem-in/lem-in_maps/
 for f in lem-in_maps/error/*/*
 do
 	err=$($leaks ./lem-in < $f)
 	lik=$?
+	printf "%-35s\n" "$yellow$(basename $f)$normal" >> lemintest.log
+	echo $err  >> lemintest.log
 	printf "%-35s" "$yellow$(basename $f)$normal"
+	signal $lik
 	if [[ leaks == "" ]]; then
-		if [[ $err == *"error"* || $err == *"ERROR"* || $err == *"Error"* ]]; then
-			printf "%30s\n" "$green[OK]$normal"
-		else
-			printf "%30s\n" "$red[KO]$normal"
+		if [ $signres -eq 0 ]; then
+			if [[ $err == *"error"* || $err == *"ERROR"* || $err == *"Error"* ]]; then
+				printf "%30s\n" "$green[OK]$normal"
+			else
+				printf "%30s\n" "$red[KO]$normal"
+			fi
 		fi
 	else
-		if [[ $err == *"error"* || $err == *"ERROR"* || $err == *"Error"* && $lik -ne 42 ]]; then
-			printf "%30s\n" "$green[OK]$normal"
-		else
-			printf "%30s\n" "$red[KO]$normal"
+		if [ $signres -eq 0 ]; then
+			if [[ $err == *"error"* || $err == *"ERROR"* || $err == *"Error"* && $lik -ne 42 ]]; then
+				printf "%30s\n" "$green[OK]$normal"
+			else
+				printf "%30s\n" "$red[KO]$normal"
+			fi
 		fi
 	fi
 done
@@ -117,21 +160,66 @@ done
 echo "\n$blue~COMMENTS~$normal"
 for f in lem-in_maps/comment/*
 do
-	leak=$($leaks ./lem-in < $f)
+	leak=$($leaks ./lem-in < $f >> lemintest.log)
 	lik=$?
-	comm=$(bash -c 'diff -u <(cat '$f') <($leaks ./lem-in < '$f')')
+	comm=$(bash -c 'diff -u <(cat '$f') <(./lem-in < '$f')')
+	printf "%-35s\n" "$yellow$(basename $f)$normal" >> lemintest.log
+	echo $leak  >> lemintest.log
 	printf "%-35s" "$yellow$(basename $f)$normal"
+	signal $lik
 	if [[ leaks == "" ]]; then
-		if [ "$comm" ]; then
-			printf "%30s\n" "$red[KO]$normal"
-		else
-			printf "%30s\n" "$green[OK]$normal"
+		if [ $signres -eq 0 ]; then
+			if [ "$comm" ]; then
+				printf "%30s\n" "$red[KO]$normal"
+			else
+				printf "%30s\n" "$green[OK]$normal"
+			fi
 		fi
 	else
-		if [[ "$comm" || $lik -eq 42 ]]; then
-			printf "%30s\n" "$red[KO]$normal"
-		else
-			printf "%30s\n" "$green[OK]$normal"
+		if [ $signres -eq 0 ]; then
+			if [[ "$comm" || $lik -eq 42 ]]; then
+				printf "%30s\n" "$red[KO]$normal"
+			else
+				printf "%30s\n" "$green[OK]$normal"
+			fi
+		fi
+	fi
+done
+# ---------------------------------------------------------------------------- #
+
+# Tests with cmd
+# ---------------------------------------------------------------------------- #
+echo "\n$blue~CMD~$normal"
+for f in lem-in_maps/cmd/*
+do
+	leak=$($leaks ./lem-in < $f)
+	lik=$?
+	if [ "$(basename $f)" = "cmd_before_end" ]; then
+		comm=$(bash -c 'diff -u <(cat '$WAY'/cmd_trace/cmd_trace_beta) <(./lem-in < '$f')')
+	elif [ "$(basename $f)" == "cmd_before_start" ]; then
+		comm=$(bash -c 'diff -u <(cat '$WAY'/cmd_trace/cmd_trace_omega) <(./lem-in < '$f')')
+	else
+		comm=$(bash -c 'diff -u <(cat '$WAY'/cmd_trace/cmd_trace_alpha) <(./lem-in < '$f')')
+	fi
+	printf "%-35s\n" "$yellow$(basename $f)$normal" >> lemintest.log
+	echo "$comm\n"  >> lemintest.log
+	printf "%-35s" "$yellow$(basename $f)$normal"
+	signal $lik
+	if [[ leaks == "" ]]; then
+		if [ $signres -eq 0 ]; then
+			if [ "$comm" ]; then
+				printf "%30s\n" "$red[KO]$normal"
+			else
+				printf "%30s\n" "$green[OK]$normal"
+			fi
+		fi
+	else
+		if [ $signres -eq 0 ]; then
+			if [[ "$comm" || $lik -eq 42 ]]; then
+				printf "%30s\n" "$red[KO]$normal"
+			else
+				printf "%30s\n" "$green[OK]$normal"
+			fi
 		fi
 	fi
 done

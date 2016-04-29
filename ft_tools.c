@@ -55,7 +55,7 @@ int		ft_dbtablelen(char **str)
 	return (i);
 }
 
-char	*ft_strjoin_endl(char **s1, char *s2)
+char	*ft_push_map(char **s1, char *s2)
 {
 	char	*str;
 
@@ -67,7 +67,7 @@ char	*ft_strjoin_endl(char **s1, char *s2)
 	return (str);
 }
 
-int		ft_is_cmd(t_env *e, char **str)
+int		ft_cmd(t_env *e, char **str)
 {
 	if ((str[0][0] == '#' || str[0][0] != '#') && str[0][1] != '#')
 		return (0);
