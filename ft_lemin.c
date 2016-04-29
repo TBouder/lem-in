@@ -6,12 +6,12 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:16:28 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/29 02:30:05 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/29 11:28:26 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_lemin.h"
-
+#define CHECK (env->buff[0] == '#' || env->buff[0] != '#') && env->buff[1] != '#'
 /*
 ** BONUS
 ** - Lecture plusieurs fichiers a la fois (Neccessite OPEN)
@@ -57,16 +57,15 @@ void		ft_print_infos(t_env *env)
 	}
 }
 
-
 static void	ft_init_buff(t_env *env, char **str)
 {
 	if (!env->map)
 	{
 		*str = ft_strnew(ft_strlen(env->buff));
-		env->map = ft_strjoin_endl(str, env->buff);
+		env->map = ft_push_map(str, env->buff);
 	}
 	else
-		env->map = ft_strjoin_endl(&env->map, env->buff);
+		env->map = ft_push_map(&env->map, env->buff);
 	ft_strdel(str);
 }
 
@@ -77,7 +76,7 @@ static void	ft_open(t_env *env)
 
 	while (env->ant == 0 && (fd = get_next_line(env->fd, &env->buff)) == 1)
 	{
-		ft_init_buff(env, &str);
+		CHECK ? ft_init_buff(env, &str) : 0;
 		if (env->buff[0] == '#')
 			;
 		else if (!ft_isdigit(env->buff[0]))

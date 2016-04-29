@@ -64,8 +64,8 @@ typedef struct		s_datas
 void				ft_error(t_env *env, char *str);
 long				ft_atoi_onum(char *str);
 int					ft_dbtablelen(char **str);
-char				*ft_strjoin_endl(char **s1, char *s2);
-int					ft_is_cmd(t_env *e, char **str);
+char				*ft_push_map(char **s1, char *s2);
+int					ft_cmd(t_env *e, char **str);
 
 void				ft_freesplit(char **str);
 void				ft_free_all(t_env **env, int i);
