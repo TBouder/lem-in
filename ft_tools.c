@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 15:51:08 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/28 15:02:31 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/29 15:05:20 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,9 @@ char	*ft_push_map(char **s1, char *s2)
 
 int		ft_cmd(t_env *e, char **str)
 {
+	if (ft_strlen(str[0]) >= 2 && str[0][0] == '#' && str[0][1] == '#'
+		&& str[0][2] == '#')
+		return (0);
 	if ((str[0][0] == '#' || str[0][0] != '#') && str[0][1] != '#')
 		return (0);
 	if (CMP("##start", e->buff) == 0 || CMP("##end", e->buff) == 0)

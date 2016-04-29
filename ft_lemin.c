@@ -6,12 +6,13 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:16:28 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/29 11:28:26 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/29 15:46:49 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_lemin.h"
-#define CHECK (env->buff[0] == '#' || env->buff[0] != '#') && env->buff[1] != '#'
+#define TEST (env->buff[0] == '#' || env->buff[0] != '#') && env->buff[1] != '#'
+
 /*
 ** BONUS
 ** - Lecture plusieurs fichiers a la fois (Neccessite OPEN)
@@ -76,7 +77,7 @@ static void	ft_open(t_env *env)
 
 	while (env->ant == 0 && (fd = get_next_line(env->fd, &env->buff)) == 1)
 	{
-		CHECK ? ft_init_buff(env, &str) : 0;
+		TEST ? ft_init_buff(env, &str) : 0;
 		if (env->buff[0] == '#')
 			;
 		else if (!ft_isdigit(env->buff[0]))
@@ -144,9 +145,6 @@ static int	ft_more(int ac, char **av)
 
 int			main(int ac, char **av)
 {
-	int		i;
-
-	i = 0;
 	if (ac == 1)
 		ft_zero();
 	else if (ac >= 2)
