@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:16:28 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/28 19:13:31 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/29 02:30:05 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static void	ft_open(t_env *env)
 
 	while (env->ant == 0 && (fd = get_next_line(env->fd, &env->buff)) == 1)
 	{
-		ft_init_buff(env, &str);		
+		ft_init_buff(env, &str);
 		if (env->buff[0] == '#')
 			;
 		else if (!ft_isdigit(env->buff[0]))
