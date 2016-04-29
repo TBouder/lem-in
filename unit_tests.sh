@@ -58,7 +58,7 @@ all=0
 leaks=""
 while [ $# -ne 0 ];do
 	if [ "$1" = "leaks" ]; then
-		leaks="sh /Volumes/USB/.files/valgrind/vg-in-place -q --leak-check=full --error-exitcode=42"
+		leaks="sh /Volumes/USB/.files/valgrind/vg-in-place -q --leak-check=full --suppressions=/Volumes/USB/.files/valgrind/osx.supp --error-exitcode=42"
 	elif [ $1 = "autor" ]; then
 		autor=1
 	elif [ $1 = "makefile" ]; then
@@ -144,8 +144,10 @@ do
 		fi
 	else
 		if [ $signres -eq 0 ]; then
-			if [[ $err == *"error"* || $err == *"ERROR"* || $err == *"Error"* && $lik -ne 42 ]]; then
+			if [[ $err == *"error"* || $err == *"ERROR"* || $err == *"Error"* ]]; then
 				printf "%30s\n" "$green[OK]$normal"
+			elif [[ $lik -eq 42 ]]; then
+				printf "%33s\n" "$red[LEAKS]$normal"
 			else
 				printf "%30s\n" "$red[KO]$normal"
 			fi
@@ -177,8 +179,10 @@ do
 		fi
 	else
 		if [ $signres -eq 0 ]; then
-			if [[ "$comm" || $lik -eq 42 ]]; then
+			if [[ "$comm" ]]; then
 				printf "%30s\n" "$red[KO]$normal"
+			elif [[ $lik -eq 42 ]]; then
+				printf "%33s\n" "$red[LEAKS]$normal"
 			else
 				printf "%30s\n" "$green[OK]$normal"
 			fi
@@ -215,8 +219,10 @@ do
 		fi
 	else
 		if [ $signres -eq 0 ]; then
-			if [[ "$comm" || $lik -eq 42 ]]; then
+			if [[ "$comm" ]]; then
 				printf "%30s\n" "$red[KO]$normal"
+			elif [[ $lik -eq 42 ]]; then
+				printf "%33s\n" "$red[LEAKS]$normal"
 			else
 				printf "%30s\n" "$green[OK]$normal"
 			fi
@@ -224,6 +230,45 @@ do
 	fi
 done
 # ---------------------------------------------------------------------------- #
+
+# Tests with cmd
+# ---------------------------------------------------------------------------- #
+echo "\n$blue~PIPES ERROR~$normal"
+for f in lem-in_maps/pipes_error/*
+do
+	leak=$($leaks ./lem-in < $f)
+	lik=$?
+	comm=$(bash -c 'diff -u <(cat '$WAY'/pipes_error_trace/'$(basename $f)') <(./lem-in < '$f')')
+	printf "%-35s\n" "$yellow$(basename $f)$normal" >> lemintest.log
+	echo "$comm\n"  >> lemintest.log
+	printf "%-35s" "$yellow$(basename $f)$normal"
+	# $leaks ./lem-in < $f
+	signal $lik
+	if [[ leaks == "" ]]; then
+		if [ $signres -eq 0 ]; then
+			if [ "$comm" ]; then
+				printf "%30s\n" "$red[KO]$normal"
+			else
+				printf "%30s\n" "$green[OK]$normal"
+			fi
+		fi
+	else
+		if [ $signres -eq 0 ]; then
+			if [[ "$comm" ]]; then
+				printf "%30s\n" "$red[KO]$normal"
+			elif [[ $lik -eq 42 ]]; then
+				printf "%33s\n" "$red[LEAKS]$normal"
+			else
+				printf "%30s\n" "$green[OK]$normal"
+			fi
+		fi
+	fi
+done
+# ---------------------------------------------------------------------------- #
+
+
+
+
 
 # echo "\033[33;1mPipe to itself\033[00;0m :" && ./lem-in < lem-in_maps/pipe_to_itself
 # echo "\033[33;1mError middle pipe (Room not found)\033[00;0m :" && ./lem-in < lem-in_maps/error_middle_pipe

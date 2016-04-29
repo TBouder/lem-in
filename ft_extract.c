@@ -6,13 +6,28 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 12:28:01 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/29 12:15:52 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/29 15:36:25 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_lemin.h"
+#define ATOICHEK ft_num(str[1]) && ft_num(str[2])
 
- void	ft_extract_rooms(t_datas *datas, char **str, t_env *env, int pos)
+static int	ft_num(char *str)
+{
+	int		i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (!ft_isnumber(str[i]))
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+static void	ft_extract_rooms(t_datas *datas, char **str, t_env *env, int pos)
 {
 	datas->name = ft_strnew(ft_strlen(str[0]));
 	ft_strcpy(datas->name, str[0]);
@@ -24,7 +39,7 @@
 	datas->y = ft_atoi(str[2]); //verif le ft_atoi
 }
 
- void	ft_extract_cmd(t_env *env, char **str, int v, char *status)
+static void	ft_extract_cmd(t_env *env, char **str, int v, char *status)
 {
 	t_datas	datas;
 
@@ -92,9 +107,9 @@ void		ft_extract_map(t_env *env, char **str)
 			env->map = ft_push_map(&env->map, env->buff);
 			if (CMP("##start", env->buff) == 0 || CMP("##end", env->buff) == 0)
 				ft_extract_cmd(env, NULL, 0, ft_strnew(ft_strlen(env->buff)));
-			else if (ft_dbtablelen(str) == 3)
+			else if (ft_dbtablelen(str) == 3 && ATOICHEK)
 				ft_launch_extract(env, str, 1);
-			else if (str[0][0] == '#' && str[0][1] != '#')
+			else if (str[0][0] == '#')
 				env->id--;
 			else
 				verif = ft_pipes(env);

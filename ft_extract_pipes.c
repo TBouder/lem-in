@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/25 13:27:41 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/28 19:18:11 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/29 18:40:17 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int		ft_pipes_push(t_datas datas, t_rooms **rooms)
 	return (0);
 }
 
- int		ft_pipe_before(t_env *env)
+static int		ft_pipe_before(t_env *env)
 {
 	char	**str;
 	int		verif;
@@ -40,13 +40,14 @@ static int		ft_pipes_push(t_datas datas, t_rooms **rooms)
 	if (env->buff[0] == '\0')
 		return (1);
 	str = ft_strsplit(env->buff, '-');
-	if (!ft_cmd(env, str))
+	if (!ft_cmd(env, str) && ft_dbtablelen(str) == 2)
 	{
-		env->map = ft_push_map(&env->map, env->buff);
 		if (ft_dbtablelen(str) == 2)
 			verif = ft_launch_extract(env, str, 2);
-		ft_freesplit(str);
 	}
+	else
+		verif = 1;
+	ft_freesplit(str);
 	ft_strdel(&env->buff);
 	return (verif);
 }
@@ -92,8 +93,7 @@ int				ft_pipes(t_env *env)
 	int		verif;
 
 	verif = 0;
-	// ft_pipe_before(env);
-	ft_strdel(&env->buff);
+	verif = ft_pipe_before(env);
 	while (get_next_line(env->fd, &env->buff) == 1 && !verif)
 	{
 		if (!env->buff[0])
@@ -101,9 +101,15 @@ int				ft_pipes(t_env *env)
 		str = ft_strsplit(env->buff, '-');
 		if (!ft_cmd(env, str))
 		{
-			env->map = ft_push_map(&env->map, env->buff);
 			if (ft_dbtablelen(str) == 2)
+			{
 				verif = ft_launch_extract(env, str, 2);
+				!verif ? env->map = ft_push_map(&env->map, env->buff) : 0;
+			}
+			else if (env->buff[0] == '#')
+				!verif ? env->map = ft_push_map(&env->map, env->buff) : 0;
+			else
+				return (1);
 		}
 		ft_strdel(&env->buff);
 		ft_freesplit(str);
