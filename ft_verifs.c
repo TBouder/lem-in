@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/27 17:58:34 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/28 14:33:05 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/04/30 18:50:40 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,12 @@ static void	ft_verif_rooms(t_env *env)
 
 void		ft_verif_launcher(t_env *env)
 {
-	ft_verif_pipes(env);
-	ft_verif_rooms(env);
+	if (ROOMS)
+	{
+		ft_verif_pipes(env);
+		ft_verif_rooms(env);
+	}
+	else
+	ft_error(env, "Room {r}error{0} : No rooms");
+
 }
