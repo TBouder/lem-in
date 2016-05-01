@@ -14,10 +14,13 @@ green=$(tput setaf 2)
 yellow=$(tput bold ; tput setaf 3)
 blue=$(tput bold ; tput setaf 6)
 normal=$(tput sgr0)
-let i=j=all=author=makefile=norme=0
+i=0
+j=0
+good=0
+count=0
 leaks=""
 
-function ft_signal
+function	ft_signal
 {
 	if [[ $1 -ge 129 && $1 -le 140 ]]; then
 		errors[$i]=$(basename $4)
@@ -30,8 +33,10 @@ function ft_signal
 		i=$((i+1))
 		printf "%s" "$red[LEAKS]$normal"
 	elif [[ "$err" == *"error"* || "$err" == *"ERROR"* || "$err" == *"Error"* ]]; then
+		good=$((good + 1))
 		printf "%s" "$green.$normal"
 	elif [[ "$comm" == "" ]]; then
+		good=$((good + 1))
 		printf "%s" "$green.$normal"
 	else
 		errors[$i]=$(basename $4)
@@ -41,38 +46,89 @@ function ft_signal
 	fi
 }
 
-function ft_errors
+function	ft_author
 {
+	if [ -e "auteur" ]; then
+		user=$(cat auteur)
+		iam=$(whoami)
+		if [ "$user" = "$iam" ] ; then
+			echo "Author file : \033[32;1mOK\033[00;0m"
+		else
+			echo "Author file : \033[31;1mKO\033[00;0m"
+		fi
+	else
+		echo "\033[31;1mAuthor file missing\033[00;0m"
+	fi
+}
+
+function	ft_makefile
+{
+	if [ -e "Makefile" ]; then
+		make fclean
+		make
+		make2=$(make)
+		make clean
+		# make3=$(make)
+		# make re
+		make
+		make fclean
+		# if [ "$make2" = "make: Nothing to be done for \`all'." -a "$make3" = "make: Nothing to be done for \`all'." ] ; then
+		if [ "$make2" = "make: Nothing to be done for \`all'." ] ; then
+			echo "Makefile : \033[32;1mOK\033[00;0m"
+		else
+			echo "Makefile : \033[31;1mKO\033[00;0m"
+		fi
+	else
+		echo "\033[31;1mMakefile missing\033[00;0m"
+	fi
+}
+
+function	ft_norme
+{
+	norme_error=$(norminette . | grep -B1 Error | grep -w "Error" -c)
+	if [ $norme_error != 0 ] ; then
+		echo "Norminette : \033[31;1mKO\033[00;0m"
+		norminette . | grep -B1 Error
+	else
+		echo "Norminette : \033[32;1mOK\033[00;0m"
+	fi
+}
+
+function	ft_errors
+{
+	comm="NULL"
 	for d in lem-in_maps/error/*
 	do
-		printf "%-40s" "$yellow$(basename $d) : $normal"
+		printf "%-50s" "$yellow$(basename $d) : $normal"
 		for f in lem-in_maps/error/$(basename $d)/*
 		do
 			err=$($leaks ./lem-in < $f)
 			lik=$?
 			ft_signal $lik "$err" $i $f
+			count=$((count + 1))
 		done
 		printf "\n"
 	done
 	err=""
 }
 
-function ft_comments
+function	ft_comments
 {
-	printf "%-40s" "$yellow""Comments : ""$normal"
+	printf "%-50s" "$yellow""Comments : ""$normal"
 	for f in lem-in_maps/comment/*
 	do
 		leak=$($leaks ./lem-in < $f)
 		lik=$?
 		comm=$(bash -c 'diff -u <(cat '$f') <(./lem-in < '$f')')
 		ft_signal $lik "$comm" $i $f
+		count=$((count + 1))
 	done
 	printf "\n"
 }
 
-function ft_cmds
+function	ft_cmds
 {
-	printf "%-40s" "$yellow""Cmd : ""$normal"
+	printf "%-50s" "$yellow""Cmd : ""$normal"
 	for f in lem-in_maps/cmd/*
 	do
 		leak=$($leaks ./lem-in < $f)
@@ -85,24 +141,26 @@ function ft_cmds
 			comm=$(bash -c 'diff -u <(cat '$WAY'/cmd_trace/cmd_trace_alpha) <(./lem-in < '$f')')
 		fi
 		ft_signal $lik "$comm" $i $f
+		count=$((count + 1))
 	done
 	printf "\n"
 }
 
-function ft_pipes_error
+function	ft_pipes_error
 {
-	printf "%-40s" "$yellow""pipes_error : ""$normal"
+	printf "%-50s" "$yellow""pipes_error : ""$normal"
 	for f in lem-in_maps/pipes_error/*
 	do
 		leak=$($leaks ./lem-in < $f)
 		lik=$?
 		comm=$(bash -c 'diff -u <(cat '$WAY'/pipes_error_trace/'$(basename $f)') <(./lem-in < '$f')')
 		ft_signal $lik "$comm" $i $f
+		count=$((count + 1))
 	done
 	printf "\n"
 }
 
-function ft_logs
+function	ft_logs
 {
 	if [ ${#errors[@]} -ne 0 ]; then
 	echo "-------------------------------------------------------------------------"
@@ -126,66 +184,18 @@ while [ $# -ne 0 ];do
 	if [ "$1" = "leaks" ]; then
 		leaks="sh /Volumes/USB/.files/valgrind/vg-in-place -q --leak-check=full --suppressions=/Volumes/USB/.files/valgrind/osx.supp --error-exitcode=42"
 	elif [ $1 = "author" ]; then
-		author=1
+		ft_author
 	elif [ $1 = "makefile" ]; then
-		makefile=1
+		ft_makefile
 	elif [ $1 = "norme" ]; then
-		norme=1
+		ft_norme
 	elif [ $1 = "all" ]; then
-		all=1
+		ft_author
+		ft_makefile
+		ft_norme
 	fi
 	shift
 done
-if [[ author -eq 1 || all -eq 1 ]]; then
-	if [ -e "auteur" ]; then
-		user=$(cat auteur)
-		iam=$(whoami)
-		if [ "$user" = "$iam" ] ; then
-			echo "Author file : \033[32;1mOK\033[00;0m"
-		else
-			echo "Author file : \033[31;1mKO\033[00;0m"
-		fi
-	else
-		echo "\033[31;1mAuthor file missing\033[00;0m"
-	fi
-	echo
-fi
-if [[ makefile -eq 1 || all -eq 1 ]]; then
-	if [ -e "Makefile" ]; then
-		make fclean
-		make
-		make2=$(make)
-		make clean
-		# make3=$(make)
-		# make re
-		make
-		make fclean
-		# if [ "$make2" = "make: Nothing to be done for \`all'." -a "$make3" = "make: Nothing to be done for \`all'." ] ; then
-		if [ "$make2" = "make: Nothing to be done for \`all'." ] ; then
-			echo "Makefile : \033[32;1mOK\033[00;0m"
-		else
-			echo "Makefile : \033[31;1mKO\033[00;0m"
-		fi
-	else
-		echo "\033[31;1mMakefile missing\033[00;0m"
-	fi
-	echo
-fi
-if [[ norme -eq 1 || all -eq 1 ]]; then
-	norme_error=$(norminette . | grep -B1 Error | grep -w "Error" -c)
-	if [ $norme_error != 0 ] ; then
-		echo "Norminette : \033[31;1mKO\033[00;0m"
-		norminette . | grep -B1 Error
-	else
-		echo "Norminette : \033[32;1mOK\033[00;0m"
-	fi
-	echo
-fi
-if [ -e "lemintest.log" ]; then
-	rm -rf lemintest.log
-else
-	touch lemintest.log
-fi
 make fclean && make
 # ---------------------------------------------------------------------------- #
 
@@ -201,6 +211,11 @@ ft_pipes_error
 # ---------------------------------------------------------------------------- #
 ft_logs
 
+printf "%47s\n" "$blue[$good/$count]$normal"
+echo "                       \/       \/"
+echo "                 ___  _@@       @@_  ___"
+echo "                (___)(_)         (_)(___)"
+echo "                //|| ||           || ||\\"
 
 
 

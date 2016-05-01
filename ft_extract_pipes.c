@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/25 13:27:41 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/30 18:48:26 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/01 11:37:10 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ int				ft_pipes(t_env *env)
 			else if (env->buff[0] == '#')
 				!verif ? env->map = ft_push_map(&env->map, env->buff) : 0;
 			else
-				return (1);
+				verif = 1;
 		}
 		ft_strdel(&env->buff);
 		ft_freesplit(str);
