@@ -6,7 +6,7 @@
 #    By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/04/22 12:12:36 by tbouder           #+#    #+#              #
-#    Updated: 2016/05/02 12:08:20 by tbouder          ###   ########.fr        #
+#    Updated: 2016/05/02 13:33:30 by tbouder          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ CFLAGS		= 	-Wall -Werror -Wextra
 OPTI		=	-g -O3
 
 SRC 		= 	ft_lemin.c ft_tools.c ft_structs.c ft_extract.c ft_extract_pipes.c \
-				ft_verifs.c ft_verifs_duplicates.c ft_free.c ft_algo.c
+				ft_verifs.c ft_verifs_duplicates.c ft_free.c ft_algo.c ft_print.c
 
 LIB			=	-Lft_printf -lftprintf
 

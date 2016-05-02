@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:16:28 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/02 13:10:44 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/02 13:31:51 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,51 +17,6 @@
 ** BONUS
 ** - Lecture plusieurs fichiers a la fois (Neccessite OPEN)
 */
-
-void		ft_putstrr(char *str)
-{
-	int		i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '\n' && str[i + 1] == '\0')
-			break;
-		ft_putchar(str[i]);
-		i++;
-	}
-	ft_putchar('\n');
-}
-
-void		ft_print_infos(t_env *env)
-{
-	t_env	*tmp;
-
-	tmp = env;
-	ft_printf("Number of ant(s) : %d\n", tmp->ant);
-	while (tmp->rooms)
-	{
-		if (tmp->rooms->pos == 1)
-			ft_printf("{g}%s (%d) {0}: (%d, %d)\n", tmp->rooms->name, tmp->rooms->id, tmp->rooms->x, tmp->rooms->y);
-		else if (tmp->rooms->pos == 2)
-			ft_printf("{g}%s (%d) {0}: (%d, %d)\n", tmp->rooms->name, tmp->rooms->id, tmp->rooms->x, tmp->rooms->y);
-		else
-			ft_printf("{g}%s (%d) {0}: (%d, %d)\n", tmp->rooms->name, tmp->rooms->id, tmp->rooms->x, tmp->rooms->y);
-		while (tmp->rooms->pipes_prev)
-		{
-			ft_printf("\t{p}Prev pipe{0} : %s\n", tmp->rooms->pipes_prev->id);
-			tmp->rooms->pipes_prev = tmp->rooms->pipes_prev->next;
-		}
-		while (tmp->rooms->pipes_next)
-		{
-			ft_printf("\t{b}Next pipe{0} : %s\n", tmp->rooms->pipes_next->id);
-			tmp->rooms->pipes_next = tmp->rooms->pipes_next->next;
-		}
-		tmp->rooms = tmp->rooms->next;
-	}
-}
-
-//---------------------------/
 
 static void	ft_init_buff(t_env *env, char **str)
 {
