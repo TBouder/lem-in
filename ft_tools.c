@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 15:51:08 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/02 14:51:52 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/02 16:56:42 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,4 +67,19 @@ int		ft_cmd(t_env *e, char **str)
 	if (CMP("##start", e->buff) == 0 || CMP("##end", e->buff) == 0)
 		return (0);
 	return (1);
+}
+
+int		ft_pipeslen(t_pipes *pipes)
+{
+	t_pipes	*tmp;
+	int		i;
+
+	i = 0;
+	tmp = pipes;
+	while (tmp)
+	{
+		i++;
+		tmp = tmp->next;
+	}
+	return (i);
 }
