@@ -6,11 +6,33 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/25 13:27:41 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/01 11:37:10 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/02 13:10:26 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_lemin.h"
+
+void	ft_rev_datas(t_datas *datas)
+{
+	char	*s1;
+	char	*s2;
+
+	s1 = ft_strnew(ft_strlen(datas->name));
+	s2 = ft_strnew(ft_strlen(datas->name_two));
+	ft_strcpy(s1, datas->name);
+	ft_strcpy(s2, datas->name_two);
+	// ft_strdel(&datas->name);
+	datas->name = NULL;
+	// ft_strdel(&datas->name_two);
+	datas->name_two = NULL;
+	datas->name = ft_strnew(ft_strlen(s2));
+	ft_strncpy(datas->name, s2, ft_strlen(s2));
+	datas->name_two = ft_strnew(ft_strlen(s1));
+	ft_strcpy(datas->name_two, s1);
+	ft_strdel(&s1);
+	ft_strdel(&s2);
+}
+
 
 static int		ft_pipes_push(t_datas datas, t_rooms **rooms)
 {
@@ -27,7 +49,10 @@ static int		ft_pipes_push(t_datas datas, t_rooms **rooms)
 		ft_verif_duplicates_pipes(*tmp_prev, datas))
 		return (1);
 	ft_pipesend(&tmp_next->pipes_next, datas);
+	ft_rev_datas(&datas);
 	ft_pipesend(&tmp_prev->pipes_prev, datas);
+	ft_strdel(&datas.name);
+	ft_strdel(&datas.name_two);
 	return (0);
 }
 

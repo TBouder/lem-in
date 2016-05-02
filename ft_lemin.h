@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:14:46 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/28 15:19:26 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/02 12:21:20 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,13 @@ typedef struct		s_datas
 	int				pos;
 }					t_datas;
 
+typedef struct		s_path
+{
+	int				moves;
+	char			*path;
+	struct s_path	*next;
+}					t_path;
+
 void				ft_error(t_env *env, char *str);
 long				ft_atoi_onum(char *str);
 int					ft_dbtablelen(char **str);
@@ -84,5 +91,8 @@ void				ft_pipesend(t_pipes **pipes, t_datas datas);
 void				ft_verif_duplicates_rooms(t_env *env, t_datas datas);
 int					ft_verif_duplicates_pipes(t_rooms pipes, t_datas datas);
 void				ft_verif_launcher(t_env *env);
+
+void				ft_algo(t_env *env);
+
 
 #endif
