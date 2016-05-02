@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/25 13:27:41 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/02 15:29:26 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/02 17:06:14 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,13 +120,13 @@ int				ft_pipes(t_env *env)
 		str = ft_strsplit(env->buff, '-');
 		if (!ft_cmd(env, str))
 		{
-			if (ft_dbstrlen(str) == 2)
+			if (env->buff[0] == '#')
+				!verif ? env->map = ft_push_map(&env->map, env->buff) : 0;
+			else if (ft_dbstrlen(str) == 2)
 			{
 				verif = ft_launch_extract(env, str, 2);
 				!verif ? env->map = ft_push_map(&env->map, env->buff) : 0;
 			}
-			else if (env->buff[0] == '#')
-				!verif ? env->map = ft_push_map(&env->map, env->buff) : 0;
 			else
 				verif = 1;
 		}

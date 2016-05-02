@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 12:28:01 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/02 15:30:13 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/02 17:06:46 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,10 +106,10 @@ void		ft_extract_map(t_env *env, char **str)
 			env->map = ft_push_map(&env->map, env->buff);
 			if (CMP("##start", env->buff) == 0 || CMP("##end", env->buff) == 0)
 				ft_extract_cmd(env, NULL, 0, ft_strnew(ft_strlen(env->buff)));
-			else if (ft_dbstrlen(str) == 3 && ATOICHEK)
-				ft_launch_extract(env, str, 1);
 			else if (str[0][0] == '#')
 				env->id--;
+			else if (ft_dbstrlen(str) == 3 && ATOICHEK)
+				ft_launch_extract(env, str, 1);
 			else
 				verif = ft_pipes(env);
 			env->id++;
