@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 15:51:08 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/29 15:05:20 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/02 14:51:52 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,6 @@ long	ft_atoi_onum(char *str)
 	if ((!(ft_isnumber(*str)) && *str != '\0') || (result / 10 * sign == 0))
 		return (-1);
 	return (result / 10 * sign);
-}
-
-int		ft_dbtablelen(char **str)
-{
-	int		i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
 }
 
 char	*ft_push_map(char **s1, char *s2)
