@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/25 13:27:41 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/02 14:31:51 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/02 15:29:26 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,12 @@ void	ft_rev_datas(t_datas *datas)
 	char	*s1;
 	char	*s2;
 
-	s1 = ft_strnew(ft_strlen(datas->name));
-	s2 = ft_strnew(ft_strlen(datas->name_two));
-	ft_strcpy(s1, datas->name);
-	ft_strcpy(s2, datas->name_two);
+	s1 = ft_strinit(datas->name);
+	s2 = ft_strinit(datas->name_two);
 	datas->name = NULL;
 	datas->name_two = NULL;
-	datas->name = ft_strnew(ft_strlen(s2));
-	ft_strncpy(datas->name, s2, ft_strlen(s2));
-	datas->name_two = ft_strnew(ft_strlen(s1));
-	ft_strcpy(datas->name_two, s1);
+	datas->name = ft_strinit(s2);
+	datas->name_two = ft_strinit(s1);
 	ft_strdel(&s1);
 	ft_strdel(&s2);
 }
