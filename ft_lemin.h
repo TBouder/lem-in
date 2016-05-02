@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:14:46 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/02 17:13:58 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/02 18:13:20 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ void				ft_algo(t_env *env);
 t_rooms				*ft_find_room(t_rooms *rooms, t_pipes *pipes);
 t_rooms				*ft_find_start(t_rooms *rooms);
 t_rooms				*ft_find_end(t_rooms *rooms);
+t_rooms				*ft_find_room_s(t_rooms *rooms, char *datas);
 
 
 #endif
