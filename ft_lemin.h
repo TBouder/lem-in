@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:14:46 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/02 16:56:48 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/02 17:13:58 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ void				ft_verif_launcher(t_env *env);
 void				ft_print_pipes(t_pipes *pipes);
 void				ft_putstrr(char *str);
 void				ft_print_infos(t_env *env);
+void				ft_print_path(t_path *path);
 
 
 void				ft_algo(t_env *env);
