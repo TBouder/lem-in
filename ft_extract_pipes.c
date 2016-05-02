@@ -63,14 +63,14 @@ static int		ft_pipe_before(t_env *env)
 	if (env->buff[0] == '\0')
 		return (1);
 	str = ft_strsplit(env->buff, '-');
-	if (!ft_cmd(env, str) && ft_dbtablelen(str) == 2)
+	if (!ft_cmd(env, str) && ft_dbstrlen(str) == 2)
 	{
-		if (ft_dbtablelen(str) == 2)
+		if (ft_dbstrlen(str) == 2)
 			verif = ft_launch_extract(env, str, 2);
 	}
 	else
 		verif = 1;
-	ft_freesplit(str);
+	ft_dbstrdel(str);
 	ft_strdel(&env->buff);
 	return (verif);
 }
@@ -124,7 +124,7 @@ int				ft_pipes(t_env *env)
 		str = ft_strsplit(env->buff, '-');
 		if (!ft_cmd(env, str))
 		{
-			if (ft_dbtablelen(str) == 2)
+			if (ft_dbstrlen(str) == 2)
 			{
 				verif = ft_launch_extract(env, str, 2);
 				!verif ? env->map = ft_push_map(&env->map, env->buff) : 0;
@@ -135,7 +135,7 @@ int				ft_pipes(t_env *env)
 				verif = 1;
 		}
 		ft_strdel(&env->buff);
-		ft_freesplit(str);
+		ft_dbstrdel(str);
 	}
 	ft_strdel(&env->buff);
 	return (verif);

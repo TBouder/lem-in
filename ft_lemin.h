@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:14:46 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/02 13:32:26 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/02 15:09:13 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,9 @@ typedef struct		s_path
 
 void				ft_error(t_env *env, char *str);
 long				ft_atoi_onum(char *str);
-int					ft_dbtablelen(char **str);
 char				*ft_push_map(char **s1, char *s2);
 int					ft_cmd(t_env *e, char **str);
 
-void				ft_freesplit(char **str);
 void				ft_free_all(t_env **env, int i);
 void				ft_clear_gnl(t_env *env);
 

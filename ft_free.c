@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 19:11:55 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/28 15:19:35 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/02 14:54:18 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,19 +54,6 @@ void		ft_free_all(t_env **env, int i)
 	}
 	(*env)->rooms = NULL;
 	free(*env);
-}
-
-void		ft_freesplit(char **str)
-{
-	int		i;
-
-	i = 0;
-	while (str[i])
-	{
-		ft_strdel(&str[i]);
-		i++;
-	}
-	free(str);
 }
 
 void		ft_clear_gnl(t_env *env)

@@ -51,7 +51,7 @@ static void	ft_extract_cmd(t_env *env, char **str, int v, char *status)
 		str = ft_strsplit(env->buff, ' ');
 		if (str[0][0] == '#')
 			;
-		else if (ft_dbtablelen(str) != 3)
+		else if (ft_dbstrlen(str) != 3)
 			ft_error(env, "Map {r}error{0} : Start|End room not well formated");
 		else
 		{
@@ -61,7 +61,7 @@ static void	ft_extract_cmd(t_env *env, char **str, int v, char *status)
 		}
 		!ft_cmd(env, str) ? env->map = ft_push_map(&env->map, env->buff) : 0;
 		ft_strdel(&env->buff);
-		ft_freesplit(str);
+		ft_dbstrdel(str);
 	}
 	ft_roomsend(&(ROOMS), datas);
 	ft_strdel(&datas.name);
@@ -107,7 +107,7 @@ void		ft_extract_map(t_env *env, char **str)
 			env->map = ft_push_map(&env->map, env->buff);
 			if (CMP("##start", env->buff) == 0 || CMP("##end", env->buff) == 0)
 				ft_extract_cmd(env, NULL, 0, ft_strnew(ft_strlen(env->buff)));
-			else if (ft_dbtablelen(str) == 3 && ATOICHEK)
+			else if (ft_dbstrlen(str) == 3 && ATOICHEK)
 				ft_launch_extract(env, str, 1);
 			else if (str[0][0] == '#')
 				env->id--;
@@ -116,7 +116,7 @@ void		ft_extract_map(t_env *env, char **str)
 			env->id++;
 		}
 		ft_strdel(&env->buff);
-		ft_freesplit(str);
+		ft_dbstrdel(str);
 	}
 	ft_strdel(&env->buff);
 	ft_verif_launcher(env);
