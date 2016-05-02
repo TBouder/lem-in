@@ -114,12 +114,13 @@ function	ft_errors
 
 function	ft_comments
 {
-	printf "%-50s" "$yellow""Comments : ""$normal"
+	printf "%-50s" "$yellow""comments : ""$normal"
 	for f in lem-in_maps/comment/*
 	do
 		leak=$($leaks ./lem-in < $f)
 		lik=$?
-		comm=$(bash -c 'diff -u <(cat '$f') <(./lem-in < '$f')')
+		len=-$(cat $f | wc -l | tr -d ' ')
+		comm=$(bash -c 'diff -u <(cat '$f') <(./lem-in < '$f' | head '$len')')
 		ft_signal $lik "$comm" $i $f
 		count=$((count + 1))
 	done
@@ -128,17 +129,20 @@ function	ft_comments
 
 function	ft_cmds
 {
-	printf "%-50s" "$yellow""Cmd : ""$normal"
+	printf "%-50s" "$yellow""cmd : ""$normal"
 	for f in lem-in_maps/cmd/*
 	do
 		leak=$($leaks ./lem-in < $f)
 		lik=$?
 		if [ "$(basename $f)" = "cmd_before_end" ]; then
-			comm=$(bash -c 'diff -u <(cat '$WAY'/cmd_trace/cmd_trace_beta) <(./lem-in < '$f')')
+			len=-$(cat lem-in_maps/cmd_trace/cmd_trace_beta | wc -l | tr -d ' ')
+			comm=$(bash -c 'diff -u <(cat '$WAY'/cmd_trace/cmd_trace_beta) <(./lem-in < '$f' | head '$len')')
 		elif [ "$(basename $f)" == "cmd_before_start" ]; then
-			comm=$(bash -c 'diff -u <(cat '$WAY'/cmd_trace/cmd_trace_omega) <(./lem-in < '$f')')
+			len=-$(cat lem-in_maps/cmd_trace/cmd_trace_omega | wc -l | tr -d ' ')
+			comm=$(bash -c 'diff -u <(cat '$WAY'/cmd_trace/cmd_trace_omega) <(./lem-in < '$f' | head '$len')')
 		else
-			comm=$(bash -c 'diff -u <(cat '$WAY'/cmd_trace/cmd_trace_alpha) <(./lem-in < '$f')')
+			len=-$(cat lem-in_maps/cmd_trace/cmd_trace_alpha | wc -l | tr -d ' ')
+			comm=$(bash -c 'diff -u <(cat '$WAY'/cmd_trace/cmd_trace_alpha) <(./lem-in < '$f' | head '$len')')
 		fi
 		ft_signal $lik "$comm" $i $f
 		count=$((count + 1))
@@ -153,7 +157,8 @@ function	ft_pipes_error
 	do
 		leak=$($leaks ./lem-in < $f)
 		lik=$?
-		comm=$(bash -c 'diff -u <(cat '$WAY'/pipes_error_trace/'$(basename $f)') <(./lem-in < '$f')')
+		len=-$(cat lem-in_maps/pipes_error_trace/$(basename $f) | wc -l | tr -d ' ')
+		comm=$(bash -c 'diff -u <(cat '$WAY'/pipes_error_trace/'$(basename $f)') <(./lem-in < '$f' | head '$len')')
 		ft_signal $lik "$comm" $i $f
 		count=$((count + 1))
 	done
@@ -180,9 +185,11 @@ function	ft_logs
 
 # Extract args
 # ---------------------------------------------------------------------------- #
+make fclean && make
 while [ $# -ne 0 ];do
 	if [ "$1" = "leaks" ]; then
 		leaks="sh /Volumes/USB/.files/valgrind/vg-in-place -q --leak-check=full --suppressions=/Volumes/USB/.files/valgrind/osx.supp --error-exitcode=42"
+		null=$($leaks ./lem-in < lem-in_maps/subject0.map)
 	elif [ $1 = "author" ]; then
 		ft_author
 	elif [ $1 = "makefile" ]; then
@@ -196,7 +203,6 @@ while [ $# -ne 0 ];do
 	fi
 	shift
 done
-make fclean && make
 # ---------------------------------------------------------------------------- #
 
 # Process tests
@@ -216,16 +222,3 @@ echo "                       \/       \/"
 echo "                 ___  _@@       @@_  ___"
 echo "                (___)(_)         (_)(___)"
 echo "                //|| ||           || ||\\"
-
-
-
-# echo "\033[33;1mPipe to itself\033[00;0m :" && ./lem-in < lem-in_maps/pipe_to_itself
-# echo "\033[33;1mError middle pipe (Room not found)\033[00;0m :" && ./lem-in < lem-in_maps/error_middle_pipe
-# echo "\033[33;1mSame pipe\033[00;0m :" && ./lem-in < lem-in_maps/same_pipe
-# echo "\033[33;1mSame pipe2\033[00;0m :" && ./lem-in < lem-in_maps/same_pipe2
-# echo "\033[33;1mSame pipe3\033[00;0m :" && ./lem-in < lem-in_maps/same_pipe3
-# echo "\033[33;1mOne map\033[00;0m :" && ./lem-in < lem-in_maps/subject0.map
-# echo "\033[33;1mTwo maps\033[00;0m :" && ./lem-in < lem-in_maps/subject0.map < lem-in_maps/subject1.map
-# echo "\033[33;1mThree maps\033[00;0m :" && ./lem-in < lem-in_maps/subject0.map lem-in_maps/subject1.map lem-in_maps/subject2.map
-# echo "\033[33;1mSpace middle of pipe\033[00;0m :" && ./lem-in < lem-in_maps/space_middle_pipe
-# echo "\033[33;1mSpace after of pipe\033[00;0m :" && ./lem-in < lem-in_maps/space_after_pipe

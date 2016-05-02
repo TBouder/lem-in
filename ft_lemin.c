@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:16:28 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/29 15:46:49 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/02 13:10:44 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,28 +35,33 @@ void		ft_putstrr(char *str)
 
 void		ft_print_infos(t_env *env)
 {
-	ft_printf("Number of ant(s) : %d\n", env->ant);
-	while (ROOMS)
+	t_env	*tmp;
+
+	tmp = env;
+	ft_printf("Number of ant(s) : %d\n", tmp->ant);
+	while (tmp->rooms)
 	{
-		if (ROOMS->pos == 1)
-			ft_printf("{g}%s (%d) {0}: (%d, %d)\n", ROOMS->name, ROOMS->id, ROOMS->x, ROOMS->y);
-		else if (ROOMS->pos == 2)
-			ft_printf("{g}%s (%d) {0}: (%d, %d)\n", ROOMS->name, ROOMS->id, ROOMS->x, ROOMS->y);
+		if (tmp->rooms->pos == 1)
+			ft_printf("{g}%s (%d) {0}: (%d, %d)\n", tmp->rooms->name, tmp->rooms->id, tmp->rooms->x, tmp->rooms->y);
+		else if (tmp->rooms->pos == 2)
+			ft_printf("{g}%s (%d) {0}: (%d, %d)\n", tmp->rooms->name, tmp->rooms->id, tmp->rooms->x, tmp->rooms->y);
 		else
-			ft_printf("{g}%s (%d) {0}: (%d, %d)\n", ROOMS->name, ROOMS->id, ROOMS->x, ROOMS->y);
-		while (ROOMS->pipes_prev)
+			ft_printf("{g}%s (%d) {0}: (%d, %d)\n", tmp->rooms->name, tmp->rooms->id, tmp->rooms->x, tmp->rooms->y);
+		while (tmp->rooms->pipes_prev)
 		{
-			ft_printf("\t{p}Prev pipe{0} : %s\n", ROOMS->pipes_prev->id);
-			ROOMS->pipes_prev = ROOMS->pipes_prev->next;
+			ft_printf("\t{p}Prev pipe{0} : %s\n", tmp->rooms->pipes_prev->id);
+			tmp->rooms->pipes_prev = tmp->rooms->pipes_prev->next;
 		}
-		while (ROOMS->pipes_next)
+		while (tmp->rooms->pipes_next)
 		{
-			ft_printf("\t{b}Next pipe{0} : %s\n", ROOMS->pipes_next->id);
-			ROOMS->pipes_next = ROOMS->pipes_next->next;
+			ft_printf("\t{b}Next pipe{0} : %s\n", tmp->rooms->pipes_next->id);
+			tmp->rooms->pipes_next = tmp->rooms->pipes_next->next;
 		}
-		ROOMS = ROOMS->next;
+		tmp->rooms = tmp->rooms->next;
 	}
 }
+
+//---------------------------/
 
 static void	ft_init_buff(t_env *env, char **str)
 {
@@ -78,11 +83,9 @@ static void	ft_open(t_env *env)
 	while (env->ant == 0 && (fd = get_next_line(env->fd, &env->buff)) == 1)
 	{
 		TEST ? ft_init_buff(env, &str) : 0;
-		if (env->buff[0] == '#')
-			;
-		else if (!ft_isdigit(env->buff[0]))
+		if (env->buff[0] != '#' && !ft_isdigit(env->buff[0]))
 			ft_error(env, "Ant {r}error{0} : must be number > to 0");
-		else
+		else if (env->buff[0] != '#')
 		{
 			env->ant = ft_atoi_onum(env->buff);
 			if (env->ant == -1)
@@ -113,6 +116,11 @@ static int	ft_zero(void)
 	ft_open(env);
 	ft_putstrr(env->map);
 	// ft_print_infos(env);
+
+
+	ft_algo(env);
+
+
 	ft_clear_gnl(env);
 	ft_free_all(&env, 1);
 	return (1);
@@ -137,6 +145,11 @@ static int	ft_more(int ac, char **av)
 		ft_open(env);
 		ft_putstr(env->map);
 		// ft_print_infos(env);
+
+
+		ft_algo(env);
+
+
 		ft_clear_gnl(env);
 		ft_free_all(&env, 1);
 	}
