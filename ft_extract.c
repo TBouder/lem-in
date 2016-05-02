@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 12:28:01 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/01 11:31:27 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/02 15:30:13 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,7 @@ static int	ft_num(char *str)
 
 static void	ft_extract_rooms(t_datas *datas, char **str, t_env *env, int pos)
 {
-	datas->name = ft_strnew(ft_strlen(str[0]));
-	ft_strcpy(datas->name, str[0]);
+	datas->name = ft_strinit(str[0]);
 	if (datas->name[0] == 'L')
 		ft_error(env, "Room {r}error{0} : room name cannot start with 'L'");
 	datas->id = env->id;
