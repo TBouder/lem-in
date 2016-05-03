@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/02 12:07:02 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/03 11:30:35 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/03 11:52:01 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*ft_push_path(char **s1, char *s2)
 	return (str);
 }
 
-void	ft_find_path(t_env *env, t_path *path, t_rooms *r, int i)
+void	ft_find_path_2(t_env *env, t_path *path, t_rooms *r, int i)
 {
 	t_pipes *tmp;
 	char	**str;
@@ -71,38 +71,6 @@ void	ft_find_path(t_env *env, t_path *path, t_rooms *r, int i)
 	}
 }
 
-
-void	ft_find_path_2(t_env *env, t_path *path)
-{
-	t_rooms *rooms;
-	// t_rooms *rooms_TMP;
-	t_pipes *pipes;
-	// char	**str;
-	int		nb;
-
-	rooms = ft_find_room_s(env->rooms, path->path);
-	while (rooms)
-	{
-		pipes = rooms->pipes_next;
-		while (pipes)
-		{
-			nb = 0;
-			ft_printf("Room : {c}%s{0}\t||\tPipe : {r}%s{0}\t||\tPath : {g}%s{0}\n", rooms->name, pipes->id, path->path);
-				// while (nb++ < ft_pipeslen(pipes))
-					// ft_pathsend(&path, path->path);
-				// rooms = ft_find_room(env->rooms, pipes);
-			// path->path = ft_push_path(&path->path, ft_find_room(env->rooms, pipes)->name);
-			pipes = pipes->next;
-		}
-
-		// str = ft_strsplit(path->path, ' ');
-		// rooms_TMP = ft_find_room_s(env->rooms, str[ft_dbstrlen(str) - 1]);
-		// ft_printf("%s\n", rooms_TMP->name);
-		rooms = rooms->next;
-		// ft_dbstrdel(str);
-	}
-}
-
 void	ft_algo(t_env *env)
 {
 	ft_putendl("\n");
@@ -118,8 +86,8 @@ void	ft_algo(t_env *env)
 	while (tmp)
 	{
 		// j = ft_pipeslen(ft_find_room_s(env->rooms, tmp->path)->pipes_next) - 1;
-		// ft_find_path(env, tmp, ft_find_room_s(env->rooms, tmp->path), j);
-		ft_find_path_2(env, path);
+		// ft_find_path_2(env, tmp, ft_find_room_s(env->rooms, tmp->path), j);
+		ft_find_path(env, path);
 		// ft_find_path(env, tmp, ft_find_room(env->rooms, );
 		tmp = tmp->next;
 	}
