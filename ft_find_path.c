@@ -1,0 +1,145 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_find_path.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/05/03 11:51:37 by tbouder           #+#    #+#             */
+/*   Updated: 2016/05/03 15:46:34 by tbouder          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "ft_lemin.h"
+
+/*
+While on est pas a room_end
+	if il y a un seul pipe
+		mettre la salle d'arrivee dans le chemin
+		aller a la salle d'arrivee
+	if il y a plusieurs pipes
+		Enregistrer salle d'arrivee du premier pipe
+		while il y a des pipes
+			mettre la salle d'arrivee du premier pipe dans le chemin courant
+			mettre les autres dans d'autres branches de la liste (non finie donc)
+		aller a la salle d'arrivee du premier pipe
+	if la salle est deja dans le chemin
+		declarer le chemin invalide
+		break
+
+while il y a des chemins valides mais pas sur room_end
+	aller a la premiere salle non finie et valide
+	refaire l'operation de la premiere boucle while
+*/
+
+t_rooms	*ft_error_pipe(t_path *path)
+{
+	path->path = ft_push_path(&path->path, "ERROR");
+	return (NULL);
+}
+
+
+t_rooms	*ft_one_pipe(t_env *env, t_path *path, t_pipes *pipe)
+{
+	char	*r;
+	char	**str;
+
+	path->path = ft_push_path(&path->path, ft_find_room(env->rooms, pipe)->name);
+	str = ft_strsplit(path->path, ' ');
+	r = ft_strinit(str[ft_dbstrlen(str) - 1]);
+	ft_dbstrdel(str);
+
+	return (ft_find_room_s(env->rooms, r));
+}
+
+t_rooms	*ft_mult_pipe(t_env *env, t_path *path, t_pipes *pipes)
+{
+	t_pipes	*p;
+	char	*temp_path;
+	char	**str;
+
+	pipes = pipes->next;
+	p = NULL;
+	while (pipes)
+	{
+		str = ft_strsplit(pipes->id, '-');
+		if (!ft_strstr(path->path, str[1]))
+		{
+			temp_path = ft_strinit(path->path);
+			temp_path = ft_push_path(&temp_path, ft_find_room(env->rooms, pipes)->name);
+			ft_pathsend(&path, temp_path);
+			!p ? p = pipes : 0;
+			ft_strdel(&temp_path);
+		}
+		pipes = pipes->next;
+		ft_dbstrdel(str);
+	}
+	if (p)
+		return (ft_one_pipe(env, path, p));
+	else
+		return (ft_error_pipe(path));
+}
+
+void	ft_find_path(t_env *env, t_path *path)
+{
+	t_rooms *rooms;
+	t_pipes *pipes;
+	char *end;
+
+	rooms = ft_find_room_s(env->rooms, path->path);
+	end = ft_find_end(env->rooms)->name;
+	ft_printf("Start : %s\n", path->path);
+	while (rooms && !ft_strstr(path->path, end))
+	{
+		pipes = rooms->pipes_next;
+		if (ft_pipeslen(pipes) == 1)
+		{
+			rooms = ft_one_pipe(env, path, rooms->pipes_next);
+			ft_printf("One : {b}%s{0}\n", path->path);
+		}
+		else if (ft_pipeslen(pipes) > 1)
+		{
+			rooms = ft_mult_pipe(env, path, rooms->pipes_next);
+			ft_printf("Two : {c}%s{0}\n", path->path);
+		}
+	}
+}
+
+
+
+
+
+// void	ft_find_path(t_env *env, t_path *path)
+// {
+// 	t_rooms *rooms;
+// 	t_pipes *pipes;
+// 	char	**str;
+// 	int		nb;
+//
+// 	rooms = ft_find_room_s(env->rooms, path->path);
+// 	while (rooms)
+// 	{
+// 		pipes = rooms->pipes_next;
+// 		while (pipes)
+// 		{
+// 			str = ft_strsplit(path->path, ' ');
+// 			nb = 0;
+// 			if (!ft_strstr(path->path, ft_find_room(env->rooms, pipes)->name))
+// 			{
+// 				if (ft_pipeslen(pipes) == 1)
+// 				{
+// 					ft_printf("Room : {c}%s{0}\t||\tPipe : {r}%s{0}\t||\tPath : {g}%s{0}\n", rooms->name, pipes->id, path->path);
+// 					path->path = ft_push_path(&path->path, ft_find_room(env->rooms, pipes)->name);
+// 					rooms = ft_find_room_s(rooms, str[ft_dbstrlen(str) - 1]);
+// 				}
+// 				else
+// 				{
+//
+// 				}
+// 			}
+// 			pipes = pipes->next;
+// 			ft_dbstrdel(str);
+// 		}
+// 		rooms = rooms->next;
+// 	}
+// }
