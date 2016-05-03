@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/02 12:07:02 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/03 11:52:01 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/03 12:57:35 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,14 +83,14 @@ void	ft_algo(t_env *env)
 	ft_pathsend(&path, ft_find_start(env->rooms)->name);
 	tmp = path;
 	// int	j = 0;
-	while (tmp)
-	{
+	// while (tmp)
+	// {
 		// j = ft_pipeslen(ft_find_room_s(env->rooms, tmp->path)->pipes_next) - 1;
 		// ft_find_path_2(env, tmp, ft_find_room_s(env->rooms, tmp->path), j);
 		ft_find_path(env, path);
 		// ft_find_path(env, tmp, ft_find_room(env->rooms, );
-		tmp = tmp->next;
-	}
+		// tmp = tmp->next;
+	// }
 
 
 	ft_print_path(path);
