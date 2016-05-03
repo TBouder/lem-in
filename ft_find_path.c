@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 11:51:37 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/03 15:46:34 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/03 15:47:12 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ t_rooms	*ft_error_pipe(t_path *path)
 	path->path = ft_push_path(&path->path, "ERROR");
 	return (NULL);
 }
-
 
 t_rooms	*ft_one_pipe(t_env *env, t_path *path, t_pipes *pipe)
 {
@@ -104,42 +103,3 @@ void	ft_find_path(t_env *env, t_path *path)
 		}
 	}
 }
-
-
-
-
-
-// void	ft_find_path(t_env *env, t_path *path)
-// {
-// 	t_rooms *rooms;
-// 	t_pipes *pipes;
-// 	char	**str;
-// 	int		nb;
-//
-// 	rooms = ft_find_room_s(env->rooms, path->path);
-// 	while (rooms)
-// 	{
-// 		pipes = rooms->pipes_next;
-// 		while (pipes)
-// 		{
-// 			str = ft_strsplit(path->path, ' ');
-// 			nb = 0;
-// 			if (!ft_strstr(path->path, ft_find_room(env->rooms, pipes)->name))
-// 			{
-// 				if (ft_pipeslen(pipes) == 1)
-// 				{
-// 					ft_printf("Room : {c}%s{0}\t||\tPipe : {r}%s{0}\t||\tPath : {g}%s{0}\n", rooms->name, pipes->id, path->path);
-// 					path->path = ft_push_path(&path->path, ft_find_room(env->rooms, pipes)->name);
-// 					rooms = ft_find_room_s(rooms, str[ft_dbstrlen(str) - 1]);
-// 				}
-// 				else
-// 				{
-//
-// 				}
-// 			}
-// 			pipes = pipes->next;
-// 			ft_dbstrdel(str);
-// 		}
-// 		rooms = rooms->next;
-// 	}
-// }
