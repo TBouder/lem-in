@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:14:46 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/03 12:23:03 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/03 22:57:58 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ typedef struct		s_datas
 typedef struct		s_path
 {
 	int				moves;
+	int				moves_max;
 	char			*path;
 	struct s_path	*next;
 }					t_path;
@@ -129,5 +130,7 @@ t_rooms				*ft_find_end(t_rooms *rooms);
 t_rooms				*ft_find_room_s(t_rooms *rooms, char *datas);
 
 void				ft_find_path(t_env *env, t_path *path);
+void				ft_put_max_path(t_path **begin_path, int i);
+int					ft_found_less_path(t_path *path, t_env *env);
 
 #endif

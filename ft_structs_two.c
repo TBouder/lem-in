@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/02 16:54:28 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/03 14:21:07 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/03 22:49:26 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,15 @@
 static t_path	*ft_pathnew(char *datas)
 {
 	t_path	*path;
+	char	**str;
 
 	if (!(path = (t_path *)malloc(sizeof(t_path))))
 		return (NULL);
 	path->path = ft_strinit(datas);
-	path->moves = 0;
+	str = ft_strsplit(datas, ' ');
+	path->moves = ft_dbstrlen(str);
+	path->moves_max = path->moves;
+	ft_dbstrdel(str);
 	path->next = NULL;
 	return (path);
 }
