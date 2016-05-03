@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 11:51:37 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/03 16:40:46 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/03 16:41:19 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,15 +58,8 @@ t_rooms	*ft_mult_pipe(t_env *env, t_path *path, t_pipes *pipes)
 	char	**str;
 
 	p = NULL;
-	p = pipes;
-	while (p)
-	{
-		ft_putendl(p->id);
-		p = p->next;
-	}
-	p = NULL;
 
-	pipes = pipes->next;
+	// pipes = pipes->next;
 
 	while (pipes)
 	{
