@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/02 12:07:02 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/04 14:00:36 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/04 14:30:35 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int		ft_cmp(char *path, char *data_ref)
 		ft_strdel(&str);
 		return (0);
 	}
+	str = NULL;
 	ft_strdel(&str);
 	return (1);
 }
@@ -126,10 +127,14 @@ int		ft_found_less_path(t_path *path, t_env *env)
 	int		i;
 
 	tmp = path;
+	i = 0;
 	while (tmp)
 	{
-		if (tmp->moves < i && !ft_cmp(path->path, ft_find_end(env->rooms)->name))
-			i = tmp->moves;
+		if (tmp->moves < i || i == 0)
+		{
+			if (ft_cmp(tmp->path, ft_find_end(env->rooms)->name))
+				i = tmp->moves;
+		}
 		tmp = tmp->next;
 	}
 	return (i);
@@ -149,11 +154,10 @@ void	ft_algo(t_env *env)
 	ft_putendl("-----------------------------------------------------------------");
 	// ft_put_max_path(&origin, ft_found_less_path(origin, env));
 	ft_find_path(env, path);
+	len = ft_found_less_path(origin, env);
+	ft_put_max_path(origin, len);
 	ft_print_path(path);
 
-	len = ft_found_less_path(origin, env);
-	ft_nbrendl(len);
-	ft_put_max_path(origin, len);
 	ft_putendl("-----------------------------------------------------------------");
 	// path = path->next;
 
