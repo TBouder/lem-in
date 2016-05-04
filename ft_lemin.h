@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:14:46 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/04 15:41:58 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/04 22:40:27 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,13 @@ void				ft_print_pipes(t_pipes *pipes);
 void				ft_putstrr(char *str);
 void				ft_print_infos(t_env *env);
 void				ft_print_path(t_path *path);
+
+
+/*
+** Algo opti
+** 1. Remove all the dead_end (ft_clr_deadend.c)
+*/
+void				ft_purge_useless_rooms(t_rooms **begin_rooms, t_rooms **origin);
 
 
 void				ft_algo(t_env *env);
