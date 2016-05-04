@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:16:28 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/04 19:16:30 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/04 22:26:20 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,28 +109,43 @@ int		ft_useless_pipe(t_rooms *rooms, t_pipes *pipes)
 // }
 //
 
-void 	ft_rooms_remove_if(t_rooms **begin_rooms)
+void ft_useless_pipe_remove_if(t_pipes **begin_pipes, char *str)
 {
-	t_rooms	*tmp;
-	t_rooms	*rooms;
+	t_pipes		*to_free;
 
-	while (*begin_rooms && ft_dead_end(*begin_rooms))
+	if (*begin_pipes)
 	{
-		tmp = *begin_rooms;
-		*begin_rooms = (*begin_rooms)->next;
-		free(tmp);
-	}
-	rooms = *begin_rooms;
-	while (rooms && rooms->next)
-	{
-		if (ft_dead_end(rooms->next))
+		ft_printf("\tLa salle [%s] est presente dans cette salle nous ayant mene a cette impasse\n", (*begin_pipes)->id);
+		if (ft_strequ((*begin_pipes)->id, str))
 		{
-			tmp = rooms->next;
-			rooms->next = tmp->next;
-			free(tmp);
+			ft_printf("\t\tEt nous devons supprimer ce chemin : [%s]\n", (*begin_pipes)->id);
+			to_free = *begin_pipes;
+			*begin_pipes = (*begin_pipes)->next;
+			free(to_free);
+			ft_useless_pipe_remove_if(begin_pipes, str);
 		}
-		if (rooms->next)
-			rooms = rooms->next;
+		else
+			ft_useless_pipe_remove_if(&(*begin_pipes)->next, str);
+	}
+}
+
+void ft_rooms_remove_if(t_rooms **begin_rooms, t_rooms **origin)
+{
+	t_rooms		*to_free;
+
+	if (*begin_rooms)
+	{
+		if (ft_dead_end(*begin_rooms))
+		{
+			// ft_printf("Nous sommes dans une impasse : [%s]. Nous sommes arrives dans cette impasse via [%s]\n", (*begin_rooms)->name, (*begin_rooms)->pipes_next->id);
+			ft_useless_pipe_remove_if(&ft_find_room_s(*origin, (*begin_rooms)->pipes_next->id)->pipes_next, (*begin_rooms)->name);
+			to_free = *begin_rooms;
+			*begin_rooms = (*begin_rooms)->next;
+			free(to_free);
+			ft_rooms_remove_if(begin_rooms, origin);
+		}
+		else
+			ft_rooms_remove_if(&(*begin_rooms)->next, origin);
 	}
 }
 
@@ -148,18 +163,15 @@ static int	ft_zero(void)
 	ft_open(env);
 	// ft_putstrr(env->map);
 
-	ft_rooms_remove_if(&env->rooms);
-	ft_rem(&env->rooms);
+	ft_rooms_remove_if(&env->rooms, &env->rooms);
 	// ft_rooms_remove_if(&env->rooms);
 	// ft_rooms_remove_if(&env->rooms);
 	// ft_rooms_remove_if(&env->rooms);
 	// ft_rooms_remove_if(&env->rooms);
 	// ft_rooms_remove_if(&env->rooms);
-
 
 	// ft_progress(env->rooms, ft_find_start(env->rooms), ft_find_end(env->rooms), -1);
-	// ft_print_infos(env);
-
+	ft_print_infos(env);
 	// ft_algo(env);
 
 	ft_clear_gnl(env);
