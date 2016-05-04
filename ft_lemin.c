@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:16:28 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/04 15:59:09 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/04 16:31:00 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,28 +57,48 @@ static void	ft_open(t_env *env)
 	ft_extract_map(env, NULL);
 }
 
-void	ft_remove_dead_end(t_rooms *rooms)
-{
-	t_rooms *tmp;
-
-	tmp = rooms;
-	while (tmp)
-	{
-		if (tmp->pos == 0 && ft_pipeslen(tmp->pipes_next) == 1)
-			ft_putendl(tmp->name);
-		tmp = tmp->next;
-	}
-}
 
 int		ft_dead_end(t_rooms *rooms)
 {
 	if (rooms->pos == 0 && ft_pipeslen(rooms->pipes_next) == 1)
 		return (1);
-		// ft_putendl(rooms->name);
 	return (0);
 }
 
-void 	ft_rooms_remove_if_error(t_rooms **begin_rooms)
+int		ft_useless_pipe(t_pipes *pipes, char *data)
+{
+	if (ft_strequ(pipes->id, data))
+		return (1);
+	return (0);
+}
+
+void 	ft_remove_empty_pipes(t_rooms **begin_rooms, char *data)
+{
+	// ft_putendl(data); // AFFICHE LES SALLES DELETE
+	t_rooms	*rooms;
+	t_pipes	*tmp;
+	t_pipes	*pipes;
+
+	rooms = *begin_rooms;
+	while (rooms)
+	{
+		pipes = rooms->pipes_next;
+		while (pipes && pipes->next)
+		{
+			if (ft_useless_pipe(pipes->next, data))
+			{
+
+				tmp = pipes->next;
+				pipes->next = tmp->next;
+				free(tmp);
+			}
+			pipes = pipes->next;
+		}
+		rooms = rooms->next;
+	}
+}
+
+void 	ft_rooms_remove_if(t_rooms **begin_rooms)
 {
 	t_rooms	*tmp;
 	t_rooms	*rooms;
@@ -94,6 +114,7 @@ void 	ft_rooms_remove_if_error(t_rooms **begin_rooms)
 	{
 		if (ft_dead_end(rooms->next))
 		{
+			ft_remove_empty_pipes(begin_rooms, rooms->next->name);
 			tmp = rooms->next;
 			rooms->next = tmp->next;
 			free(tmp);
@@ -120,12 +141,18 @@ static int	ft_zero(void)
 	ft_open(env);
 	// ft_putstrr(env->map);
 
-	// ft_progress(env->rooms, ft_find_start(env->rooms), ft_find_end(env->rooms), -1);
+	ft_rooms_remove_if(&env->rooms);
+	ft_rooms_remove_if(&env->rooms);
+	// ft_rooms_remove_if(&env->rooms);
+	// ft_rooms_remove_if(&env->rooms);
+	// ft_rooms_remove_if(&env->rooms);
+	// ft_rooms_remove_if(&env->rooms);
 
-	ft_rooms_remove_if_error(&env->rooms);
-	ft_print_infos(env);
 
-	// ft_algo(env);
+	ft_progress(env->rooms, ft_find_start(env->rooms), ft_find_end(env->rooms), -1);
+	// ft_print_infos(env);
+
+	ft_algo(env);
 
 	ft_clear_gnl(env);
 	ft_free_all(&env, 1);
