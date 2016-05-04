@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:16:28 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/04 15:14:58 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/04 15:59:09 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,55 @@ static void	ft_open(t_env *env)
 	ft_extract_map(env, NULL);
 }
 
+void	ft_remove_dead_end(t_rooms *rooms)
+{
+	t_rooms *tmp;
+
+	tmp = rooms;
+	while (tmp)
+	{
+		if (tmp->pos == 0 && ft_pipeslen(tmp->pipes_next) == 1)
+			ft_putendl(tmp->name);
+		tmp = tmp->next;
+	}
+}
+
+int		ft_dead_end(t_rooms *rooms)
+{
+	if (rooms->pos == 0 && ft_pipeslen(rooms->pipes_next) == 1)
+		return (1);
+		// ft_putendl(rooms->name);
+	return (0);
+}
+
+void 	ft_rooms_remove_if_error(t_rooms **begin_rooms)
+{
+	t_rooms	*tmp;
+	t_rooms	*rooms;
+
+	while (*begin_rooms && ft_dead_end(*begin_rooms))
+	{
+		tmp = *begin_rooms;
+		*begin_rooms = (*begin_rooms)->next;
+		free(tmp);
+	}
+	rooms = *begin_rooms;
+	while (rooms && rooms->next)
+	{
+		if (ft_dead_end(rooms->next))
+		{
+			tmp = rooms->next;
+			rooms->next = tmp->next;
+			free(tmp);
+		}
+		if (rooms->next)
+			rooms = rooms->next;
+	}
+}
+
+
+
+
 static int	ft_zero(void)
 {
 	t_env	*env;
@@ -71,13 +120,12 @@ static int	ft_zero(void)
 	ft_open(env);
 	// ft_putstrr(env->map);
 
-	ft_putendl("COUCPU");
-	ft_progress(env->rooms, ft_find_start(env->rooms), ft_find_end(env->rooms), -1);
-	ft_putendl("COUCPU3");
+	// ft_progress(env->rooms, ft_find_start(env->rooms), ft_find_end(env->rooms), -1);
 
-	// ft_print_infos(env);
+	ft_rooms_remove_if_error(&env->rooms);
+	ft_print_infos(env);
 
-	ft_algo(env);
+	// ft_algo(env);
 
 	ft_clear_gnl(env);
 	ft_free_all(&env, 1);
