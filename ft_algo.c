@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/02 12:07:02 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/04 14:30:35 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/04 14:59:08 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void 	ft_path_remove_if_error(t_path **begin_path)
 			path->next = tmp->next;
 			free(tmp);
 		}
-		if (path->next)
+		else if (path->next)
 			path = path->next;
 	}
 }
@@ -149,27 +149,36 @@ void	ft_algo(t_env *env)
 	int		len;
 
 	path = NULL;
-	ft_pathsend(&path, ft_find_start(env->rooms)->name);
+	ft_pathsend(&path, ft_find_start(env->rooms)->name); // on met la premiere salle dans la liste
 	origin = path;
-	ft_putendl("-----------------------------------------------------------------");
-	// ft_put_max_path(&origin, ft_found_less_path(origin, env));
-	ft_find_path(env, path);
-	len = ft_found_less_path(origin, env);
-	ft_put_max_path(origin, len);
-	ft_print_path(path);
 
 	ft_putendl("-----------------------------------------------------------------");
+	ft_find_path(env, path); //On cherche le meilleur chemin, un passage
+	len = ft_found_less_path(origin, env); // On recup la len max
+	ft_put_max_path(origin, len); // On met la len max partout
+	ft_print_path(path); //Affichage
+	ft_putendl("-----------------------------------------------------------------");
+	// ft_verif_same_path(origin);
+	// ft_path_remove_if_error(&origin);
+	// ft_print_path(path); //Affichage
 	// path = path->next;
 
-	// while (path)
-	// {
-	// 	// ft_printf("{r}%s{0} vs {g}%s{0}\n", str[ft_dbstrlen(str) - 1], ft_find_end(env->rooms)->name);
-	// 		ft_finish_path(env, path);
-	// 	path = path->next;
-	// 	// path = origin;
-	// 	// ft_verif_same_path(origin);
-	// 	// ft_path_remove_if_error(&origin);
-	// }
+	while (path)
+	{
+		// ft_printf("{r}%s{0} vs {g}%s{0}\n", str[ft_dbstrlen(str) - 1], ft_find_end(env->rooms)->name);
+		ft_find_path(env, path);
+		len = ft_found_less_path(origin, env); // On recup la len max
+		ft_put_max_path(origin, len); // On met la len max partout
+		path = path->next;
+	}
+	path = origin;
+	// ft_verif_same_path(origin);
+	// ft_path_remove_if_error(&origin);
 	// ft_print_path(path);
-	// path = origin; ft_path_remove_if_error(&path); ft_path_remove_if_error(&path); ft_print_path(path); origin = path;
+	ft_print_path(path);
+	ft_putendl("-----------------------------------------------------------------");
+	ft_verif_same_path(origin);
+	ft_path_remove_if_error(&path);
+	ft_print_path(path);
+	// path = origin; ft_path_remove_if_error(&path); ft_path_remove_if_error(&path); ft_path_remove_if_error(&path); ft_print_path(path); origin = path;
 }

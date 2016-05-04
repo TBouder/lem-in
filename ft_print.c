@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/02 13:31:12 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/04 12:09:56 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/04 14:36:58 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,9 @@ void		ft_print_infos(t_env *env)
 
 void		ft_print_path(t_path *path)
 {
-	char	**str;
-
 	while (path)
 	{
-		str = ft_strsplit(path->path, ' ');
 		ft_printf("%s : %d moves (max : %d)\n", path->path, path->moves, path->moves_max);
 		path = path->next;
-		ft_dbstrdel(str);
 	}
 }
