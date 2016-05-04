@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/02 13:31:12 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/03 22:18:30 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/04 12:09:56 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,11 @@ void		ft_print_infos(t_env *env)
 	while (tmp->rooms)
 	{
 		if (tmp->rooms->pos == 1)
-			ft_printf("{g}%s (%d) {0}: (%d, %d)\n", tmp->rooms->name, tmp->rooms->id, tmp->rooms->x, tmp->rooms->y);
+			ft_printf("{g}%s (%d) {0}: (%d, %d) || w : {c}%d{0}\n", tmp->rooms->name, tmp->rooms->id, tmp->rooms->x, tmp->rooms->y, tmp->rooms->progress);
 		else if (tmp->rooms->pos == 2)
-			ft_printf("{g}%s (%d) {0}: (%d, %d)\n", tmp->rooms->name, tmp->rooms->id, tmp->rooms->x, tmp->rooms->y);
+			ft_printf("{g}%s (%d) {0}: (%d, %d) || w : {c}%d{0}\n", tmp->rooms->name, tmp->rooms->id, tmp->rooms->x, tmp->rooms->y, tmp->rooms->progress);
 		else
-			ft_printf("{g}%s (%d) {0}: (%d, %d)\n", tmp->rooms->name, tmp->rooms->id, tmp->rooms->x, tmp->rooms->y);
+			ft_printf("{g}%s (%d) {0}: (%d, %d) || w : {c}%d{0}\n", tmp->rooms->name, tmp->rooms->id, tmp->rooms->x, tmp->rooms->y, tmp->rooms->progress);
 		while (tmp->rooms->pipes_prev)
 		{
 			ft_printf("\t{p}Prev pipe{0} : %s\n", tmp->rooms->pipes_prev->id);

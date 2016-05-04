@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/02 12:07:02 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/04 11:49:44 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/04 12:12:31 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,6 @@ void	ft_algo(t_env *env)
 
 	path = origin; ft_path_remove_if_error(&path); ft_path_remove_if_error(&path); ft_print_path(path); origin = path;
 	// ft_put_max_path(&origin, ft_found_less_path(origin, env));
-
 	// ft_print_path(path);
 	origin = path;
 	ft_putendl("-----------------------------------------------------------------");

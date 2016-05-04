@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 11:23:22 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/04 11:44:36 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/04 12:13:48 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static t_rooms	*ft_roomsnew(t_rooms *prev, t_datas datas)
 	rooms->id = datas.id;
 	rooms->name = ft_strinit(datas.name);
 	rooms->pos = datas.pos;
-	rooms->progress = 0;
+	rooms->progress = -1;
 	rooms->x = datas.x;
 	rooms->y = datas.y;
 	rooms->pipes_next = NULL;
