@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:16:28 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/04 12:30:02 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/04 12:59:09 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,17 +46,35 @@ int		ft_test(t_rooms *origin, t_rooms *start, t_rooms *end, int id)
 	if (tmp->progress == -1)
 		tmp->progress = id + 1;
 	ft_apply_progress(tmp, origin);
-	pipes = tmp->pipes_next;
-	while (pipes)
+	while (tmp)
 	{
-		// ft_putstr(tmp->name); ft_putstr(" : "); ft_putstr(pipes->id); ft_putstr(" | "); ft_nbrendl(tmp->progress);
-		// tmp = ft_find_room_s(origin, origin->pipes_next->id);
-		if (tmp->progress == -1)
-			ft_test(origin, tmp, end, id + 1);
+		pipes = tmp->pipes_next;
+		while (pipes)
+		{
+			// ft_putstr(tmp->name); ft_putstr(" : "); ft_putstr(pipes->id); ft_putstr(" | "); ft_nbrendl(tmp->progress);
+			// tmp = ft_find_room_s(origin, origin->pipes_next->id);
 			ft_printf("IN %s FOR %s ID %d\n",tmp->name, pipes->id, tmp->progress);
-		// tmp = start;
-		pipes = pipes->next;
+			// pipes = tmp->pipes_next->next;
+			ft_test(origin, tmp, end, id + 1);
+			pipes = pipes->next;
+		}
+
+		pipes = tmp->pipes_next;
+		while (pipes)
+		{
+			ft_test(origin, ft_find_room_s(origin, pipes->id), end, id + 1);
+			pipes = pipes->next;
+		}
+		tmp = tmp->next;
+
 	}
+	// ft_test(origin, origin, end, id + 1);
+	// tmp = start;
+	// ft_test(origin, tmp, end, id + 1);
+	// tmp = start;
+	// ft_test(origin, tmp, end, id + 1);
+
+
 	return (0);
 }
 
