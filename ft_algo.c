@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/02 12:07:02 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/03 23:21:53 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/04 11:49:44 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int		ft_cmp(char *path, char *data_ref)
 		ft_strdel(&str);
 		return (0);
 	}
+	ft_strdel(&str);
 	return (1);
 }
 
@@ -148,7 +149,7 @@ void	ft_algo(t_env *env)
 	ft_find_path(env, path);
 
 	path = origin; ft_path_remove_if_error(&path); ft_path_remove_if_error(&path); ft_print_path(path); origin = path;
-	ft_put_max_path(&origin, ft_found_less_path(origin, env));
+	// ft_put_max_path(&origin, ft_found_less_path(origin, env));
 
 	// ft_print_path(path);
 	origin = path;
@@ -157,16 +158,16 @@ void	ft_algo(t_env *env)
 	ft_putendl("-----------------------------------------------------------------");
 	// path = path->next;
 
-	while (path)
-	{
-		// ft_printf("{r}%s{0} vs {g}%s{0}\n", str[ft_dbstrlen(str) - 1], ft_find_end(env->rooms)->name);
-		ft_put_max_path(&origin, ft_found_less_path(origin, env));
-			ft_finish_path(env, path);
-		path = path->next;
-		// path = origin;
-		// ft_verif_same_path(origin);
-		// ft_path_remove_if_error(&origin);
-	}
+	// while (path)
+	// {
+	// 	// ft_printf("{r}%s{0} vs {g}%s{0}\n", str[ft_dbstrlen(str) - 1], ft_find_end(env->rooms)->name);
+	// 	ft_put_max_path(&origin, ft_found_less_path(origin, env));
+	// 		ft_finish_path(env, path);
+	// 	path = path->next;
+	// 	// path = origin;
+	// 	// ft_verif_same_path(origin);
+	// 	// ft_path_remove_if_error(&origin);
+	// }
 	// ft_print_path(path);
-	path = origin; ft_path_remove_if_error(&path); ft_path_remove_if_error(&path); ft_print_path(path); origin = path;
+	// path = origin; ft_path_remove_if_error(&path); ft_path_remove_if_error(&path); ft_print_path(path); origin = path;
 }
