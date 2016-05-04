@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:16:28 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/04 23:49:54 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/04 23:53:51 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ static void	ft_open(t_env *env)
 	ft_extract_map(env, NULL);
 }
 
+
+//****************************************************************************//
 int		ft_pipeslen_w(t_rooms *origin, t_pipes *pipes, int id)
 {
 	t_pipes	*tmp;
@@ -92,7 +94,6 @@ t_rooms	*ft_pipesgo_w(t_rooms *origin, t_pipes *pipes)
 	return (NULL);
 }
 
-
 static void	ft_weight(t_rooms *origin, t_rooms *rooms, int id)
 {
 	if (ft_pipeslen_w(origin, rooms->pipes_next, id) == 1)
@@ -110,6 +111,7 @@ static void	ft_weight(t_rooms *origin, t_rooms *rooms, int id)
 		}
 	}
 }
+//****************************************************************************//
 
 static int	ft_zero(void)
 {
