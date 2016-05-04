@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:16:28 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/04 16:31:00 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/04 16:44:21 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int		ft_useless_pipe(t_pipes *pipes, char *data)
 
 void 	ft_remove_empty_pipes(t_rooms **begin_rooms, char *data)
 {
-	// ft_putendl(data); // AFFICHE LES SALLES DELETE
+	ft_putendl(data); // AFFICHE LES SALLES DELETE
 	t_rooms	*rooms;
 	t_pipes	*tmp;
 	t_pipes	*pipes;
@@ -83,11 +83,17 @@ void 	ft_remove_empty_pipes(t_rooms **begin_rooms, char *data)
 	while (rooms)
 	{
 		pipes = rooms->pipes_next;
+		while (pipes && ft_useless_pipe(pipes->next, data))
+		{
+			tmp = pipes;
+			pipes = (pipes)->next;
+			free(tmp);
+		}
 		while (pipes && pipes->next)
 		{
 			if (ft_useless_pipe(pipes->next, data))
 			{
-
+				ft_putstr("\t");ft_putendl(pipes->next->id); // AFFICHE LES SALLES DELETE
 				tmp = pipes->next;
 				pipes->next = tmp->next;
 				free(tmp);
@@ -149,7 +155,7 @@ static int	ft_zero(void)
 	// ft_rooms_remove_if(&env->rooms);
 
 
-	ft_progress(env->rooms, ft_find_start(env->rooms), ft_find_end(env->rooms), -1);
+	// ft_progress(env->rooms, ft_find_start(env->rooms), ft_find_end(env->rooms), -1);
 	// ft_print_infos(env);
 
 	ft_algo(env);
