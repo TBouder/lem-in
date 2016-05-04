@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:16:28 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/04 19:03:58 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/04 19:16:30 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,14 @@ int		ft_dead_end(t_rooms *rooms)
 	return (0);
 }
 
-int		ft_useless_pipe(t_pipes *pipes, char *data)
+int		ft_useless_pipe(t_rooms *rooms, t_pipes *pipes)
 {
-	if (ft_strequ(pipes->id, data))
-		return (1);
+	while (pipes)
+	{
+		if (ft_find_room_s(rooms, pipes->id) == NULL)
+			return (1);
+		pipes = pipes->next;
+	}
 	return (0);
 }
 
@@ -105,47 +109,6 @@ int		ft_useless_pipe(t_pipes *pipes, char *data)
 // }
 //
 
-void 	ft_remove_empty_pipes(t_rooms *rooms, t_pipes *pipe)
-{
-	t_pipes	*tmp;
-	t_pipes	*p;
-
-	// ft_printf("Salle sans issus : %s | Acces par : %s\n", rooms->next->name, rooms->next->pipes_next->id);
-	if (ft_strequ(rooms->next->name, pipe->id))
-	{
-		ft_printf("{c}Salle sans issus : %s | Acces par : %s{0}\n", rooms->next->name, pipe->id);
-		tmp = pipe;
-		pipe = pipe->next;
-		free(tmp);
-	}
-	else
-	{
-		p = pipe;
-		while (p && p->next)
-		{
-			ft_printf("{b}Salle sans issus : %s | Acces par : %s{0}\n", rooms->next->name, p->id);
-			// ft_putstr(p->id); ft_putstr(" : "); ft_putendl(rooms->name);
-			// ft_nbrendl(ft_strequ(p->id, rooms->name));
-			if (ft_strequ(rooms->next->name, p->id))
-			{
-				// ft_putendl(tmp->id);
-				tmp = p->next;
-				p->next = tmp->next;
-				free(tmp);
-			}
-			if (p->next)
-				p = p->next;
-		}
-		if (ft_strequ(rooms->next->name, p->id))
-		{
-			ft_printf("{y}Salle sans issus : %s | Acces par : %s{0}\n", rooms->next->name, p->id);
-			tmp = p->next;
-			p->next = NULL;
-			free(tmp);
-		}
-	}
-}
-
 void 	ft_rooms_remove_if(t_rooms **begin_rooms)
 {
 	t_rooms	*tmp;
@@ -160,31 +123,16 @@ void 	ft_rooms_remove_if(t_rooms **begin_rooms)
 	rooms = *begin_rooms;
 	while (rooms && rooms->next)
 	{
-		ft_printf("{r}Salle sans issus : %s | Acces par : x{0}\n", rooms->next->name);
 		if (ft_dead_end(rooms->next))
 		{
-			t_pipes *pipes;
-			//Il faut trouver la salle vers laquelle pointe rooms->next->name
-			//rooms->next->pipes_next->id POINTE VERS rooms->next->name
-			pipes = ft_find_room_s(*begin_rooms, rooms->next->pipes_next->id)->pipes_next;
-			ft_remove_empty_pipes(rooms, pipes);
-			if (rooms->next)
-				tmp = rooms->next;
+			tmp = rooms->next;
 			rooms->next = tmp->next;
 			free(tmp);
 		}
-		if (!rooms || rooms->next == NULL)
-		{
-			ft_printf("{g}Salle sans issus : %s | Acces par : x{0}\n", rooms->next->name);
-			break ;
-		}
-		if (rooms && rooms->next)
+		if (rooms->next)
 			rooms = rooms->next;
 	}
 }
-
-
-
 
 static int	ft_zero(void)
 {
@@ -201,6 +149,7 @@ static int	ft_zero(void)
 	// ft_putstrr(env->map);
 
 	ft_rooms_remove_if(&env->rooms);
+	ft_rem(&env->rooms);
 	// ft_rooms_remove_if(&env->rooms);
 	// ft_rooms_remove_if(&env->rooms);
 	// ft_rooms_remove_if(&env->rooms);
@@ -214,7 +163,7 @@ static int	ft_zero(void)
 	// ft_algo(env);
 
 	ft_clear_gnl(env);
-	ft_free_all(&env, 1);
+	// ft_free_all(&env, 1);
 	return (1);
 }
 
