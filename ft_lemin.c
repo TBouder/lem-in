@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:16:28 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/04 17:29:06 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/04 18:02:47 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,14 +105,33 @@ int		ft_useless_pipe(t_pipes *pipes, char *data)
 // }
 //
 
-void 	ft_remove_empty_pipes(t_rooms *rooms)
+void 	ft_remove_empty_pipes(t_rooms *rooms, t_pipes *pipe)
 {
-	ft_putendl(ft_find_room_s(rooms, rooms->pipes_next->id)->name); // AFFICHE LES SALLES DELETE
-	ft_putstr(rooms->name); // AFFICHE LES SALLES DELETE
-	ft_putstr(" : ");
-	// ft_nbrendl(ft_pipeslen(rooms->pipes_next));
-	ft_putendl(rooms->pipes_next->id); // AFFICHE LES SALLES DELETE
+	t_pipes	*tmp;
+	t_pipes	*p;
 
+	ft_putendl("ICI ?");
+	while (ft_strequ((pipe)->id, rooms->name))
+	{
+		tmp = pipe;
+		pipe = (pipe)->next;
+		free(tmp);
+	}
+	p = pipe;
+	while (p && p->next)
+	{
+		// ft_putstr(p->id); ft_putstr(" : "); ft_putendl(rooms->name);
+		ft_nbrendl(ft_strequ(p->id, rooms->name));
+		// if (ft_strequ(p->id, rooms->name))
+		// {
+		// 	ft_putendl(tmp->id);
+		// 	// tmp = p->next;
+		// 	// p->next = tmp->next;
+		// 	// free(tmp);
+		// }
+		if (p->next)
+			p = p->next;
+	}
 }
 
 void 	ft_rooms_remove_if(t_rooms **begin_rooms)
@@ -131,9 +150,17 @@ void 	ft_rooms_remove_if(t_rooms **begin_rooms)
 	{
 		if (ft_dead_end(rooms->next))
 		{
+			ft_putendl(rooms->next->name);
+			ft_putendl(rooms->pipes_next->id);
+			// t_rooms *r = ft_find_room_s(*begin_rooms, rooms->pipes_next->id);
+			// ft_putendl(r->name);
+
+
 			// ft_remove_empty_pipes(begin_rooms, rooms->next->name);
-			ft_remove_empty_pipes(rooms->next);
-			// ft_putendl(rooms->next->name);
+			// ft_printf("{r}PASSAGE{0}\n");
+			// t_pipes *lll = ft_find_room_s(*begin_rooms, rooms->pipes_next->id)->pipes_next;
+			// ft_putendl(lll->id);
+			// ft_remove_empty_pipes(rooms->next, lll);
 			tmp = rooms->next;
 			rooms->next = tmp->next;
 			free(tmp);
@@ -161,7 +188,7 @@ static int	ft_zero(void)
 	// ft_putstrr(env->map);
 
 	ft_rooms_remove_if(&env->rooms);
-	ft_rooms_remove_if(&env->rooms);
+	// ft_rooms_remove_if(&env->rooms);
 	// ft_rooms_remove_if(&env->rooms);
 	// ft_rooms_remove_if(&env->rooms);
 	// ft_rooms_remove_if(&env->rooms);
@@ -169,9 +196,9 @@ static int	ft_zero(void)
 
 
 	// ft_progress(env->rooms, ft_find_start(env->rooms), ft_find_end(env->rooms), -1);
-	// ft_print_infos(env);
+	ft_print_infos(env);
 
-	ft_algo(env);
+	// ft_algo(env);
 
 	ft_clear_gnl(env);
 	ft_free_all(&env, 1);
