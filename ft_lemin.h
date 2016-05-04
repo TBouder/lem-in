@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:14:46 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/03 22:57:58 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/04 09:17:34 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct		s_rooms
 {
 	int				id;
 	int				pos;
+	int				progress;
 	char			*name;
 	int				x;
 	int				y;
