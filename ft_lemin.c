@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:16:28 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/04 12:59:09 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/04 13:28:31 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,48 +33,33 @@ void	ft_apply_progress(t_rooms *rooms, t_rooms *origin)
 	}
 }
 
-int		ft_test(t_rooms *origin, t_rooms *start, t_rooms *end, int id)
+int		ft_progress(t_rooms *origin, t_rooms *start, t_rooms *end, int id)
 {
-	t_rooms	*tmp;
 	t_pipes	*pipes;
 
-	tmp = start;
-	if (end->progress != -1)
-		return (2);
-	if (tmp->progress != id)
+	if (end->progress != -1 || start->progress != id)
 		return (1);
-	if (tmp->progress == -1)
-		tmp->progress = id + 1;
-	ft_apply_progress(tmp, origin);
-	while (tmp)
+	start->progress == -1 ? start->progress = id + 1 : 0;
+	ft_apply_progress(start, origin);
+	while (start)
 	{
-		pipes = tmp->pipes_next;
+		pipes = start->pipes_next;
 		while (pipes)
 		{
-			// ft_putstr(tmp->name); ft_putstr(" : "); ft_putstr(pipes->id); ft_putstr(" | "); ft_nbrendl(tmp->progress);
-			// tmp = ft_find_room_s(origin, origin->pipes_next->id);
-			ft_printf("IN %s FOR %s ID %d\n",tmp->name, pipes->id, tmp->progress);
-			// pipes = tmp->pipes_next->next;
-			ft_test(origin, tmp, end, id + 1);
+			ft_progress(origin, start, end, id + 1);
 			pipes = pipes->next;
 		}
-
-		pipes = tmp->pipes_next;
+		pipes = start->pipes_next;
 		while (pipes)
 		{
-			ft_test(origin, ft_find_room_s(origin, pipes->id), end, id + 1);
+			t_rooms *tstart;
+			tstart = ft_find_room_s(origin, pipes->id);
+			start->progress < tstart->progress ? ft_progress(origin, tstart, end, id) : 0;
+			start->progress > tstart->progress ? ft_progress(origin, tstart, end, id + 1) : 0;
 			pipes = pipes->next;
 		}
-		tmp = tmp->next;
-
+		start = start->next;
 	}
-	// ft_test(origin, origin, end, id + 1);
-	// tmp = start;
-	// ft_test(origin, tmp, end, id + 1);
-	// tmp = start;
-	// ft_test(origin, tmp, end, id + 1);
-
-
 	return (0);
 }
 
@@ -131,7 +116,7 @@ static int	ft_zero(void)
 	ft_open(env);
 	// ft_putstrr(env->map);
 
-	ft_test(env->rooms, ft_find_start(env->rooms), ft_find_end(env->rooms), -1);
+	ft_progress(env->rooms, ft_find_start(env->rooms), ft_find_end(env->rooms), -1);
 
 	ft_print_infos(env);
 
