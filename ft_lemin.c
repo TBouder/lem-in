@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:16:28 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/04 14:32:27 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/04 15:14:58 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,11 @@ static int	ft_zero(void)
 	env->id = 0;
 	ROOMS = NULL;
 	ft_open(env);
-	ft_putstrr(env->map);
+	// ft_putstrr(env->map);
 
+	ft_putendl("COUCPU");
 	ft_progress(env->rooms, ft_find_start(env->rooms), ft_find_end(env->rooms), -1);
+	ft_putendl("COUCPU3");
 
 	// ft_print_infos(env);
 
