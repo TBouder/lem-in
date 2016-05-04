@@ -6,13 +6,13 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 12:06:13 by tbouder           #+#    #+#             */
-/*   Updated: 2016/04/28 15:18:51 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/04 18:26:14 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_lemin.h"
 
-static int	ft_verifdup_pipe_next(t_rooms pipes, char *str)
+static int	ft_verifdup_pipe(t_rooms pipes, char *str)
 {
 	while (pipes.pipes_next)
 	{
@@ -23,36 +23,12 @@ static int	ft_verifdup_pipe_next(t_rooms pipes, char *str)
 	return (0);
 }
 
-static int	ft_verifdup_pipe_prev(t_rooms pipes, char *str)
-{
-	while (pipes.pipes_prev)
-	{
-		if (!ft_strcmp(pipes.pipes_prev->id, str))
-			return (1);
-		pipes.pipes_prev = pipes.pipes_prev->next;
-	}
-	return (0);
-}
-
 int			ft_verif_duplicates_pipes(t_rooms pipes, t_datas datas)
 {
 	char *str;
 
-	str = ft_strnew(ft_strlen(datas.name) + ft_strlen(datas.name_two) + 4);
-	ft_strcpy(str, datas.name);
-	ft_strcat(str, " - ");
-	ft_strcat(str, datas.name_two);
-	if (ft_verifdup_pipe_next(pipes, str) || ft_verifdup_pipe_prev(pipes, str))
-	{
-		ft_strdel(&str);
-		return (1);
-	}
-	ft_strdel(&str);
-	str = ft_strnew(ft_strlen(datas.name) + ft_strlen(datas.name_two) + 4);
-	ft_strcpy(str, datas.name_two);
-	ft_strcat(str, " - ");
-	ft_strcat(str, datas.name);
-	if (ft_verifdup_pipe_next(pipes, str) || ft_verifdup_pipe_prev(pipes, str))
+	str = ft_strinit(datas.name_two);
+	if (ft_verifdup_pipe(pipes, str))
 	{
 		ft_strdel(&str);
 		return (1);
