@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:16:28 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/04 16:44:21 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/04 17:29:06 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,36 +72,47 @@ int		ft_useless_pipe(t_pipes *pipes, char *data)
 	return (0);
 }
 
-void 	ft_remove_empty_pipes(t_rooms **begin_rooms, char *data)
-{
-	ft_putendl(data); // AFFICHE LES SALLES DELETE
-	t_rooms	*rooms;
-	t_pipes	*tmp;
-	t_pipes	*pipes;
+// void 	ft_remove_empty_pipes(t_rooms **begin_rooms, char *data)
+// {
+// 	ft_putendl(data); // AFFICHE LES SALLES DELETE
+// 	t_rooms	*rooms;
+// 	t_pipes	*tmp;
+// 	t_pipes	*pipes;
+//
+// 	rooms = *begin_rooms;
+// 	while (rooms)
+// 	{
+// 		pipes = rooms->pipes_next;
+// 		while (pipes && ft_useless_pipe(pipes->next, data))
+// 		{
+// 			tmp = pipes;
+// 			pipes = (pipes)->next;
+// 			free(tmp);
+// 		}
+// 		while (pipes && pipes->next)
+// 		{
+// 			if (ft_useless_pipe(pipes->next, data))
+// 			{
+// 				ft_putstr("\t");ft_putendl(pipes->next->id); // AFFICHE LES SALLES DELETE
+// 				tmp = pipes->next;
+// 				pipes->next = tmp->next;
+// 				free(tmp);
+// 			}
+// 			pipes = pipes->next;
+// 		}
+// 		rooms = rooms->next;
+// 	}
+// }
+//
 
-	rooms = *begin_rooms;
-	while (rooms)
-	{
-		pipes = rooms->pipes_next;
-		while (pipes && ft_useless_pipe(pipes->next, data))
-		{
-			tmp = pipes;
-			pipes = (pipes)->next;
-			free(tmp);
-		}
-		while (pipes && pipes->next)
-		{
-			if (ft_useless_pipe(pipes->next, data))
-			{
-				ft_putstr("\t");ft_putendl(pipes->next->id); // AFFICHE LES SALLES DELETE
-				tmp = pipes->next;
-				pipes->next = tmp->next;
-				free(tmp);
-			}
-			pipes = pipes->next;
-		}
-		rooms = rooms->next;
-	}
+void 	ft_remove_empty_pipes(t_rooms *rooms)
+{
+	ft_putendl(ft_find_room_s(rooms, rooms->pipes_next->id)->name); // AFFICHE LES SALLES DELETE
+	ft_putstr(rooms->name); // AFFICHE LES SALLES DELETE
+	ft_putstr(" : ");
+	// ft_nbrendl(ft_pipeslen(rooms->pipes_next));
+	ft_putendl(rooms->pipes_next->id); // AFFICHE LES SALLES DELETE
+
 }
 
 void 	ft_rooms_remove_if(t_rooms **begin_rooms)
@@ -120,7 +131,9 @@ void 	ft_rooms_remove_if(t_rooms **begin_rooms)
 	{
 		if (ft_dead_end(rooms->next))
 		{
-			ft_remove_empty_pipes(begin_rooms, rooms->next->name);
+			// ft_remove_empty_pipes(begin_rooms, rooms->next->name);
+			ft_remove_empty_pipes(rooms->next);
+			// ft_putendl(rooms->next->name);
 			tmp = rooms->next;
 			rooms->next = tmp->next;
 			free(tmp);
