@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 11:51:37 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/04 11:49:12 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/04 13:57:00 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,30 +66,31 @@ t_rooms	*ft_one_pipe(t_env *env, t_path *path, t_pipes *pipe)
 	return (ft_find_room_s(env->rooms, r));
 }
 
-t_rooms	*ft_mult_pipe(t_env *env, t_path *path, t_pipes *pipes)
+t_rooms	*ft_mult_pipe(t_env *env, t_path *path, t_pipes *pipes, t_rooms *rooms)
 {
 	t_pipes	*p;
 	char	*temp_path;
-	// char	*s;
 
 	p = NULL;
 	// pipes = pipes->next;
 	while (pipes)
 	{
-		if (!ft_strstr(path->path, pipes->id) && path->moves_max < path->moves + 1)
+		if (rooms->progress < ft_find_room_s(ROOMS, pipes->id)->progress)
 		{
-			temp_path = ft_strinit(path->path);
-			temp_path = ft_push_path(&temp_path, ft_find_room(env->rooms, pipes)->name);
-			ft_pathsend(&path, temp_path);
-			!p ? p = pipes : 0;
-			ft_strdel(&temp_path);
+			if (!ft_strstr(path->path, pipes->id) && path->moves_max < path->moves + 1)
+			{
+				// ft_printf("%d vs %d : %s vs %s\n", rooms->progress, ft_find_room_s(ROOMS, pipes->id)->progress, rooms->name, ft_find_room_s(ROOMS, pipes->id)->name);
+				temp_path = ft_strinit(path->path);
+				temp_path = ft_push_path(&temp_path, ft_find_room(env->rooms, pipes)->name);
+				ft_pathsend(&path, temp_path);
+				!p ? p = pipes : 0;
+				ft_strdel(&temp_path);
+			}
 		}
 		pipes = pipes->next;
 	}
 	if (p)
-	{
 		return (ft_one_pipe(env, path, p));
-	}
 	else
 		return (ft_error_pipe(path));
 }
@@ -108,16 +109,13 @@ void	ft_find_path(t_env *env, t_path *path)
 		pipes = rooms->pipes_next;
 		if (ft_pipeslen(pipes) == 1)
 		{
-			ft_printf("{b}%d{0} vs {c}%d{0}\n", path->moves_max, path->moves);
+			// ft_printf("{b}%d{0} vs {c}%d{0}\n", path->moves_max, path->moves);
 			rooms = ft_one_pipe(env, path, rooms->pipes_next);
-			// ft_printf("One : {b}%s{0}\n", path->path);
 		}
 		else if (ft_pipeslen(pipes) > 1)
 		{
 			// ft_printf("{c}%d{0} vs {b}%d{0}\n", path->moves_max < path->moves + 1);
-			rooms = ft_mult_pipe(env, path, rooms->pipes_next);
-
-			// ft_printf("Two : {c}%s{0}\n", path->path);
+			rooms = ft_mult_pipe(env, path, rooms->pipes_next, rooms);
 		}
 	}
 }
