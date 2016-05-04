@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:16:28 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/04 22:26:20 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/04 23:49:54 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,95 +57,57 @@ static void	ft_open(t_env *env)
 	ft_extract_map(env, NULL);
 }
 
-
-int		ft_dead_end(t_rooms *rooms)
+int		ft_pipeslen_w(t_rooms *origin, t_pipes *pipes, int id)
 {
-	if (rooms->pos == 0 && ft_pipeslen(rooms->pipes_next) == 1)
-		return (1);
-	return (0);
-}
+	t_pipes	*tmp;
+	int		prev_id;
+	int		i;
 
-int		ft_useless_pipe(t_rooms *rooms, t_pipes *pipes)
-{
-	while (pipes)
+	id = 0;
+	i = 0;
+	tmp = pipes;
+	while (tmp)
 	{
-		if (ft_find_room_s(rooms, pipes->id) == NULL)
-			return (1);
-		pipes = pipes->next;
+		prev_id = ft_find_room_s(origin, tmp->id)->progress;
+		if (prev_id == -1)
+			i++;
+		tmp = tmp->next;
 	}
-	return (0);
+	return (i);
 }
 
-// void 	ft_remove_empty_pipes(t_rooms **begin_rooms, char *data)
-// {
-// 	ft_putendl(data); // AFFICHE LES SALLES DELETE
-// 	t_rooms	*rooms;
-// 	t_pipes	*tmp;
-// 	t_pipes	*pipes;
-//
-// 	rooms = *begin_rooms;
-// 	while (rooms)
-// 	{
-// 		pipes = rooms->pipes_next;
-// 		while (pipes && ft_useless_pipe(pipes->next, data))
-// 		{
-// 			tmp = pipes;
-// 			pipes = (pipes)->next;
-// 			free(tmp);
-// 		}
-// 		while (pipes && pipes->next)
-// 		{
-// 			if (ft_useless_pipe(pipes->next, data))
-// 			{
-// 				ft_putstr("\t");ft_putendl(pipes->next->id); // AFFICHE LES SALLES DELETE
-// 				tmp = pipes->next;
-// 				pipes->next = tmp->next;
-// 				free(tmp);
-// 			}
-// 			pipes = pipes->next;
-// 		}
-// 		rooms = rooms->next;
-// 	}
-// }
-//
-
-void ft_useless_pipe_remove_if(t_pipes **begin_pipes, char *str)
+t_rooms	*ft_pipesgo_w(t_rooms *origin, t_pipes *pipes)
 {
-	t_pipes		*to_free;
+	t_pipes	*tmp;
+	int		prev_id;
 
-	if (*begin_pipes)
+	tmp = pipes;
+	while (tmp)
 	{
-		ft_printf("\tLa salle [%s] est presente dans cette salle nous ayant mene a cette impasse\n", (*begin_pipes)->id);
-		if (ft_strequ((*begin_pipes)->id, str))
-		{
-			ft_printf("\t\tEt nous devons supprimer ce chemin : [%s]\n", (*begin_pipes)->id);
-			to_free = *begin_pipes;
-			*begin_pipes = (*begin_pipes)->next;
-			free(to_free);
-			ft_useless_pipe_remove_if(begin_pipes, str);
-		}
-		else
-			ft_useless_pipe_remove_if(&(*begin_pipes)->next, str);
+		prev_id = ft_find_room_s(origin, tmp->id)->progress;
+		if (prev_id == -1)
+			return (ft_find_room_s(origin, tmp->id));
+		tmp = tmp->next;
 	}
+	return (NULL);
 }
 
-void ft_rooms_remove_if(t_rooms **begin_rooms, t_rooms **origin)
-{
-	t_rooms		*to_free;
 
-	if (*begin_rooms)
+static void	ft_weight(t_rooms *origin, t_rooms *rooms, int id)
+{
+	if (ft_pipeslen_w(origin, rooms->pipes_next, id) == 1)
 	{
-		if (ft_dead_end(*begin_rooms))
+		rooms->progress = id;
+		ft_weight(origin, ft_pipesgo_w(origin, rooms->pipes_next), id + 1);
+	}
+	else
+	{
+		ft_putendl(rooms->name);
+		while (rooms->pipes_next)
 		{
-			// ft_printf("Nous sommes dans une impasse : [%s]. Nous sommes arrives dans cette impasse via [%s]\n", (*begin_rooms)->name, (*begin_rooms)->pipes_next->id);
-			ft_useless_pipe_remove_if(&ft_find_room_s(*origin, (*begin_rooms)->pipes_next->id)->pipes_next, (*begin_rooms)->name);
-			to_free = *begin_rooms;
-			*begin_rooms = (*begin_rooms)->next;
-			free(to_free);
-			ft_rooms_remove_if(begin_rooms, origin);
+			ft_putendl(rooms->pipes_next->id);
+			rooms->pipes_next = rooms->pipes_next->next;
 		}
-		else
-			ft_rooms_remove_if(&(*begin_rooms)->next, origin);
 	}
 }
 
@@ -162,14 +124,10 @@ static int	ft_zero(void)
 	ROOMS = NULL;
 	ft_open(env);
 	// ft_putstrr(env->map);
+	// ft_print_infos(env);
 
-	ft_rooms_remove_if(&env->rooms, &env->rooms);
-	// ft_rooms_remove_if(&env->rooms);
-	// ft_rooms_remove_if(&env->rooms);
-	// ft_rooms_remove_if(&env->rooms);
-	// ft_rooms_remove_if(&env->rooms);
-	// ft_rooms_remove_if(&env->rooms);
-
+	// ft_purge_useless_rooms(&env->rooms, &env->rooms);
+	ft_weight(env->rooms, env->rooms, 0);
 	// ft_progress(env->rooms, ft_find_start(env->rooms), ft_find_end(env->rooms), -1);
 	ft_print_infos(env);
 	// ft_algo(env);
