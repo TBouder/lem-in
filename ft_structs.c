@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 11:23:22 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/04 09:17:52 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/04 11:44:36 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,10 @@ static t_pipes	*ft_pipesnew(t_pipes *prev, t_datas datas)
 
 	if (!(pipes = (t_pipes *)malloc(sizeof(t_pipes))))
 		return (NULL);
-	str = ft_strnew(ft_strlen(datas.name) + ft_strlen(datas.name_two) + 2);
-	ft_strcpy(str, datas.name);
-	ft_strcat(str, "-");
-	ft_strcat(str, datas.name_two);
+	// str = ft_strnew(ft_strlen(datas.name) + ft_strlen(datas.name_two) + 2);
+	// ft_strcpy(str, datas.name);
+	// ft_strcat(str, "-");
+	str = ft_strinit(datas.name_two);
 	pipes->id = ft_strinit(str);
 	pipes->ant = 0;
 	pipes->occuped = 0;

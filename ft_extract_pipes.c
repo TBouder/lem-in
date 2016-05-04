@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/25 13:27:41 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/03 19:04:38 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/04 11:43:40 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static int		ft_pipe_before(t_env *env)
 void			ft_extract_pipes(t_datas *datas, char **str)
 {
 	datas->name = ft_strnew(ft_strlen(str[0]));
-	ft_strncpy(datas->name, str[0], ft_strlen(str[0]));
+	ft_strcpy(datas->name, str[0]);
 	datas->name_two = ft_strnew(ft_strlen(str[1]));
 	ft_strcpy(datas->name_two, str[1]);
 }

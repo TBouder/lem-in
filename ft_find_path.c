@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 11:51:37 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/03 23:21:47 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/04 11:49:12 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,15 +70,13 @@ t_rooms	*ft_mult_pipe(t_env *env, t_path *path, t_pipes *pipes)
 {
 	t_pipes	*p;
 	char	*temp_path;
-	char	**str;
 	// char	*s;
 
 	p = NULL;
 	// pipes = pipes->next;
 	while (pipes)
 	{
-		str = ft_strsplit(pipes->id, '-');
-		if (!ft_strstr(path->path, str[1]) && path->moves_max < path->moves + 1)
+		if (!ft_strstr(path->path, pipes->id) && path->moves_max < path->moves + 1)
 		{
 			temp_path = ft_strinit(path->path);
 			temp_path = ft_push_path(&temp_path, ft_find_room(env->rooms, pipes)->name);
@@ -87,7 +85,6 @@ t_rooms	*ft_mult_pipe(t_env *env, t_path *path, t_pipes *pipes)
 			ft_strdel(&temp_path);
 		}
 		pipes = pipes->next;
-		ft_dbstrdel(str);
 	}
 	if (p)
 	{
@@ -101,7 +98,7 @@ void	ft_find_path(t_env *env, t_path *path)
 {
 	t_rooms *rooms;
 	t_pipes *pipes;
-	char *end;
+	char 	*end;
 
 	rooms = ft_find_room_s(env->rooms, path->path);
 	end = ft_find_end(env->rooms)->name;
