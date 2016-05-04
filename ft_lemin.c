@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:16:28 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/04 18:02:47 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/04 18:33:16 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,6 @@ void 	ft_remove_empty_pipes(t_rooms *rooms, t_pipes *pipe)
 	t_pipes	*tmp;
 	t_pipes	*p;
 
-	ft_putendl("ICI ?");
 	while (ft_strequ((pipe)->id, rooms->name))
 	{
 		tmp = pipe;
@@ -121,14 +120,14 @@ void 	ft_remove_empty_pipes(t_rooms *rooms, t_pipes *pipe)
 	while (p && p->next)
 	{
 		// ft_putstr(p->id); ft_putstr(" : "); ft_putendl(rooms->name);
-		ft_nbrendl(ft_strequ(p->id, rooms->name));
-		// if (ft_strequ(p->id, rooms->name))
-		// {
-		// 	ft_putendl(tmp->id);
-		// 	// tmp = p->next;
-		// 	// p->next = tmp->next;
-		// 	// free(tmp);
-		// }
+		// ft_nbrendl(ft_strequ(p->id, rooms->name));
+		if (ft_strequ(p->id, rooms->name))
+		{
+			ft_putendl(tmp->id);
+			// tmp = p->next;
+			// p->next = tmp->next;
+			// free(tmp);
+		}
 		if (p->next)
 			p = p->next;
 	}
@@ -150,17 +149,21 @@ void 	ft_rooms_remove_if(t_rooms **begin_rooms)
 	{
 		if (ft_dead_end(rooms->next))
 		{
-			ft_putendl(rooms->next->name);
-			ft_putendl(rooms->pipes_next->id);
-			// t_rooms *r = ft_find_room_s(*begin_rooms, rooms->pipes_next->id);
-			// ft_putendl(r->name);
+			//Il faut trouver la salle vers laquelle pointe rooms->next->name
+			//rooms->next->pipes_next->id POINTE VERS rooms->next->name
+			t_pipes *pipes = ft_find_room_s(*begin_rooms, rooms->next->pipes_next->id)->pipes_next;
+			ft_printf("Salle sans issus : %s | Acces par : %s\n", rooms->next->name, rooms->next->pipes_next->id);
+			while (pipes)
+			{
+				if (ft_strequ(rooms->next->name, pipes->id))
+				{
 
-
-			// ft_remove_empty_pipes(begin_rooms, rooms->next->name);
-			// ft_printf("{r}PASSAGE{0}\n");
-			// t_pipes *lll = ft_find_room_s(*begin_rooms, rooms->pipes_next->id)->pipes_next;
-			// ft_putendl(lll->id);
-			// ft_remove_empty_pipes(rooms->next, lll);
+				}
+					ft_putstr("MATCH : ");
+				ft_putendl(pipes->id);
+				pipes = pipes->next;
+			}
+			ft_printf("------------------------\n");
 			tmp = rooms->next;
 			rooms->next = tmp->next;
 			free(tmp);
@@ -196,7 +199,7 @@ static int	ft_zero(void)
 
 
 	// ft_progress(env->rooms, ft_find_start(env->rooms), ft_find_end(env->rooms), -1);
-	ft_print_infos(env);
+	// ft_print_infos(env);
 
 	// ft_algo(env);
 
