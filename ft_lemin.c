@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:16:28 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/04 13:28:31 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/04 13:33:45 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,51 +17,6 @@
 ** BONUS
 ** - Lecture plusieurs fichiers a la fois (Neccessite OPEN)
 */
-
-void	ft_apply_progress(t_rooms *rooms, t_rooms *origin)
-{
-	t_pipes	*pipes;
-	t_rooms	*n_room;
-
-	pipes = rooms->pipes_next;
-	while (pipes)
-	{
-		n_room = ft_find_room_s(origin, pipes->id);
-		if (n_room->progress == -1)
-			n_room->progress = rooms->progress + 1;
-		pipes = pipes->next;
-	}
-}
-
-int		ft_progress(t_rooms *origin, t_rooms *start, t_rooms *end, int id)
-{
-	t_pipes	*pipes;
-
-	if (end->progress != -1 || start->progress != id)
-		return (1);
-	start->progress == -1 ? start->progress = id + 1 : 0;
-	ft_apply_progress(start, origin);
-	while (start)
-	{
-		pipes = start->pipes_next;
-		while (pipes)
-		{
-			ft_progress(origin, start, end, id + 1);
-			pipes = pipes->next;
-		}
-		pipes = start->pipes_next;
-		while (pipes)
-		{
-			t_rooms *tstart;
-			tstart = ft_find_room_s(origin, pipes->id);
-			start->progress < tstart->progress ? ft_progress(origin, tstart, end, id) : 0;
-			start->progress > tstart->progress ? ft_progress(origin, tstart, end, id + 1) : 0;
-			pipes = pipes->next;
-		}
-		start = start->next;
-	}
-	return (0);
-}
 
 static void	ft_init_buff(t_env *env, char **str)
 {
@@ -114,15 +69,13 @@ static int	ft_zero(void)
 	env->id = 0;
 	ROOMS = NULL;
 	ft_open(env);
-	// ft_putstrr(env->map);
+	ft_putstrr(env->map);
 
 	ft_progress(env->rooms, ft_find_start(env->rooms), ft_find_end(env->rooms), -1);
 
-	ft_print_infos(env);
+	// ft_print_infos(env);
 
-// Faire une fonction pour ajouter les poirds(progess) sur les maps, depuis start
-	// ft_algo(env);
-
+	ft_algo(env);
 
 	ft_clear_gnl(env);
 	ft_free_all(&env, 1);
@@ -148,11 +101,7 @@ static int	ft_more(int ac, char **av)
 		ft_open(env);
 		ft_putstr(env->map);
 		// ft_print_infos(env);
-
-
 		ft_algo(env);
-
-
 		ft_clear_gnl(env);
 		ft_free_all(&env, 1);
 	}

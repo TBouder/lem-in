@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:14:46 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/04 09:17:34 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/04 13:58:26 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,8 +130,11 @@ t_rooms				*ft_find_start(t_rooms *rooms);
 t_rooms				*ft_find_end(t_rooms *rooms);
 t_rooms				*ft_find_room_s(t_rooms *rooms, char *datas);
 
+int					ft_progress(t_rooms *origin, t_rooms *start, t_rooms *end, int id);
+
+
 void				ft_find_path(t_env *env, t_path *path);
-void				ft_put_max_path(t_path **begin_path, int i);
+void				ft_put_max_path(t_path *begin_path, int i);
 int					ft_found_less_path(t_path *path, t_env *env);
 
 #endif
