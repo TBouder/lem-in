@@ -58,7 +58,7 @@ t_rooms	*ft_one_pipe(t_env *env, t_path *path, t_pipes *pipe, t_rooms *rooms)
 	char	**str;
 
 	r = NULL;
-	if (rooms->progress < ft_find_room_s(ROOMS, pipe->id)->progress)
+	if (rooms->weight < ft_find_room_s(ROOMS, pipe->id)->weight)
 	{
 		path->path = ft_push_path(&path->path, ft_find_room(env->rooms, pipe)->name);
 		path->moves += 1;
@@ -82,11 +82,11 @@ t_rooms	*ft_mult_pipe(t_env *env, t_path *path, t_pipes *pipes, t_rooms *rooms)
 	// pipes = pipes->next;
 	while (pipes)
 	{
-		if (rooms->progress < ft_find_room_s(ROOMS, pipes->id)->progress)
+		if (rooms->weight < ft_find_room_s(ROOMS, pipes->id)->weight)
 		{
 			if (!ft_strstr(path->path, pipes->id) && path->moves_max < path->moves + 1)
 			{
-				// ft_printf("%d vs %d : %s vs %s\n", rooms->progress, ft_find_room_s(ROOMS, pipes->id)->progress, rooms->name, ft_find_room_s(ROOMS, pipes->id)->name);
+				// ft_printf("%d vs %d : %s vs %s\n", rooms->weight, ft_find_room_s(ROOMS, pipes->id)->weight, rooms->name, ft_find_room_s(ROOMS, pipes->id)->name);
 				temp_path = ft_strinit(path->path);
 				temp_path = ft_push_path(&temp_path, ft_find_room(env->rooms, pipes)->name);
 				ft_pathsend(&path, temp_path);

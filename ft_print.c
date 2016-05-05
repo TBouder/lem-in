@@ -48,11 +48,11 @@ void		ft_print_infos(t_env *env)
 	while (tmp->rooms)
 	{
 		if (tmp->rooms->pos == 1)
-			ft_printf("{g}%s (%d) {0}: (%d, %d) || w : {c}%d{0}\n", tmp->rooms->name, tmp->rooms->id, tmp->rooms->x, tmp->rooms->y, tmp->rooms->progress);
+			ft_printf("{g}%s (%d) {0}: (%d, %d) || w : {c}%d{0}\n", tmp->rooms->name, tmp->rooms->id, tmp->rooms->x, tmp->rooms->y, tmp->rooms->weight);
 		else if (tmp->rooms->pos == 2)
-			ft_printf("{g}%s (%d) {0}: (%d, %d) || w : {c}%d{0}\n", tmp->rooms->name, tmp->rooms->id, tmp->rooms->x, tmp->rooms->y, tmp->rooms->progress);
+			ft_printf("{g}%s (%d) {0}: (%d, %d) || w : {c}%d{0}\n", tmp->rooms->name, tmp->rooms->id, tmp->rooms->x, tmp->rooms->y, tmp->rooms->weight);
 		else
-			ft_printf("{g}%s (%d) {0}: (%d, %d) || w : {c}%d{0}\n", tmp->rooms->name, tmp->rooms->id, tmp->rooms->x, tmp->rooms->y, tmp->rooms->progress);
+			ft_printf("{g}%s (%d) {0}: (%d, %d) || w : {c}%d{0}\n", tmp->rooms->name, tmp->rooms->id, tmp->rooms->x, tmp->rooms->y, tmp->rooms->weight);
 		while (tmp->rooms->pipes_prev)
 		{
 			ft_printf("\t{p}Prev pipe{0} : %s\n", tmp->rooms->pipes_prev->id);
