@@ -64,15 +64,15 @@ int				ft_weight(t_rooms *origin, t_rooms *rooms, int id)
 
 	if (rooms == NULL)
 		return (0);
-	if (ft_pipeslen_w(origin, rooms->pipes_next, id) == 1)
+	if (ft_pipeslen_w(origin, rooms->pipes, id) == 1)
 	{
 		rooms->weight = id;
-		ft_weight(origin, ft_pipesgo_w(origin, rooms->pipes_next), id + 1);
+		ft_weight(origin, ft_pipesgo_w(origin, rooms->pipes), id + 1);
 	}
 	else
 	{
 		rooms->weight = id;
-		pipes = rooms->pipes_next;
+		pipes = rooms->pipes;
 		ft_apply_pipes(pipes, origin, id);
 		while (pipes)
 		{

@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 11:23:22 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/04 18:30:03 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/05 16:27:31 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static t_rooms	*ft_roomsnew(t_rooms *prev, t_datas datas)
 	rooms->weight = -1;
 	rooms->x = datas.x;
 	rooms->y = datas.y;
-	rooms->pipes_next = NULL;
+	rooms->pipes = NULL;
 	rooms->pipes_prev = NULL;
 	rooms->next = NULL;
 	rooms->prev = prev;

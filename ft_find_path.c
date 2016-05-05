@@ -113,16 +113,16 @@ void	ft_find_path(t_env *env, t_path *path)
 	// ft_printf("Start : %s\n", path->path);
 	while (rooms && !ft_strstr(path->path, end))
 	{
-		pipes = rooms->pipes_next;
+		pipes = rooms->pipes;
 		if (ft_pipeslen(pipes) == 1)
 		{
 			// ft_printf("{b}%d{0} vs {c}%d{0}\n", path->moves_max, path->moves);
-			rooms = ft_one_pipe(env, path, rooms->pipes_next, rooms);
+			rooms = ft_one_pipe(env, path, rooms->pipes, rooms);
 		}
 		else if (ft_pipeslen(pipes) > 1)
 		{
 			// ft_printf("{c}%d{0} vs {b}%d{0}\n", path->moves_max < path->moves + 1);
-			rooms = ft_mult_pipe(env, path, rooms->pipes_next, rooms);
+			rooms = ft_mult_pipe(env, path, rooms->pipes, rooms);
 		}
 	}
 }

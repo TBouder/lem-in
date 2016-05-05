@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/25 13:27:41 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/05 16:08:16 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/05 16:09:31 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ static int		ft_pipes_push(t_datas datas, t_rooms **rooms)
 	if (ft_verif_duplicates_pipes(*tmp_next, datas)
 		|| ft_verif_duplicates_pipes(*tmp_prev, datas))
 		return (1);
-	ft_pipesend(&tmp_next->pipes_next, datas);
+	ft_pipesend(&tmp_next->pipes, datas);
 	ft_rev_datas(&datas);
-	ft_pipesend(&tmp_prev->pipes_next, datas);
+	ft_pipesend(&tmp_prev->pipes, datas);
 	ft_strdel(&datas.name);
 	ft_strdel(&datas.name_two);
 	return (0);

@@ -6,20 +6,20 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 19:11:55 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/02 14:54:18 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/05 16:36:53 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_lemin.h"
 
-static void	ft_free_allp(t_pipes **env)
+static void	ft_free_allp(t_pipes **pipes)
 {
 	t_pipes	*free_list;
 	t_pipes	*temp;
 
-	if (env != NULL)
+	if (pipes != NULL)
 	{
-		free_list = *env;
+		free_list = *pipes;
 		while (free_list)
 		{
 			temp = free_list;
@@ -27,9 +27,9 @@ static void	ft_free_allp(t_pipes **env)
 			ft_strdel(&temp->id);
 			free(temp);
 		}
-		*env = NULL;
+		*pipes = NULL;
 	}
-	env = NULL;
+	pipes = NULL;
 }
 
 void		ft_free_all(t_env **env, int i)
@@ -46,7 +46,7 @@ void		ft_free_all(t_env **env, int i)
 			temp = free_list;
 			free_list = free_list->next;
 			ft_strdel(&temp->name);
-			ft_free_allp(&temp->pipes_next);
+			ft_free_allp(&temp->pipes);
 			ft_free_allp(&temp->pipes_prev);
 			free(temp);
 		}

@@ -36,7 +36,7 @@ typedef struct		s_rooms
 	char			*name;
 	int				x;
 	int				y;
-	struct s_pipes	*pipes_next;
+	struct s_pipes	*pipes;
 	struct s_pipes	*pipes_prev;
 	struct s_rooms	*prev;
 	struct s_rooms	*next;

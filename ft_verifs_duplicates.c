@@ -14,11 +14,11 @@
 
 static int	ft_verifdup_pipe(t_rooms pipes, char *str)
 {
-	while (pipes.pipes_next)
+	while (pipes.pipes)
 	{
-		if (!ft_strcmp(pipes.pipes_next->id, str))
+		if (!ft_strcmp(pipes.pipes->id, str))
 			return (1);
-		pipes.pipes_next = pipes.pipes_next->next;
+		pipes.pipes = pipes.pipes->next;
 	}
 	return (0);
 }
