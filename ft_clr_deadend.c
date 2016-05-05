@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/04 22:29:54 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/05 17:19:37 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/05 19:37:33 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,9 @@ static void ft_useless_pipe_remove_if(t_pipes **begin_pipes, char *str)
 			ft_useless_pipe_remove_if(begin_pipes, str);
 		}
 		else
+		{
 			ft_useless_pipe_remove_if(&(*begin_pipes)->next, str);
+		}
 	}
 }
 
@@ -61,7 +63,6 @@ void	ft_free_allddddp(t_pipes **pipes)
 static void	ft_rooms_remove_if(t_rooms **begin_rooms, t_rooms **origin, int *i)
 {
 	t_rooms		*to_free;
-	t_pipes		**u_pipes;
 
 	if (*begin_rooms)
 	{
@@ -70,16 +71,18 @@ static void	ft_rooms_remove_if(t_rooms **begin_rooms, t_rooms **origin, int *i)
 		{
 			if (ft_pipeslen((*begin_rooms)->pipes) == 1)
 			{
-				u_pipes = &ft_find_room_s(*origin, (*begin_rooms)->pipes->id)->pipes;
-				ft_useless_pipe_remove_if(u_pipes, (*begin_rooms)->name);
-				// ft_find_room_s(*origin, (*begin_rooms)->pipes->id)->pipes = NULL;
-				// ft_find_room_s(*origin, (*begin_rooms)->pipes->id)->pipes = NULL;
+				ft_useless_pipe_remove_if(&ft_find_room_s(*origin, (*begin_rooms)->pipes->id)->pipes, (*begin_rooms)->name);
+				// free((*begin_rooms)->pipes);
+				ft_putendl(ft_pipeslen((*begin_rooms)->pipes));
+				free((*begin_rooms)->pipes);
+				to_free = *begin_rooms;
+				*begin_rooms = (*begin_rooms)->next;
+				ft_strdel(&to_free->name);
+				free(to_free);
+				*i += 1;
+				ft_rooms_remove_if(begin_rooms, origin, i);
 			}
-
 			free((*begin_rooms)->pipes);
-			// free((*begin_rooms)->pipes_prev);
-
-			// ft_find_room_s(*origin, (*begin_rooms)->pipes->id)->pipes = NULL;
 			to_free = *begin_rooms;
 			*begin_rooms = (*begin_rooms)->next;
 			ft_strdel(&to_free->name);
