@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/05 14:00:22 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/05 20:00:09 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/05 23:56:58 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ int				ft_weight(t_rooms *origin, t_rooms *rooms, int id)
 		while (pipes)
 		{
 			prev_id = ft_find_room_s(origin, pipes->id)->weight;
-			ft_putendl(ft_find_room_s(origin, pipes->id)->name);
 			if (prev_id == id + 1)
 				ft_weight(origin, ft_find_room_s(origin, pipes->id), id + 1);
 			pipes = pipes->next;
