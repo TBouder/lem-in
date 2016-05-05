@@ -21,7 +21,7 @@ static t_rooms	*ft_roomsnew(t_rooms *prev, t_datas datas)
 	rooms->id = datas.id;
 	rooms->name = ft_strinit(datas.name);
 	rooms->pos = datas.pos;
-	rooms->progress = -1;
+	rooms->weight = -1;
 	rooms->x = datas.x;
 	rooms->y = datas.y;
 	rooms->pipes_next = NULL;

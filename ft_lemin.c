@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:16:28 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/04 23:53:51 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/05 14:02:42 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,61 +58,6 @@ static void	ft_open(t_env *env)
 }
 
 
-//****************************************************************************//
-int		ft_pipeslen_w(t_rooms *origin, t_pipes *pipes, int id)
-{
-	t_pipes	*tmp;
-	int		prev_id;
-	int		i;
-
-	id = 0;
-	i = 0;
-	tmp = pipes;
-	while (tmp)
-	{
-		prev_id = ft_find_room_s(origin, tmp->id)->progress;
-		if (prev_id == -1)
-			i++;
-		tmp = tmp->next;
-	}
-	return (i);
-}
-
-t_rooms	*ft_pipesgo_w(t_rooms *origin, t_pipes *pipes)
-{
-	t_pipes	*tmp;
-	int		prev_id;
-
-	tmp = pipes;
-	while (tmp)
-	{
-		prev_id = ft_find_room_s(origin, tmp->id)->progress;
-		if (prev_id == -1)
-			return (ft_find_room_s(origin, tmp->id));
-		tmp = tmp->next;
-	}
-	return (NULL);
-}
-
-static void	ft_weight(t_rooms *origin, t_rooms *rooms, int id)
-{
-	if (ft_pipeslen_w(origin, rooms->pipes_next, id) == 1)
-	{
-		rooms->progress = id;
-		ft_weight(origin, ft_pipesgo_w(origin, rooms->pipes_next), id + 1);
-	}
-	else
-	{
-		ft_putendl(rooms->name);
-		while (rooms->pipes_next)
-		{
-			ft_putendl(rooms->pipes_next->id);
-			rooms->pipes_next = rooms->pipes_next->next;
-		}
-	}
-}
-//****************************************************************************//
-
 static int	ft_zero(void)
 {
 	t_env	*env;
@@ -128,14 +73,13 @@ static int	ft_zero(void)
 	// ft_putstrr(env->map);
 	// ft_print_infos(env);
 
-	// ft_purge_useless_rooms(&env->rooms, &env->rooms);
+	ft_purge_useless_rooms(&env->rooms, &env->rooms);
 	ft_weight(env->rooms, env->rooms, 0);
-	// ft_progress(env->rooms, ft_find_start(env->rooms), ft_find_end(env->rooms), -1);
-	ft_print_infos(env);
-	// ft_algo(env);
+	// ft_print_infos(env);
+	ft_algo(env);
 
 	ft_clear_gnl(env);
-	// ft_free_all(&env, 1);
+	ft_free_all(&env, 1);
 	return (1);
 }
 
