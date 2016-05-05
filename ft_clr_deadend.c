@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/04 22:29:54 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/05 19:37:33 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/05 19:45:12 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,21 +67,10 @@ static void	ft_rooms_remove_if(t_rooms **begin_rooms, t_rooms **origin, int *i)
 	if (*begin_rooms)
 	{
 
-		if (ft_dead_end(*begin_rooms))
+		if (ft_dead_end(*begin_rooms) && (*begin_rooms)->pos == 1)
 		{
 			if (ft_pipeslen((*begin_rooms)->pipes) == 1)
-			{
 				ft_useless_pipe_remove_if(&ft_find_room_s(*origin, (*begin_rooms)->pipes->id)->pipes, (*begin_rooms)->name);
-				// free((*begin_rooms)->pipes);
-				ft_putendl(ft_pipeslen((*begin_rooms)->pipes));
-				free((*begin_rooms)->pipes);
-				to_free = *begin_rooms;
-				*begin_rooms = (*begin_rooms)->next;
-				ft_strdel(&to_free->name);
-				free(to_free);
-				*i += 1;
-				ft_rooms_remove_if(begin_rooms, origin, i);
-			}
 			free((*begin_rooms)->pipes);
 			to_free = *begin_rooms;
 			*begin_rooms = (*begin_rooms)->next;
