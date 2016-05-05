@@ -58,10 +58,10 @@ void		ft_print_infos(t_env *env)
 			ft_printf("\t{p}Prev pipe{0} : %s\n", tmp->rooms->pipes_prev->id);
 			tmp->rooms->pipes_prev = tmp->rooms->pipes_prev->next;
 		}
-		while (tmp->rooms->pipes_next)
+		while (tmp->rooms->pipes)
 		{
-			ft_printf("\t{b}Next pipe{0} : %s\n", tmp->rooms->pipes_next->id);
-			tmp->rooms->pipes_next = tmp->rooms->pipes_next->next;
+			ft_printf("\t{b}Next pipe{0} : %s\n", tmp->rooms->pipes->id);
+			tmp->rooms->pipes = tmp->rooms->pipes->next;
 		}
 		tmp->rooms = tmp->rooms->next;
 	}
