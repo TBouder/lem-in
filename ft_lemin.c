@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:16:28 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/05 23:55:34 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/07 19:02:14 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,6 @@ static int	ft_zero(void)
 	ft_purge_useless_rooms(&env->rooms, &env->rooms);
 	ft_putstrr(env->map);
 	// ft_print_infos(env);
-
-
 	if (ft_find_end(env->rooms)->weight == -1)
 		ft_error(env, "Pipe {r}error{0} : no access to end room");
 	// ft_putstrr(env->map);

@@ -117,8 +117,6 @@ function	ft_comments
 	printf "%-50s" "$yellow""comments : ""$normal"
 	for f in lem-in_maps/comment/*
 	do
-		leak=$($leaks ./lem-in < $f)
-		lik=$?
 		len=-$(cat $f | wc -l | tr -d ' ')
 		comm=$(bash -c 'diff -u <(cat '$f') <(./lem-in < '$f' | head '$len')')
 		ft_signal $lik "$comm" $i $f
@@ -132,8 +130,6 @@ function	ft_cmds
 	printf "%-50s" "$yellow""cmd : ""$normal"
 	for f in lem-in_maps/cmd/*
 	do
-		leak=$($leaks ./lem-in < $f)
-		lik=$?
 		if [ "$(basename $f)" = "cmd_before_end" ]; then
 			len=-$(cat lem-in_maps/cmd_trace/cmd_trace_beta | wc -l | tr -d ' ')
 			comm=$(bash -c 'diff -u <(cat '$WAY'/cmd_trace/cmd_trace_beta) <(./lem-in < '$f' | head '$len')')
@@ -155,11 +151,24 @@ function	ft_pipes_error
 	printf "%-50s" "$yellow""pipes_error : ""$normal"
 	for f in lem-in_maps/pipes_error/*
 	do
-		leak=$($leaks ./lem-in < $f)
-		lik=$?
 		len=-$(cat lem-in_maps/pipes_error_trace/$(basename $f) | wc -l | tr -d ' ')
 		comm=$(bash -c 'diff -u <(cat '$WAY'/pipes_error_trace/'$(basename $f)') <(./lem-in < '$f' | head '$len')')
 		ft_signal $lik "$comm" $i $f
+		count=$((count + 1))
+	done
+	printf "\n"
+}
+
+function	ft_no_way
+{
+	printf "%-50s" "$yellow""no_way : ""$normal"
+	for f in lem-in_maps/no_way/*
+	do
+		lik=$?
+		err=$($leaks ./lem-in < $f)
+		len=-$(cat lem-in_maps/no_way/$(basename $f) | wc -l | tr -d ' ')
+		comm=$(bash -c 'diff -u <(cat '$WAY'/no_way/'$(basename $f)') <(./lem-in < '$f' | head '$len')')
+		ft_signal $lik "$comm" $i $f "$err"
 		count=$((count + 1))
 	done
 	printf "\n"
@@ -211,6 +220,7 @@ ft_errors
 ft_comments
 ft_cmds
 ft_pipes_error
+ft_no_way
 # ---------------------------------------------------------------------------- #
 
 # Display results
