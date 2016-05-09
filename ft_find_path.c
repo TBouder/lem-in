@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 11:51:37 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/09 12:37:52 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/09 17:04:14 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,17 @@ t_rooms	*ft_one_pipe(t_env *env, t_path *path, t_pipes *pipe, t_rooms *rooms)
 		r = ft_strinit(str[ft_dbstrlen(str) - 1]);
 		ft_dbstrdel(str);
 	}
-	return (r ? ft_find_room_s(ROOMS, r) : ft_error_pipe(path));
+	if (r)
+	{
+		ft_strdel(&r);
+		return (ft_find_room_s(ROOMS, r));
+	}
+	else
+	{
+		ft_strdel(&r);
+		return (ft_error_pipe(path));
+	}
+	// return (r ? ft_find_room_s(ROOMS, r) : ft_error_pipe(path));
 }
 
 t_rooms	*ft_mult_pipe(t_env *env, t_path *path, t_pipes *pipes, t_rooms *rooms)
@@ -86,8 +96,8 @@ void	ft_find_path(t_env *env, t_path *path)
 	char 	*end;
 
 	rooms = ft_find_room_s(ROOMS, path->path);
-	end = ft_find_end(ROOMS)->name;
-	while (rooms && !ft_strstr(path->path, end))
+	end = ft_strinit(ft_find_end(ROOMS)->name);
+	while (rooms && !ft_isstrstr(path->path, end))
 	{
 		pipes = rooms->pipes;
 		if (ft_pipeslen(pipes) == 1)
@@ -95,4 +105,5 @@ void	ft_find_path(t_env *env, t_path *path)
 		else if (ft_pipeslen(pipes) > 1)
 			rooms = ft_mult_pipe(env, path, rooms->pipes, rooms);
 	}
+	ft_strdel(&end);
 }
