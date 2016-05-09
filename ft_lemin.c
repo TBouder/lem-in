@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:16:28 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/09 12:46:36 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/09 12:49:15 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static int	ft_zero(void)
 		ft_error(env, "Pipe {r}error{0} : no access to end room");
 	ft_putstrr(env->map);
 
-	// ft_algo(env);
+	ft_algo(env);
 	// ft_print_infos(env);
 
 	ft_clear_gnl(env);
