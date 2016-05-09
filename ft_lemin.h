@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:14:46 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/09 17:33:00 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/09 17:40:31 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,10 @@ int					ft_pipeslen(t_pipes *pipes);
 
 void				ft_free_env(t_env **env, int i);
 void				ft_clear_gnl(t_env *env);
+void 				ft_path_remove_if_error(t_path **begin_path, char *str);
+void				ft_path_clear(t_path **begin_path);
+void				ft_purge_rooms(t_rooms **begin_rooms, t_rooms **origin);
+
 
 /*
 ** Extract
@@ -125,10 +129,9 @@ void				ft_print_path(t_path *path);
 
 /*
 ** Algo opti
-** 1. Remove all the dead_end (ft_clr_deadend.c)
+** 1. Remove all the dead_end (ft_purge_deadend.c)
 ** 2. Create weight module to detect next move faster (ft_weight.c)
 */
-void				ft_purge_useless_rooms(t_rooms **begin_rooms, t_rooms **origin);
 int					ft_weight(t_rooms *origin, t_rooms *rooms, int id);
 
 

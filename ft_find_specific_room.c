@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/02 16:51:24 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/04 11:46:48 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/09 17:43:52 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,6 @@ t_rooms	*ft_find_room_s(t_rooms *rooms, char *datas)
 		}
 		tmp = tmp->next;
 	}
+	ft_strdel(&s);
 	return (NULL);
 }

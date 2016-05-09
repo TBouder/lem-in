@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/02 12:07:02 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/09 17:31:33 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/09 17:40:42 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,51 +42,6 @@ void	ft_finish_path(t_env *env, t_path *path)
 		ft_find_path(env, path);
 	ft_dbstrdel(str);
 }
-
-//------------------------------------------------------------//
-
-void ft_path_remove_if_error(t_path **begin_path, char *str)
-{
-	t_path		*to_free;
-
-	if (begin_path && *begin_path)
-	{
-		if (ft_isstrstr((*begin_path)->path, str))
-		{
-			to_free = *begin_path;
-			*begin_path = (*begin_path)->next;
-			ft_strdel(&to_free->path);
-			free(to_free);
-			ft_path_remove_if_error(begin_path, str);
-		}
-		else
-			ft_path_remove_if_error(&(*begin_path)->next, str);
-	}
-}
-
-
-
-static void		ft_destroy(t_path *path)
-{
-	if (path->next != NULL)
-	{
-		ft_strdel(&path->path);
-		ft_destroy(path->next);
-	}
-	free(path);
-}
-
-void			ft_path_clear(t_path **begin_path)
-{
-	if (begin_path && *begin_path)
-	{
-		ft_strdel(&(*begin_path)->path);
-		ft_destroy(*begin_path);
-		*begin_path = NULL;
-	}
-}
-
-//------------------------------------------------------------//
 
 void	ft_verif_same_path(t_path *path)
 {
