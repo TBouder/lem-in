@@ -226,7 +226,7 @@ done
 
 # Process tests
 # ---------------------------------------------------------------------------- #
-# ft_errors
+ft_errors
 ft_comments
 ft_cmds
 ft_pipes_error
