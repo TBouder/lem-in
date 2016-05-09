@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/02 12:07:02 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/09 15:40:56 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/09 16:34:08 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,35 +43,12 @@ void	ft_finish_path(t_env *env, t_path *path)
 }
 
 //------------------------------------------------------------//
-
-int		ft_strstr_int(const char *s1, const char *s2)
-{
-	int		i;
-	int		j;
-
-	i = 0;
-	if (s2[0] == '\0')
-		return (1);
-	while (s1[i])
-	{
-		j = 0;
-		while (s1[i + j] == s2[j])
-		{
-			j++;
-			if (s2[j] == '\0')
-				return (1);
-		}
-		i++;
-	}
-	return (0);
-}
-
 void 	ft_path_remove_if_error(t_path **begin_path)
 {
 	t_path	*tmp;
 	t_path	*path;
 
-	while (*begin_path && ft_strstr_int((*begin_path)->path, "ERROR"))
+	while (*begin_path && ft_isstrstr((*begin_path)->path, "ERROR"))
 	{
 		tmp = *begin_path;
 		*begin_path = (*begin_path)->next;
@@ -80,7 +57,7 @@ void 	ft_path_remove_if_error(t_path **begin_path)
 	path = *begin_path;
 	while (path && path->next)
 	{
-		if (ft_strstr_int(path->next->path, "ERROR"))
+		if (ft_isstrstr(path->next->path, "ERROR"))
 		{
 			tmp = path->next;
 			path->next = tmp->next;
@@ -104,11 +81,7 @@ void	ft_verif_same_path(t_path *path)
 		while (mv)
 		{
 			if (ft_strcmp(start->path, mv->path) == 0)
-			{
-				// ft_printf("{b}%s{0} vs {c}%s{0}\n", start->path, mv->path);
 				mv->path = ft_push_path(&mv->path, "ERROR");
-				// ft_strdel(&mv->path);
-			}
 			mv = mv->next;
 		}
 		start = start->next;
@@ -139,7 +112,7 @@ int		ft_found_less_path(t_path *path, t_env *env)
 	{
 		if (tmp->moves < i || i == 0)
 		{
-			if (ft_cmp(tmp->path, ft_find_end(ROOMS)->name))
+			if (ft_isstrstr(tmp->path, ft_find_end(ROOMS)->name))
 				i = tmp->moves;
 		}
 		tmp = tmp->next;
@@ -159,33 +132,25 @@ void	ft_algo(t_env *env)
 	ft_pathsend(&path, ft_find_start(ROOMS)->name); // on met la premiere salle dans la liste
 	origin = path;
 
-	ft_putendl("-----------------------------------------------------------------");
 	ft_find_path(env, path); //On cherche le meilleur chemin, un passage
 	len = ft_found_less_path(origin, env); // On recup la len max
 	ft_put_max_path(origin, len); // On met la len max partout
-	// ft_print_path(path); //Affichage
-	// ft_putendl("-----------------------------------------------------------------");
-	// ft_verif_same_path(origin);
-	// ft_path_remove_if_error(&origin);
-	// ft_print_path(path); //Affichage
-	// path = path->next;
 
 	while (path)
 	{
-		// ft_printf("{r}%s{0} vs {g}%s{0}\n", str[ft_dbstrlen(str) - 1], ft_find_end(ROOMS)->name);
 		ft_find_path(env, path);
 		len = ft_found_less_path(origin, env); // On recup la len max
 		ft_put_max_path(origin, len); // On met la len max partout
 		path = path->next;
 	}
 	path = origin;
-	// ft_verif_same_path(origin);
-	// ft_path_remove_if_error(&origin);
-	// ft_print_path(path);
-	// ft_print_path(path);
-	// ft_putendl("-----------------------------------------------------------------");
 	ft_verif_same_path(origin);
 	ft_path_remove_if_error(&path);
 	ft_print_path(path);
-	// path = origin; ft_path_remove_if_error(&path); ft_path_remove_if_error(&path); ft_path_remove_if_error(&path); ft_print_path(path); origin = path;
+	path = origin;
+	while (path)
+	{
+		ft_strdel(&path->path);
+		path = path->next;
+	}
 }
