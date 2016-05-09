@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/02 12:07:02 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/09 12:47:58 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/09 13:02:16 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int		ft_cmp(char *path, char *data_ref)
 {
 	char	*str;
 
-	str = ft_strnew(500);
+	str = ft_strnew(ft_strlen(data_ref + 1));
 	str = ft_strstr(path, data_ref);
 	if (str == NULL)
 	{
@@ -101,6 +101,7 @@ void	ft_verif_same_path(t_path *path)
 			{
 				// ft_printf("{b}%s{0} vs {c}%s{0}\n", start->path, mv->path);
 				mv->path = ft_push_path(&mv->path, "ERROR");
+				// ft_strdel(&mv->path);
 			}
 			mv = mv->next;
 		}
@@ -156,8 +157,8 @@ void	ft_algo(t_env *env)
 	ft_find_path(env, path); //On cherche le meilleur chemin, un passage
 	len = ft_found_less_path(origin, env); // On recup la len max
 	ft_put_max_path(origin, len); // On met la len max partout
-	ft_print_path(path); //Affichage
-	ft_putendl("-----------------------------------------------------------------");
+	// ft_print_path(path); //Affichage
+	// ft_putendl("-----------------------------------------------------------------");
 	// ft_verif_same_path(origin);
 	// ft_path_remove_if_error(&origin);
 	// ft_print_path(path); //Affichage
@@ -175,8 +176,8 @@ void	ft_algo(t_env *env)
 	// ft_verif_same_path(origin);
 	// ft_path_remove_if_error(&origin);
 	// ft_print_path(path);
-	ft_print_path(path);
-	ft_putendl("-----------------------------------------------------------------");
+	// ft_print_path(path);
+	// ft_putendl("-----------------------------------------------------------------");
 	ft_verif_same_path(origin);
 	ft_path_remove_if_error(&path);
 	ft_print_path(path);
