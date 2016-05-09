@@ -22,7 +22,6 @@ leaks=""
 
 function	ft_signal
 {
-	# echo "$err"
 	if [[ $1 -ge 129 && $1 -le 140 ]]; then
 		errors[$i]=$(basename $4)
 		motif[$i]="SEGFAULT"
@@ -33,34 +32,10 @@ function	ft_signal
 		motif[$i]="LEAKS"
 		i=$((i+1))
 		printf "%s" "$red[LEAKS]$normal"
-	elif [[ "$err" == *"error"* || "$err" == *"ERROR"* || "$err" == *"Error"* ]]; then
+	elif [[ ("$err" == *"error"* || "$err" == *"ERROR"* || "$err" == *"Error"*) && $len -eq 1 ]]; then
 		good=$((good + 1))
 		printf "%s" "$green.$normal"
 	elif [[ "$comm" == "" ]]; then
-		good=$((good + 1))
-		printf "%s" "$green.$normal"
-	else
-		errors[$i]=$(basename $4)
-		motif[$i]="KO"
-		i=$((i+1))
-		printf "%s" "$red[KO]$normal"
-	fi
-}
-
-function	ft_signal_part_2
-{
-	# echo "$comm"
-	if [[ $1 -ge 129 && $1 -le 140 ]]; then
-		errors[$i]=$(basename $4)
-		motif[$i]="SEGFAULT"
-		i=$((i+1))
-		printf "%s" "$red[SEGFAULT]$normal"
-	elif [[ $1 -eq 42 ]]; then
-		errors[$i]=$(basename $4)
-		motif[$i]="LEAKS"
-		i=$((i+1))
-		printf "%s" "$red[LEAKS]$normal"
-	elif [[ ("$err" == *"error"* || "$err" == *"ERROR"* || "$err" == *"Error"*) && "$comm" == "" ]]; then
 		good=$((good + 1))
 		printf "%s" "$green.$normal"
 	else
@@ -128,6 +103,7 @@ function	ft_errors
 		for f in lem-in_maps/error/$(basename $d)/*
 		do
 			err=$($leaks ./lem-in < $f)
+			len=$(./lem-in < $f | wc -l | tr -d ' ')
 			lik=$?
 			ft_signal $lik "$err" $i $f
 			count=$((count + 1))
@@ -186,17 +162,20 @@ function	ft_pipes_error
 
 function	ft_no_way
 {
+	comm="NULL"
+	len=0
 	printf "%-50s" "$yellow""no_way : ""$normal"
 	for f in lem-in_maps/no_way/*
 	do
-		lik=$?
 		err=$($leaks ./lem-in < $f)
-		len=-$(cat lem-in_maps/no_way/$(basename $f) | wc -l | tr -d ' ')
-		comm=$(bash -c 'diff -u <(cat '$WAY'/no_way/'$(basename $f)') <(./lem-in < '$f' | head '$len')')
-		ft_signal_part_2 $lik "$comm" $i $f "$err"
+		len=$(./lem-in < $f | wc -l | tr -d ' ')
+		lik=$?
+		ft_signal $lik "$err" $i $f $len
 		count=$((count + 1))
 	done
 	printf "\n"
+	len=0
+	err=""
 }
 
 function	ft_logs
