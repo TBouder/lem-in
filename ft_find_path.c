@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 11:51:37 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/09 17:04:14 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/09 17:08:24 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ t_rooms	*ft_error_pipe(t_path *path)
 
 t_rooms	*ft_one_pipe(t_env *env, t_path *path, t_pipes *pipe, t_rooms *rooms)
 {
+	t_rooms	*end_room;
 	char	*r;
 	char	**str;
 
@@ -54,19 +55,17 @@ t_rooms	*ft_one_pipe(t_env *env, t_path *path, t_pipes *pipe, t_rooms *rooms)
 	}
 	if (r)
 	{
+		end_room = ft_find_room_s(ROOMS, r);
 		ft_strdel(&r);
-		return (ft_find_room_s(ROOMS, r));
+		return (end_room);
 	}
 	else
-	{
-		ft_strdel(&r);
 		return (ft_error_pipe(path));
-	}
-	// return (r ? ft_find_room_s(ROOMS, r) : ft_error_pipe(path));
 }
 
 t_rooms	*ft_mult_pipe(t_env *env, t_path *path, t_pipes *pipes, t_rooms *rooms)
 {
+	t_rooms	*end_room;
 	t_pipes	*r;
 	char	*tmp;
 
@@ -86,7 +85,15 @@ t_rooms	*ft_mult_pipe(t_env *env, t_path *path, t_pipes *pipes, t_rooms *rooms)
 		}
 		pipes = pipes->next;
 	}
-	return (r ? ft_one_pipe(env, path, r, rooms) : ft_error_pipe(path));
+	if (r)
+	{
+		end_room = ft_one_pipe(env, path, r, rooms);
+		// ft_strdel(&r);
+		return (end_room);
+	}
+	else
+		return (ft_error_pipe(path));
+	// return (r ? ft_one_pipe(env, path, r, rooms) : ft_error_pipe(path));
 }
 
 void	ft_find_path(t_env *env, t_path *path)

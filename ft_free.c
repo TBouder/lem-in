@@ -6,13 +6,17 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 19:11:55 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/05 16:36:53 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/09 17:33:41 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_lemin.h"
 
-static void	ft_free_allp(t_pipes **pipes)
+/*
+** Free env, free GNL
+*/
+
+static void	ft_free_env_pipes(t_pipes **pipes)
 {
 	t_pipes	*free_list;
 	t_pipes	*temp;
@@ -32,7 +36,7 @@ static void	ft_free_allp(t_pipes **pipes)
 	pipes = NULL;
 }
 
-void		ft_free_all(t_env **env, int i)
+void		ft_free_env(t_env **env, int i)
 {
 	t_rooms	*free_list;
 	t_rooms	*temp;
@@ -46,8 +50,8 @@ void		ft_free_all(t_env **env, int i)
 			temp = free_list;
 			free_list = free_list->next;
 			ft_strdel(&temp->name);
-			ft_free_allp(&temp->pipes);
-			ft_free_allp(&temp->pipes_prev);
+			ft_free_env_pipes(&temp->pipes);
+			ft_free_env_pipes(&temp->pipes_prev);
 			free(temp);
 		}
 		(*env)->rooms = NULL;
