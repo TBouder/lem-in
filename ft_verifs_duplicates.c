@@ -41,7 +41,7 @@ void		ft_verif_duplicates_rooms(t_env *env, t_datas datas)
 {
 	t_rooms	*rooms;
 
-	rooms = env->rooms;
+	rooms = ROOMS;
 	while (rooms)
 	{
 		if (!ft_strcmp(datas.name, rooms->name))

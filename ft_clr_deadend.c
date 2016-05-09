@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/04 22:29:54 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/05 19:45:12 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/09 12:42:54 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,30 +34,8 @@ static void ft_useless_pipe_remove_if(t_pipes **begin_pipes, char *str)
 			ft_useless_pipe_remove_if(begin_pipes, str);
 		}
 		else
-		{
 			ft_useless_pipe_remove_if(&(*begin_pipes)->next, str);
-		}
 	}
-}
-
-void	ft_free_allddddp(t_pipes **pipes)
-{
-	t_pipes	*free_list;
-	t_pipes	*temp;
-
-	if (pipes != NULL)
-	{
-		free_list = *pipes;
-		while (free_list)
-		{
-			temp = free_list;
-			free_list = free_list->next;
-			ft_strdel(&temp->id);
-			free(temp);
-		}
-		*pipes = NULL;
-	}
-	pipes = NULL;
 }
 
 static void	ft_rooms_remove_if(t_rooms **begin_rooms, t_rooms **origin, int *i)

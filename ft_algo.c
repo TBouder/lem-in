@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/02 12:07:02 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/04 14:59:08 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/09 12:47:58 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	ft_finish_path(t_env *env, t_path *path)
 	char	**str;
 
 	str = ft_strsplit(path->path, ' ');
-	if (ft_strcmp(str[ft_dbstrlen(str) - 1], ft_find_end(env->rooms)->name))
+	if (ft_strcmp(str[ft_dbstrlen(str) - 1], ft_find_end(ROOMS)->name))
 		ft_find_path(env, path);
 	ft_dbstrdel(str);
 }
@@ -132,7 +132,7 @@ int		ft_found_less_path(t_path *path, t_env *env)
 	{
 		if (tmp->moves < i || i == 0)
 		{
-			if (ft_cmp(tmp->path, ft_find_end(env->rooms)->name))
+			if (ft_cmp(tmp->path, ft_find_end(ROOMS)->name))
 				i = tmp->moves;
 		}
 		tmp = tmp->next;
@@ -149,7 +149,7 @@ void	ft_algo(t_env *env)
 	int		len;
 
 	path = NULL;
-	ft_pathsend(&path, ft_find_start(env->rooms)->name); // on met la premiere salle dans la liste
+	ft_pathsend(&path, ft_find_start(ROOMS)->name); // on met la premiere salle dans la liste
 	origin = path;
 
 	ft_putendl("-----------------------------------------------------------------");
@@ -165,7 +165,7 @@ void	ft_algo(t_env *env)
 
 	while (path)
 	{
-		// ft_printf("{r}%s{0} vs {g}%s{0}\n", str[ft_dbstrlen(str) - 1], ft_find_end(env->rooms)->name);
+		// ft_printf("{r}%s{0} vs {g}%s{0}\n", str[ft_dbstrlen(str) - 1], ft_find_end(ROOMS)->name);
 		ft_find_path(env, path);
 		len = ft_found_less_path(origin, env); // On recup la len max
 		ft_put_max_path(origin, len); // On met la len max partout

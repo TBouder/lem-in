@@ -22,7 +22,7 @@ static void	ft_verif_pipes(t_env *env)
 	i = 0;
 	st = 0;
 	end = 0;
-	rooms = env->rooms;
+	rooms = ROOMS;
 	while (rooms)
 	{
 		rooms->pos == 1 && !rooms->pipes && !rooms->pipes_prev ? st = 1 : 0;
@@ -43,7 +43,7 @@ static void	ft_verif_rooms(t_env *env)
 
 	start = 0;
 	end = 0;
-	rooms = env->rooms;
+	rooms = ROOMS;
 	while (rooms)
 	{
 		rooms->pos == 1 ? start++ : 0;
