@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/02 12:07:02 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/09 13:02:16 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/09 15:40:56 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,20 +44,26 @@ void	ft_finish_path(t_env *env, t_path *path)
 
 //------------------------------------------------------------//
 
-int		ft_cmp(char *path, char *data_ref)
+int		ft_strstr_int(const char *s1, const char *s2)
 {
-	char	*str;
+	int		i;
+	int		j;
 
-	str = ft_strnew(ft_strlen(data_ref + 1));
-	str = ft_strstr(path, data_ref);
-	if (str == NULL)
+	i = 0;
+	if (s2[0] == '\0')
+		return (1);
+	while (s1[i])
 	{
-		ft_strdel(&str);
-		return (0);
+		j = 0;
+		while (s1[i + j] == s2[j])
+		{
+			j++;
+			if (s2[j] == '\0')
+				return (1);
+		}
+		i++;
 	}
-	str = NULL;
-	ft_strdel(&str);
-	return (1);
+	return (0);
 }
 
 void 	ft_path_remove_if_error(t_path **begin_path)
@@ -65,7 +71,7 @@ void 	ft_path_remove_if_error(t_path **begin_path)
 	t_path	*tmp;
 	t_path	*path;
 
-	while (*begin_path && ft_cmp((*begin_path)->path, "ERROR"))
+	while (*begin_path && ft_strstr_int((*begin_path)->path, "ERROR"))
 	{
 		tmp = *begin_path;
 		*begin_path = (*begin_path)->next;
@@ -74,7 +80,7 @@ void 	ft_path_remove_if_error(t_path **begin_path)
 	path = *begin_path;
 	while (path && path->next)
 	{
-		if (ft_cmp(path->next->path, "ERROR"))
+		if (ft_strstr_int(path->next->path, "ERROR"))
 		{
 			tmp = path->next;
 			path->next = tmp->next;
