@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:14:46 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/09 17:40:31 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/09 21:55:49 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct		s_env
 	long			ant;
 	int				id;
 	int				fd;
+	int				mode;
 	char			*map;
 	char			*buff;
 	struct s_rooms	*rooms;
@@ -114,7 +115,7 @@ void				ft_pathsend(t_path **path, char *datas);
 */
 
 void				ft_verif_duplicates_rooms(t_env *env, t_datas datas);
-int					ft_verif_duplicates_pipes(t_rooms pipes, t_datas datas);
+int					ft_dup_pipes(t_rooms pipes, t_datas datas);
 void				ft_verif_launcher(t_env *env);
 
 /*

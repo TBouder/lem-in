@@ -23,7 +23,7 @@ static int	ft_verifdup_pipe(t_rooms pipes, char *str)
 	return (0);
 }
 
-int			ft_verif_duplicates_pipes(t_rooms pipes, t_datas datas)
+int			ft_dup_pipes(t_rooms pipes, t_datas datas)
 {
 	char *str;
 

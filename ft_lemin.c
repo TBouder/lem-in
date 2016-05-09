@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:16:28 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/09 17:40:12 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/09 22:12:59 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,17 @@
 /*
 ** BONUS
 ** - Lecture plusieurs fichiers a la fois (Neccessite OPEN)
+** - Possibility to use -s for soft mode (for the map extract) (Allows same pipe)
 */
+
+static void	ft_set_env(t_env *env)
+{
+	env->ant = 0;
+	env->buff = NULL;
+	env->map = NULL;
+	env->id = 0;
+	ROOMS = NULL;
+}
 
 static void	ft_init_buff(t_env *env, char **str)
 {
@@ -57,27 +67,21 @@ static void	ft_open(t_env *env)
 	ft_extract_map(env, NULL);
 }
 
-
-static int	ft_zero(void)
+static int	ft_zero(int	i)
 {
 	t_env	*env;
 
 	if (!(env = (t_env *)malloc(sizeof(t_env))))
 		return (0);
+	ft_set_env(env);
 	env->fd = 0;
-	env->ant = 0;
-	env->map = NULL;
-	env->id = 0;
-	ROOMS = NULL;
+	env->mode = i;
 	ft_open(env);
 	ft_weight(ROOMS, ft_find_start(ROOMS), 0);
 	ft_purge_rooms(&ROOMS, &ROOMS);
-	// ft_putstrr(env->map);
-	// ft_print_infos(env);
 	if (ft_find_end(ROOMS)->weight == -1)
 		ft_error(env, "Pipe {r}error{0} : no access to end room");
 	ft_putstrr(env->map);
-
 	ft_algo(env);
 	// ft_print_infos(env);
 
@@ -96,12 +100,9 @@ static int	ft_more(int ac, char **av)
 	{
 		if (!(env = (t_env *)malloc(sizeof(t_env))))
 			return (0);
+		ft_set_env(env);
 		if ((env->fd = open(av[i], O_RDONLY)) == -1)
 			ft_error(env, "Opening {r}error{0} : wrong map");
-		env->ant = 0;
-		env->map = NULL;
-		env->id = 0;
-		ROOMS = NULL;
 		ft_open(env);
 		ft_putstr(env->map);
 		ft_print_infos(env);
@@ -115,9 +116,14 @@ static int	ft_more(int ac, char **av)
 int			main(int ac, char **av)
 {
 	if (ac == 1)
-		ft_zero();
+		ft_zero(0);
 	else if (ac >= 2)
-		ft_more(ac, av);
+	{
+		if (ft_strequ(av[1], "-s"))
+			ft_zero(1);
+		else
+			ft_more(ac, av);
+	}
 	else
 		ft_putchar('\n');
 	return (0);
