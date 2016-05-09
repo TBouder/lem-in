@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/02 12:07:02 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/09 17:40:42 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/09 20:12:19 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,6 @@ int		ft_found_less_path(t_path *path, t_env *env)
 
 void	ft_algo(t_env *env)
 {
-	ft_putendl("\n");
-
 	t_path	*path;
 	t_path	*origin;
 	int		len;

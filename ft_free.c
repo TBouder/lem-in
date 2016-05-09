@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 19:11:55 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/09 17:39:31 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/09 22:02:00 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,13 @@ void		ft_free_env(t_env **env, int i)
 
 void		ft_clear_gnl(t_env *env)
 {
-	ft_strdel(&env->buff);
-	while (get_next_line(env->fd, &env->buff) == 1)
+	if (env && env->map)
+	{
 		ft_strdel(&env->buff);
-	ft_strdel(&env->buff);
+		while (get_next_line(env->fd, &env->buff) == 1)
+			ft_strdel(&env->buff);
+		ft_strdel(&env->buff);
+	}
 }
 
 void		ft_path_clear(t_path **begin_path)

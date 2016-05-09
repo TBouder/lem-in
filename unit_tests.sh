@@ -20,7 +20,7 @@ good=0
 count=0
 leaks=""
 
-function	ft_signal
+ft_signal ()
 {
 	if [[ $1 -ge 129 && $1 -le 140 ]]; then
 		errors[$i]=$(basename $4)
@@ -46,7 +46,7 @@ function	ft_signal
 	fi
 }
 
-function	ft_author
+ft_author ()
 {
 	if [ -e "auteur" ]; then
 		user=$(cat auteur)
@@ -61,7 +61,7 @@ function	ft_author
 	fi
 }
 
-function	ft_makefile
+ft_makefile ()
 {
 	if [ -e "Makefile" ]; then
 		make fclean
@@ -83,7 +83,7 @@ function	ft_makefile
 	fi
 }
 
-function	ft_norme
+ft_norme ()
 {
 	norme_error=$(norminette . | grep -B1 Error | grep -w "Error" -c)
 	if [ $norme_error != 0 ] ; then
@@ -94,7 +94,7 @@ function	ft_norme
 	fi
 }
 
-function	ft_errors
+ft_errors ()
 {
 	comm="NULL"
 	for d in lem-in_maps/error/*
@@ -113,7 +113,7 @@ function	ft_errors
 	err=""
 }
 
-function	ft_comments
+ft_comments ()
 {
 	printf "%-50s" "$yellow""comments : ""$normal"
 	for f in lem-in_maps/comment/*
@@ -128,7 +128,7 @@ function	ft_comments
 	printf "\n"
 }
 
-function	ft_cmds
+ft_cmds ()
 {
 	printf "%-50s" "$yellow""cmd : ""$normal"
 	for f in lem-in_maps/cmd/*
@@ -151,7 +151,7 @@ function	ft_cmds
 	printf "\n"
 }
 
-function	ft_pipes_error
+ft_pipes_error ()
 {
 	printf "%-50s" "$yellow""pipes_error : ""$normal"
 	for f in lem-in_maps/pipes_error/*
@@ -166,7 +166,7 @@ function	ft_pipes_error
 	printf "\n"
 }
 
-function	ft_no_way
+ft_no_way ()
 {
 	comm="NULL"
 	len=0
@@ -184,7 +184,7 @@ function	ft_no_way
 	err=""
 }
 
-function	ft_logs
+ft_logs ()
 {
 	if [ ${#errors[@]} -ne 0 ]; then
 	echo "-------------------------------------------------------------------------"
