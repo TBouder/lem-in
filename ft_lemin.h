@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:14:46 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/09 12:34:59 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/09 17:33:00 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int					ft_pipeslen(t_pipes *pipes);
 ** Clear
 */
 
-void				ft_free_all(t_env **env, int i);
+void				ft_free_env(t_env **env, int i);
 void				ft_clear_gnl(t_env *env);
 
 /*

@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:16:28 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/09 12:49:15 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/09 17:33:00 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ static int	ft_zero(void)
 	// ft_print_infos(env);
 
 	ft_clear_gnl(env);
-	ft_free_all(&env, 1);
+	ft_free_env(&env, 1);
 	return (1);
 }
 
@@ -107,7 +107,7 @@ static int	ft_more(int ac, char **av)
 		ft_print_infos(env);
 		// ft_algo(env);
 		ft_clear_gnl(env);
-		ft_free_all(&env, 1);
+		ft_free_env(&env, 1);
 	}
 	return (1);
 }

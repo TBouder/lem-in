@@ -17,7 +17,7 @@ void	ft_error(t_env *env, char *str)
 	ft_printf("%s\n", str);
 	ft_clear_gnl(env);
 	if (!env)
-		ft_free_all(&env, 0);
+		ft_free_env(&env, 0);
 	exit(EXIT_FAILURE);
 }
 
