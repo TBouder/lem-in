@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:16:28 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/09 17:33:00 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/09 17:40:12 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static int	ft_zero(void)
 	ROOMS = NULL;
 	ft_open(env);
 	ft_weight(ROOMS, ft_find_start(ROOMS), 0);
-	ft_purge_useless_rooms(&ROOMS, &ROOMS);
+	ft_purge_rooms(&ROOMS, &ROOMS);
 	// ft_putstrr(env->map);
 	// ft_print_infos(env);
 	if (ft_find_end(ROOMS)->weight == -1)
