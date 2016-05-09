@@ -85,10 +85,10 @@ int				ft_put_pipes(t_datas datas, t_env *env)
 	int			i;
 	int			j;
 
-	tmp = env->rooms;
+	tmp = ROOMS;
 	i = 0;
 	j = 0;
-	if (env->rooms == NULL)
+	if (ROOMS == NULL)
 		ft_error(env, "Room {r}error{0} : no room");
 	while (tmp && (!i || !j) && (CMP(datas.name, tmp->name)
 		|| CMP(datas.name_two, tmp->name)))
@@ -97,7 +97,7 @@ int				ft_put_pipes(t_datas datas, t_env *env)
 			return (1);
 		!CMP(datas.name, tmp->name) ? i++ : 0;
 		!CMP(datas.name_two, tmp->name) ? j++ : 0;
-		if (i == 1 && j == 1 && ft_pipes_push(datas, &env->rooms))
+		if (i == 1 && j == 1 && ft_pipes_push(datas, &ROOMS))
 			return (1);
 		tmp = tmp->next;
 	}

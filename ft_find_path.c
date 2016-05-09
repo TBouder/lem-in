@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 11:51:37 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/04 14:34:08 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/09 12:37:52 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,20 +31,6 @@ while il y a des chemins valides mais pas sur room_end
 	aller a la premiere salle non finie et valide
 	refaire l'operation de la premiere boucle while
 */
-int		ft_cmpp(char *path, char *data_ref)
-{
-	char	*str;
-
-	str = ft_strnew(500);
-	str = ft_strstr(path, data_ref);
-	if (str == NULL)
-	{
-		ft_strdel(&str);
-		return (0);
-	}
-	return (1);
-}
-//---//
 
 t_rooms	*ft_error_pipe(t_path *path)
 {
@@ -60,46 +46,37 @@ t_rooms	*ft_one_pipe(t_env *env, t_path *path, t_pipes *pipe, t_rooms *rooms)
 	r = NULL;
 	if (rooms->weight < ft_find_room_s(ROOMS, pipe->id)->weight)
 	{
-		path->path = ft_push_path(&path->path, ft_find_room(env->rooms, pipe)->name);
+		path->path = ft_push_path(&path->path, ft_find_room(ROOMS, pipe)->name);
 		path->moves += 1;
 		str = ft_strsplit(path->path, ' ');
 		r = ft_strinit(str[ft_dbstrlen(str) - 1]);
 		ft_dbstrdel(str);
 	}
-	if (r)
-		return (ft_find_room_s(env->rooms, r));
-	else
-		return (ft_error_pipe(path));
-
+	return (r ? ft_find_room_s(ROOMS, r) : ft_error_pipe(path));
 }
 
 t_rooms	*ft_mult_pipe(t_env *env, t_path *path, t_pipes *pipes, t_rooms *rooms)
 {
-	t_pipes	*p;
-	char	*temp_path;
+	t_pipes	*r;
+	char	*tmp;
 
-	p = NULL;
-	// pipes = pipes->next;
+	r = NULL;
 	while (pipes)
 	{
 		if (rooms->weight < ft_find_room_s(ROOMS, pipes->id)->weight)
 		{
 			if (!ft_strstr(path->path, pipes->id) && path->moves_max < path->moves + 1)
 			{
-				// ft_printf("%d vs %d : %s vs %s\n", rooms->weight, ft_find_room_s(ROOMS, pipes->id)->weight, rooms->name, ft_find_room_s(ROOMS, pipes->id)->name);
-				temp_path = ft_strinit(path->path);
-				temp_path = ft_push_path(&temp_path, ft_find_room(env->rooms, pipes)->name);
-				ft_pathsend(&path, temp_path);
-				!p ? p = pipes : 0;
-				ft_strdel(&temp_path);
+				tmp = ft_strinit(path->path);
+				tmp = ft_push_path(&tmp, ft_find_room(ROOMS, pipes)->name);
+				ft_pathsend(&path, tmp);
+				!r ? r = pipes : 0;
+				ft_strdel(&tmp);
 			}
 		}
 		pipes = pipes->next;
 	}
-	if (p)
-		return (ft_one_pipe(env, path, p, rooms));
-	else
-		return (ft_error_pipe(path));
+	return (r ? ft_one_pipe(env, path, r, rooms) : ft_error_pipe(path));
 }
 
 void	ft_find_path(t_env *env, t_path *path)
@@ -108,21 +85,14 @@ void	ft_find_path(t_env *env, t_path *path)
 	t_pipes *pipes;
 	char 	*end;
 
-	rooms = ft_find_room_s(env->rooms, path->path);
-	end = ft_find_end(env->rooms)->name;
-	// ft_printf("Start : %s\n", path->path);
+	rooms = ft_find_room_s(ROOMS, path->path);
+	end = ft_find_end(ROOMS)->name;
 	while (rooms && !ft_strstr(path->path, end))
 	{
 		pipes = rooms->pipes;
 		if (ft_pipeslen(pipes) == 1)
-		{
-			// ft_printf("{b}%d{0} vs {c}%d{0}\n", path->moves_max, path->moves);
 			rooms = ft_one_pipe(env, path, rooms->pipes, rooms);
-		}
 		else if (ft_pipeslen(pipes) > 1)
-		{
-			// ft_printf("{c}%d{0} vs {b}%d{0}\n", path->moves_max < path->moves + 1);
 			rooms = ft_mult_pipe(env, path, rooms->pipes, rooms);
-		}
 	}
 }
