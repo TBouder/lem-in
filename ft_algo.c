@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/02 12:07:02 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/09 16:34:08 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/09 16:59:32 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,27 @@ void 	ft_path_remove_if_error(t_path **begin_path)
 			path = path->next;
 	}
 }
+
+static void		ft_destroy(t_path *path)
+{
+	if (path->next != NULL)
+	{
+		ft_strdel(&path->path);
+		ft_destroy(path->next);
+	}
+	free(path);
+}
+
+void			ft_path_clear(t_path **begin_path)
+{
+	if (begin_path && *begin_path)
+	{
+		ft_strdel(&(*begin_path)->path);
+		ft_destroy(*begin_path);
+		*begin_path = NULL;
+	}
+}
+
 //------------------------------------------------------------//
 
 void	ft_verif_same_path(t_path *path)
@@ -147,10 +168,6 @@ void	ft_algo(t_env *env)
 	ft_verif_same_path(origin);
 	ft_path_remove_if_error(&path);
 	ft_print_path(path);
-	path = origin;
-	while (path)
-	{
-		ft_strdel(&path->path);
-		path = path->next;
-	}
+
+	ft_path_clear(&path);
 }
