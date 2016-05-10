@@ -6,11 +6,11 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 12:06:13 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/04 18:26:14 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/10 21:56:49 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_lemin.h"
+#include "ft_extract.h"
 
 static int	ft_verifdup_pipe(t_rooms pipes, char *str)
 {

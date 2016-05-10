@@ -6,11 +6,11 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/05 14:00:22 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/07 10:53:00 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/10 19:45:34 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_lemin.h"
+#include "ft_find.h"
 
 static int		ft_pipeslen_w(t_rooms *origin, t_pipes *pipes, int id)
 {
@@ -23,7 +23,7 @@ static int		ft_pipeslen_w(t_rooms *origin, t_pipes *pipes, int id)
 	tmp = pipes;
 	while (tmp)
 	{
-		prev_id = ft_find_room_s(origin, tmp->id)->weight;
+		prev_id = ft_find_room(origin, tmp->id)->weight;
 		if (prev_id == -1)
 			i++;
 		tmp = tmp->next;
@@ -39,9 +39,9 @@ static t_rooms	*ft_pipesgo_w(t_rooms *origin, t_pipes *pipes)
 	tmp = pipes;
 	while (tmp)
 	{
-		prev_id = ft_find_room_s(origin, tmp->id)->weight;
+		prev_id = ft_find_room(origin, tmp->id)->weight;
 		if (prev_id == -1)
-			return (ft_find_room_s(origin, tmp->id));
+			return (ft_find_room(origin, tmp->id));
 		tmp = tmp->next;
 	}
 	return (NULL);
@@ -51,8 +51,9 @@ static void		ft_apply_pipes(t_pipes *pipes, t_rooms *origin, int id)
 {
 	while (pipes)
 	{
-		if (ft_find_room_s(origin, pipes->id)->weight == -1 || ft_find_room_s(origin, pipes->id)->weight > id)
-			ft_find_room_s(origin, pipes->id)->weight = id + 1;
+		if (ft_find_room(origin, pipes->id)->weight == -1
+			|| ft_find_room(origin, pipes->id)->weight > id)
+			ft_find_room(origin, pipes->id)->weight = id + 1;
 		pipes = pipes->next;
 	}
 }
@@ -76,9 +77,9 @@ int				ft_weight(t_rooms *origin, t_rooms *rooms, int id)
 		ft_apply_pipes(pipes, origin, id);
 		while (pipes)
 		{
-			prev_id = ft_find_room_s(origin, pipes->id)->weight;
+			prev_id = ft_find_room(origin, pipes->id)->weight;
 			if (prev_id == id + 1)
-				ft_weight(origin, ft_find_room_s(origin, pipes->id), id + 1);
+				ft_weight(origin, ft_find_room(origin, pipes->id), id + 1);
 			pipes = pipes->next;
 		}
 	}

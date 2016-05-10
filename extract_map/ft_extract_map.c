@@ -1,31 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_extract.c                                       :+:      :+:    :+:   */
+/*   ft_extract_map.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 12:28:01 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/09 20:12:23 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/10 23:55:22 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_lemin.h"
-#define ATOICHEK ft_num(str[1]) && ft_num(str[2])
-
-static int	ft_num(char *str)
-{
-	int		i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (!ft_isnumber(str[i]))
-			return (0);
-		i++;
-	}
-	return (1);
-}
+#include "ft_extract.h"
 
 static void	ft_extract_rooms(t_datas *datas, char **str, t_env *env, int pos)
 {
@@ -67,7 +52,7 @@ static void	ft_extract_cmd(t_env *env, char **str, int v, char *status)
 	ft_strdel(&status);
 }
 
-int			ft_launch_extract(t_env *env, char **str, int part)
+int			ft_extract_part(t_env *env, char **str, int part)
 {
 	t_datas	datas;
 
@@ -79,7 +64,8 @@ int			ft_launch_extract(t_env *env, char **str, int part)
 	}
 	if (part == 2)
 	{
-		ft_extract_pipes(&datas, str);
+		(&datas)->name = ft_strinit(str[0]);
+		(&datas)->name_two = ft_strinit(str[1]);
 		if (ft_put_pipes(datas, env) == 1)
 		{
 			ft_strdel(&datas.name);
@@ -108,10 +94,10 @@ void		ft_extract_map(t_env *env, char **str)
 				ft_extract_cmd(env, NULL, 0, ft_strnew(ft_strlen(env->buff)));
 			else if (str[0][0] == '#')
 				env->id--;
-			else if (ft_dbstrlen(str) == 3 && ATOICHEK)
-				ft_launch_extract(env, str, 1);
+			else if (ft_dbstrlen(str) == 3 && ft_num(str[1]) && ft_num(str[2]))
+				ft_extract_part(env, str, 1);
 			else
-				verif = ft_pipes(env);
+				verif = ft_extract_pipes(env, NULL);
 			env->id++;
 		}
 		ft_strdel(&env->buff);

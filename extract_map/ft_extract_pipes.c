@@ -6,26 +6,11 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/25 13:27:41 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/09 22:16:52 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/10 19:22:18 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_lemin.h"
-
-static void		ft_rev_datas(t_datas *datas)
-{
-	char	*s1;
-	char	*s2;
-
-	s1 = ft_strinit(datas->name);
-	s2 = ft_strinit(datas->name_two);
-	datas->name = NULL;
-	datas->name_two = NULL;
-	datas->name = ft_strinit(s2);
-	datas->name_two = ft_strinit(s1);
-	ft_strdel(&s1);
-	ft_strdel(&s2);
-}
+#include "ft_extract.h"
 
 static int		ft_pipes_push(t_datas datas, t_rooms **rooms, int mode)
 {
@@ -61,19 +46,13 @@ static int		ft_pipe_before(t_env *env)
 	if (!ft_cmd(env, str) && ft_dbstrlen(str) == 2)
 	{
 		if (ft_dbstrlen(str) == 2)
-			verif = ft_launch_extract(env, str, 2);
+			verif = ft_extract_part(env, str, 2);
 	}
 	else
 		verif = 1;
 	ft_dbstrdel(str);
 	ft_strdel(&env->buff);
 	return (verif);
-}
-
-void			ft_extract_pipes(t_datas *datas, char **str)
-{
-	datas->name = ft_strinit(str[0]);
-	datas->name_two = ft_strinit(str[1]);
 }
 
 int				ft_put_pipes(t_datas datas, t_env *env)
@@ -102,12 +81,10 @@ int				ft_put_pipes(t_datas datas, t_env *env)
 	return (0);
 }
 
-int				ft_pipes(t_env *env)
+int				ft_extract_pipes(t_env *env, char **str)
 {
-	char	**str;
 	int		verif;
 
-	verif = 0;
 	verif = ft_pipe_before(env);
 	while (get_next_line(env->fd, &env->buff) == 1 && !verif)
 	{
@@ -120,7 +97,7 @@ int				ft_pipes(t_env *env)
 				!verif ? env->map = ft_push_map(&env->map, env->buff) : 0;
 			else if (ft_dbstrlen(str) == 2)
 			{
-				verif = ft_launch_extract(env, str, 2);
+				verif = ft_extract_part(env, str, 2);
 				!verif ? env->map = ft_push_map(&env->map, env->buff) : 0;
 			}
 			else

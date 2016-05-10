@@ -6,25 +6,11 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/02 16:51:24 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/10 10:43:18 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/10 21:46:12 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_lemin.h"
-
-t_rooms	*ft_find_room(t_rooms *rooms, t_pipes *pipes)
-{
-	t_rooms	*tmp;
-
-	tmp = rooms;
-	while (tmp)
-	{
-		if (!ft_strcmp(tmp->name, pipes->id))
-			return (tmp);
-		tmp = tmp->next;
-	}
-	return (NULL);
-}
 
 t_rooms	*ft_find_start(t_rooms *rooms)
 {
@@ -54,7 +40,7 @@ t_rooms	*ft_find_end(t_rooms *rooms)
 	return (NULL);
 }
 
-t_rooms	*ft_find_room_s(t_rooms *rooms, char *datas)
+t_rooms	*ft_find_room(t_rooms *rooms, char *datas)
 {
 	t_rooms	*tmp;
 	char	**str;

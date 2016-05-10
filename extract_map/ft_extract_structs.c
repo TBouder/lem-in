@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_structs.c                                       :+:      :+:    :+:   */
+/*   ft_extract_structs.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 11:23:22 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/10 15:29:29 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/10 21:58:29 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_lemin.h"
+#include "ft_extract.h"
 
 static t_rooms	*ft_roomsnew(t_rooms *prev, t_datas datas)
 {
