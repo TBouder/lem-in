@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:16:28 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/09 22:12:59 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/10 10:47:04 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,6 @@
 ** - Lecture plusieurs fichiers a la fois (Neccessite OPEN)
 ** - Possibility to use -s for soft mode (for the map extract) (Allows same pipe)
 */
-
-static void	ft_set_env(t_env *env)
-{
-	env->ant = 0;
-	env->buff = NULL;
-	env->map = NULL;
-	env->id = 0;
-	ROOMS = NULL;
-}
 
 static void	ft_init_buff(t_env *env, char **str)
 {

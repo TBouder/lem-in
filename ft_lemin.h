@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:14:46 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/09 21:55:49 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/10 10:47:31 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ int					ft_pipes(t_env *env);
 void				ft_roomsend(t_rooms **rooms, t_datas datas);
 void				ft_pipesend(t_pipes **pipes, t_datas datas);
 void				ft_pathsend(t_path **path, char *datas);
+void				ft_set_env(t_env *env);
 
 /*
 ** Verifs

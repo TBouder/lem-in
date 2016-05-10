@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/02 12:07:02 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/09 20:12:19 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/10 11:17:18 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,24 +100,17 @@ void	ft_algo(t_env *env)
 {
 	t_path	*path;
 	t_path	*origin;
-	int		len;
 
 	path = NULL;
 	ft_pathsend(&path, ft_find_start(ROOMS)->name); // on met la premiere salle dans la liste
 	origin = path;
 
-	ft_find_path(env, path); //On cherche le meilleur chemin, un passage
-	len = ft_found_less_path(origin, env); // On recup la len max
-	ft_put_max_path(origin, len); // On met la len max partout
-
 	while (path)
 	{
-		ft_find_path(env, path);
-		len = ft_found_less_path(origin, env); // On recup la len max
-		ft_put_max_path(origin, len); // On met la len max partout
+		ft_find_path(env, path); //On cherche le meilleur chemin
+		ft_put_max_path(origin, ft_found_less_path(origin, env)); // On met la len max partout
 		path = path->next;
 	}
-
 	path = origin;
 	ft_verif_same_path(path);
 	ft_path_remove_if_error(&path, "ERROR");

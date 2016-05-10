@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 11:23:22 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/05 16:27:31 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/10 10:47:11 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,4 +86,13 @@ void			ft_pipesend(t_pipes **pipes, t_datas datas)
 	}
 	else
 		*pipes = ft_pipesnew(NULL, datas);
+}
+
+void			ft_set_env(t_env *env)
+{
+	env->ant = 0;
+	env->buff = NULL;
+	env->map = NULL;
+	env->id = 0;
+	ROOMS = NULL;
 }
