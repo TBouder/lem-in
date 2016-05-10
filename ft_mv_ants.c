@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 11:47:18 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/10 16:30:23 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/10 16:35:24 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,31 +128,29 @@ t_rooms	*ft_find_alast_ant(t_rooms *rooms, char **str)
 void	ft_mv_ants(t_env *env, char **str, int part)
 {
 	// int		i = 0;//
-	t_rooms	*end;
-	t_rooms	*next;
 
-ft_putendl(ft_find_last_ant(ROOMS, str)->name);
-ft_putendl(ft_find_alast_ant(ROOMS, str)->name);
+part = 0;
 
-if (0)
-{
-	end = ft_find_end(ROOMS);
-	while (end->ant == 0)
-	next = ft_find_room_s(ROOMS, str[part - 1]);
-	if (next->ant == 0)
-	{
-		next->ant_id = ROOMS->ant_id == 0 ? 1 : ROOMS->ant_id;
-		ROOMS->ant_id = 0;
-		ROOMS->ant -= 1;
-		next->ant += 1;
-		ft_putchar('L');
-		ft_putnbr(next->ant_id);
-		ft_putchar('-');
-		ft_putstr(next->name);
-		ft_putchar('\n');
-	}
-}
+	if (ft_find_end(ROOMS)->ant == env->ant)
+		exit(0);
+
+	t_rooms	*n;
+	t_rooms	*n_plus;
+
+	n = ft_find_last_ant(ROOMS, str);
+	n_plus = ft_find_alast_ant(ROOMS, str);
+	n->ant -= 1;
+	n_plus->ant_id = (n->ant_id == 0 ? 1 : n->ant_id);
+	n->ant_id = 0;
+	n_plus->ant += 1;
+	ft_putchar('L');
+	ft_putnbr(n_plus->ant_id);
+	ft_putchar('-');
+	ft_putstr(n_plus->name);
+	ft_putchar('\n');
+
+
 	// ft_printf("%d, %d\n", part, ft_dbstrlen(str + 1));
-		// ft_mv_ants(env, str, part + 1);
+		ft_mv_ants(env, str, 0);
 
 }
