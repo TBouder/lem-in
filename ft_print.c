@@ -24,7 +24,7 @@ void	ft_print_pipes(t_pipes *pipes)
 	}
 }
 
-void		ft_putstrr(char *str)
+void		ft_print_map(char *str)
 {
 	int		i;
 

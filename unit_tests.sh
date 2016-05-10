@@ -71,7 +71,6 @@ ft_makefile ()
 		# make3=$(make)
 		# make re
 		make
-		make fclean
 		# if [ "$make2" = "make: Nothing to be done for \`all'." -a "$make3" = "make: Nothing to be done for \`all'." ] ; then
 		if [ "$make2" = "make: Nothing to be done for \`all'." ] ; then
 			echo "Makefile : \033[32;1mOK\033[00;0m"

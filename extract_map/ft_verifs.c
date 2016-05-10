@@ -6,11 +6,11 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/27 17:58:34 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/07 10:53:01 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/10 21:56:46 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_lemin.h"
+#include "ft_extract.h"
 
 static void	ft_verif_pipes(t_env *env)
 {

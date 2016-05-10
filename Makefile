@@ -6,7 +6,7 @@
 #    By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/04/22 12:12:36 by tbouder           #+#    #+#              #
-#    Updated: 2016/05/10 11:47:52 by tbouder          ###   ########.fr        #
+#    Updated: 2016/05/10 23:58:30 by tbouder          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,30 +16,32 @@ CC			= 	gcc
 CFLAGS		= 	-Wall -Werror -Wextra
 OPTI		=	-g -O3
 
-SRC 		= 	ft_lemin.c ft_tools.c ft_structs.c ft_structs_two.c ft_extract.c ft_extract_pipes.c \
-				ft_verifs.c ft_verifs_duplicates.c ft_free.c ft_algo.c ft_print.c \
-				ft_find_specific_room.c ft_find_path.c ft_weight.c ft_purge_deadend.c ft_mv_ants.c
+
+EXTRACT		=	$(wildcard extract_map/*.c)
+FIND		=	$(wildcard find_path/*.c)
+MOVES		=	$(wildcard setup_moves/*.c)
+SHARED		=	main.c ft_tools.c ft_free.c ft_print.c ft_find_specific_room.c
+SRC			=	$(EXTRACT) $(FIND) $(MOVES) $(notdir $(SHARED))
 
 LIB			=	-Lft_printf -lftprintf
 
-OBJ			=	$(SRC:.c=.o)
+OBJ			=	$(patsubst %.c,%.o, $(SRC))
 
-HEADER 		=	ft_lemin.h ft_printf/ft_printf.h
+JUNCK		=	$(wildcard *.gch */*.gch .DS_Store */.DS_Store)
+
 
 all: $(NAME)
 
 .SILENT : $(NAME) $(OBJ)
 $(NAME): $(OBJ)
 	# $(MAKE) re -C ft_printf
-	$(CC) $(CFLAGS) $(OPTI) -c $(HEADER) $(SRC)
-	$(CC) -o $(NAME) $(OBJ) $(LIB)
+	$(CC) $(CFLAGS) $(OPTI) -o $@ $(OBJ) $(LIB)
+	# $(CC) -o $@ $(OBJ) $(LIB)
 
 .SILENT : clean
 clean:
 	# $(MAKE) clean -C ft_printf
-	rm -f $(OBJ)
-	rm -f **/*.gch
-	rm -rf *.dSYM
+	rm -f $(OBJ) $(JUNCK)
 
 .SILENT : fclean
 fclean: clean

@@ -6,44 +6,13 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/02 12:07:02 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/10 11:47:02 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/10 21:51:25 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_lemin.h"
+#include "ft_find.h"
 
-
-char	*ft_push_path(char **s1, char *s2)
-{
-	char	*str;
-
-	if (s1 != NULL)
-	{
-		str = ft_strnew(ft_strlen(*s1) + ft_strlen(s2) + 1);
-		ft_strcpy(str, *s1);
-		ft_strcat(str, " ");
-		ft_strcat(str, s2);
-		ft_strdel(s1);
-	}
-	else
-	{
-		str = ft_strinit(s2);
-		ft_strdel(s1);
-	}
-	return (str);
-}
-
-void	ft_finish_path(t_env *env, t_path *path)
-{
-	char	**str;
-
-	str = ft_strsplit(path->path, ' ');
-	if (ft_strcmp(str[ft_dbstrlen(str) - 1], ft_find_end(ROOMS)->name))
-		ft_find_path(env, path);
-	ft_dbstrdel(str);
-}
-
-void	ft_verif_same_path(t_path *path)
+static void	ft_verif_same_path(t_path *path)
 {
 	t_path	*o;
 	t_path	*start;
@@ -64,7 +33,7 @@ void	ft_verif_same_path(t_path *path)
 	}
 }
 
-void	ft_put_max_path(t_path *begin_path, int i)
+static void	ft_put_max_path(t_path *begin_path, int i)
 {
 	t_path	*path;
 
@@ -77,7 +46,7 @@ void	ft_put_max_path(t_path *begin_path, int i)
 	}
 }
 
-int		ft_found_less_path(t_path *path, t_env *env)
+static int	ft_found_less_path(t_path *path, t_env *env)
 {
 	t_path	*tmp;
 	int		i;
@@ -88,7 +57,7 @@ int		ft_found_less_path(t_path *path, t_env *env)
 	{
 		if (tmp->moves < i || i == 0)
 		{
-			if (ft_isstrstr(tmp->path, ft_find_end(ROOMS)->name))
+			if (ft_isstrstr(tmp->path, env->end->name))
 				i = tmp->moves;
 		}
 		tmp = tmp->next;
@@ -96,19 +65,18 @@ int		ft_found_less_path(t_path *path, t_env *env)
 	return (i);
 }
 
-void	ft_algo(t_env *env)
+void		ft_algo(t_env *env)
 {
 	t_path	*path;
 	t_path	*origin;
 
 	path = NULL;
-	ft_pathsend(&path, ft_find_start(ROOMS)->name); // on met la premiere salle dans la liste
+	ft_pathsend(&path, ft_find_start(ROOMS)->name);
 	origin = path;
-
 	while (path)
 	{
-		ft_find_path(env, path); //On cherche le meilleur chemin
-		ft_put_max_path(origin, ft_found_less_path(origin, env)); // On met la len max partout
+		ft_find_path(env, path);
+		ft_put_max_path(origin, ft_found_less_path(origin, env));
 		path = path->next;
 	}
 	path = origin;
