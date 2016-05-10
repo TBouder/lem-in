@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:14:46 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/10 11:53:43 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/10 15:30:42 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct		s_rooms
 	int				weight;
 	int				x;
 	int				y;
+	int				ant_id;
 	long			ant;
 	char			*name;
 	struct s_pipes	*pipes;
@@ -149,6 +150,6 @@ void				ft_find_path(t_env *env, t_path *path);
 void				ft_put_max_path(t_path *begin_path, int i);
 int					ft_found_less_path(t_path *path, t_env *env);
 
-void				ft_mv_ants(t_env *env);
+void				ft_mv_ants(t_env *env, char **str, int part);
 
 #endif

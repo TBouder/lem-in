@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:16:28 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/10 11:58:35 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/10 15:21:44 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ static void	ft_open(t_env *env)
 static int	ft_zero(int	i)
 {
 	t_env	*env;
+	char	**str;
 
 	if (!(env = (t_env *)malloc(sizeof(t_env))))
 		return (0);
@@ -81,7 +82,9 @@ static int	ft_zero(int	i)
 
 //MOVE
 	ft_putchar('\n');
-	ft_mv_ants(env);
+	str = ft_strsplit(env->path, ' ');
+	ft_mv_ants(env, str, 1);
+	ft_dbstrdel(str);
 
 
 	ft_clear_gnl(env);
