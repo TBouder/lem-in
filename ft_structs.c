@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 11:23:22 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/10 10:47:11 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/10 12:09:08 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static t_rooms	*ft_roomsnew(t_rooms *prev, t_datas datas)
 	rooms->name = ft_strinit(datas.name);
 	rooms->pos = datas.pos;
 	rooms->weight = -1;
+	rooms->ant = 0;
 	rooms->x = datas.x;
 	rooms->y = datas.y;
 	rooms->pipes = NULL;
@@ -60,7 +61,6 @@ static t_pipes	*ft_pipesnew(t_pipes *prev, t_datas datas)
 		return (NULL);
 	str = ft_strinit(datas.name_two);
 	pipes->id = ft_strinit(str);
-	pipes->ant = 0;
 	pipes->occuped = 0;
 	pipes->next = NULL;
 	pipes->prev = prev;

@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:14:46 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/10 10:47:31 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/10 11:53:43 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 typedef struct		s_pipes
 {
 	char			*id;
-	long			ant;
 	int				occuped;
 	struct s_pipes	*prev;
 	struct s_pipes	*next;
@@ -33,9 +32,10 @@ typedef struct		s_rooms
 	int				id;
 	int				pos;
 	int				weight;
-	char			*name;
 	int				x;
 	int				y;
+	long			ant;
+	char			*name;
 	struct s_pipes	*pipes;
 	struct s_pipes	*pipes_prev;
 	struct s_rooms	*prev;
@@ -49,6 +49,7 @@ typedef struct		s_env
 	int				fd;
 	int				mode;
 	char			*map;
+	char			*path;
 	char			*buff;
 	struct s_rooms	*rooms;
 }					t_env;
@@ -144,10 +145,10 @@ t_rooms				*ft_find_start(t_rooms *rooms);
 t_rooms				*ft_find_end(t_rooms *rooms);
 t_rooms				*ft_find_room_s(t_rooms *rooms, char *datas);
 
-
-
 void				ft_find_path(t_env *env, t_path *path);
 void				ft_put_max_path(t_path *begin_path, int i);
 int					ft_found_less_path(t_path *path, t_env *env);
+
+void				ft_mv_ants(t_env *env);
 
 #endif
