@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 11:47:18 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/10 15:40:56 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/10 16:30:23 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,16 +93,52 @@ void	ft_mv_ants1(t_env *env)
 	ft_dbstrdel(str);
 }
 
+t_rooms	*ft_find_last_ant(t_rooms *rooms, char **str)
+{
+	t_rooms	*tmp;
+	int		i;
+
+	tmp = ft_find_end(rooms);
+	i = ft_dbstrlen(str) - 1;
+	while (tmp && tmp->ant == 0 && i >= 0)
+	{
+		tmp = ft_find_room_s(rooms, str[i]);
+		i--;
+	}
+	// tmp = ft_find_room_s(rooms, str[i + 2]);
+	return (tmp);
+}
+
+t_rooms	*ft_find_alast_ant(t_rooms *rooms, char **str)
+{
+	t_rooms	*tmp;
+	int		i;
+
+	tmp = ft_find_end(rooms);
+	i = ft_dbstrlen(str) - 1;
+	while (tmp && tmp->ant == 0 && i >= 0)
+	{
+		tmp = ft_find_room_s(rooms, str[i]);
+		i--;
+	}
+	tmp = ft_find_room_s(rooms, str[i + 2]);
+	return (tmp);
+}
+
 void	ft_mv_ants(t_env *env, char **str, int part)
 {
 	// int		i = 0;//
 	t_rooms	*end;
 	t_rooms	*next;
 
+ft_putendl(ft_find_last_ant(ROOMS, str)->name);
+ft_putendl(ft_find_alast_ant(ROOMS, str)->name);
+
+if (0)
+{
 	end = ft_find_end(ROOMS);
-	if (end->ant == env->ant)
-		exit(1);
-	next = ft_find_room_s(ROOMS, str[part]);
+	while (end->ant == 0)
+	next = ft_find_room_s(ROOMS, str[part - 1]);
 	if (next->ant == 0)
 	{
 		next->ant_id = ROOMS->ant_id == 0 ? 1 : ROOMS->ant_id;
@@ -115,7 +151,8 @@ void	ft_mv_ants(t_env *env, char **str, int part)
 		ft_putstr(next->name);
 		ft_putchar('\n');
 	}
+}
 	// ft_printf("%d, %d\n", part, ft_dbstrlen(str + 1));
-		ft_mv_ants(env, str, part + 1);
+		// ft_mv_ants(env, str, part + 1);
 
 }
