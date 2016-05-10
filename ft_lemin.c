@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:16:28 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/10 15:21:44 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/10 15:41:26 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ static int	ft_zero(int	i)
 //MOVE
 	ft_putchar('\n');
 	str = ft_strsplit(env->path, ' ');
-	ft_mv_ants(env, str, 1);
+	ft_mv_ants(env, str, ft_dbstrlen(str) - 1);
 	ft_dbstrdel(str);
 
 

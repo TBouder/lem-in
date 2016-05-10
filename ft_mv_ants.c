@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 11:47:18 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/10 15:28:25 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/10 15:40:56 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,14 +105,17 @@ void	ft_mv_ants(t_env *env, char **str, int part)
 	next = ft_find_room_s(ROOMS, str[part]);
 	if (next->ant == 0)
 	{
+		next->ant_id = ROOMS->ant_id == 0 ? 1 : ROOMS->ant_id;
+		ROOMS->ant_id = 0;
 		ROOMS->ant -= 1;
 		next->ant += 1;
 		ft_putchar('L');
-		ft_putnbr(1);
+		ft_putnbr(next->ant_id);
 		ft_putchar('-');
 		ft_putstr(next->name);
-		ft_putchar(' ');
-
+		ft_putchar('\n');
 	}
+	// ft_printf("%d, %d\n", part, ft_dbstrlen(str + 1));
+		ft_mv_ants(env, str, part + 1);
 
 }
