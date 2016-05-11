@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/02 12:07:02 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/10 21:51:25 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/11 12:15:43 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,33 @@ void		ft_algo(t_env *env)
 	path = NULL;
 	ft_pathsend(&path, ft_find_start(ROOMS)->name);
 	origin = path;
-	while (path)
+	// while (path)
+	// {
+	// 	ft_find_path(env, path);
+	// 	ft_put_max_path(origin, ft_found_less_path(origin, env));
+	// 	ft_print_path(path);
+	// 	path = path->next;
+	// }
+// ft_putendl("----------");
+	if (path)
 	{
 		ft_find_path(env, path);
 		ft_put_max_path(origin, ft_found_less_path(origin, env));
-		path = path->next;
+		ft_print_path(path);
+		if (ft_isstrstr(path->path, env->end->name) || ft_isstrstr(path->path, "ERROR"))
+			path = path->next;
 	}
+ft_putendl("----------");
+	if (path)
+	{
+		ft_find_path(env, path);
+		ft_put_max_path(origin, ft_found_less_path(origin, env));
+		ft_print_path(path);
+		if (ft_isstrstr(path->path, env->end->name) || ft_isstrstr(path->path, "ERROR"))
+			path = path->next;
+	}
+
+
 	path = origin;
 	ft_verif_same_path(path);
 	ft_path_remove_if_error(&path, "ERROR");
