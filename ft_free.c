@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 19:11:55 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/11 15:27:20 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/11 16:48:59 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,15 @@ static void	ft_free_env_pipes(t_pipes **pipes)
 	pipes = NULL;
 }
 
+
 void		ft_free_env(t_env **env, int i)
 {
 	t_rooms	*free_list;
 	t_rooms	*temp;
 
 	ft_strdel(&(*env)->map);
-	ft_strdel(&(*env)->path);
+	ft_path_clear(&(*env)->paths);
+	// ft_strdel(&(*env)->path); //FAIRE FONCTION DE FREE DE PATH
 	if (*env && i && (*env)->rooms != NULL)
 	{
 		free_list = (*env)->rooms;
