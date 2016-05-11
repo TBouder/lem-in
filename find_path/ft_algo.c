@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/02 12:07:02 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/11 15:20:18 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/11 15:41:49 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,22 +74,23 @@ static int	ft_found_less_path(t_path *path, t_env *env)
 
 	while (path)
 	{
-		// ft_printf("{r}%s{0}\n", path->path);
+		ft_printf("{r}%s{0}\n", path->path);
 		tmp = path->next;
 		s1 = ft_strsplit(path->path, ' ');
 		while (tmp)
 		{
-			i = 0;
+			i = 1;
 			s2 = ft_strsplit(tmp->path, ' ');
 			while (s1[i] && s2[i])
 			{
-				if (ft_strequ(s1[i], env->start->name) || ft_strequ(s1[i], env->end->name))
+				if (ft_strequ(s1[i], env->end->name) || ft_strequ(s2[i], env->end->name))
 					;
 				else if (ft_strequ(s1[i], "LERR") || ft_strequ(s2[i], "LERR"))
-					break ;
+					;
 				else if (ft_isstrstr(s1[i], s2[i]))
 					tmp->path = ft_push_path(&tmp->path, "LERR");
-				i++;
+					i++;
+				// i++;
 			}
 			tmp = tmp->next;
 			ft_dbstrdel(s2);
@@ -115,14 +116,16 @@ void		ft_algo(t_env *env)
 			break ;
 		path = path->next;
 	}
-
-	ft_verif_same_path(origin);
-	ft_verif_collision(env, origin);
-	ft_path_remove_if_error(&origin, "LERR");
 	// ft_putendl("----------");
 	// ft_print_path(origin);
 	// ft_putendl("----------\n");
-	env->path = ft_strinit(origin->path);
+	ft_verif_same_path(origin);
+	ft_verif_collision(env, origin);
+	ft_path_remove_if_error(&origin, "LERR");
+	ft_putendl("----------");
+	ft_print_path(origin);
+	ft_putendl("----------\n");
+	// env->path = ft_strinit(origin->path);
 	path = origin;
 	while (path)
 	{
