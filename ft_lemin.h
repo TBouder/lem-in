@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:14:46 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/11 15:02:46 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/11 16:23:55 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,20 +41,6 @@ typedef struct		s_rooms
 	struct s_rooms	*next;
 }					t_rooms;
 
-typedef struct		s_env
-{
-	long			ant;
-	int				id;
-	int				fd;
-	int				mode;
-	char			*map;
-	char			*path;
-	char			*buff;
-	struct s_rooms	*start;
-	struct s_rooms	*end;
-	struct s_rooms	*rooms;
-}					t_env;
-
 typedef struct		s_path
 {
 	int				moves;
@@ -63,6 +49,19 @@ typedef struct		s_path
 	struct s_path	*next;
 }					t_path;
 
+typedef struct		s_env
+{
+	long			ant;
+	int				id;
+	int				fd;
+	int				mode;
+	char			*map;
+	char			*buff;
+	struct s_path	*paths;
+	struct s_rooms	*start;
+	struct s_rooms	*end;
+	struct s_rooms	*rooms;
+}					t_env;
 
 void				ft_extract(int ac, char **av, t_env **env);
 void				ft_find(t_env *env);

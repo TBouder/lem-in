@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/02 12:07:02 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/11 16:20:30 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/11 16:30:14 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,13 +115,10 @@ void		ft_algo(t_env *env)
 	ft_path_remove_if_error(&origin, "LERR");
 	ft_verif_collision(env, origin, NULL);
 	ft_path_remove_if_error(&origin, "LERR");
-	ft_putendl("----------");
-	ft_print_path(origin);
-	ft_putendl("----------\n");
-	env->path = ft_strinit(origin->path);
 	path = origin;
 	while (path)
 	{
+		ft_pathsend(&env->paths, path->path);
 		ft_strdel(&path->path);
 		path = path->next;
 	}
