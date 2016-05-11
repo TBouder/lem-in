@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/02 12:07:02 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/11 13:28:55 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/11 14:18:35 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,12 +81,11 @@ void		ft_algo(t_env *env)
 			break ;
 		path = path->next;
 	}
-	path = origin;
-	ft_verif_same_path(path);
-	ft_path_remove_if_error(&path, "ERROR");
+	ft_verif_same_path(origin);
+	ft_path_remove_if_error(&origin, "ERROR");
 	// ft_putendl("----------");
 	// ft_print_path(origin);
 	// ft_putendl("----------\n");
-	env->path = ft_strinit(path->path);
-	ft_path_clear(&path);
+	env->path = ft_strinit(origin->path);
+	ft_path_clear(&origin);
 }
