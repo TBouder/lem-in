@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 19:11:55 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/10 11:46:47 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/11 12:18:40 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,6 @@
 /*
 ** Free env, free GNL
 */
-
-static void	ft_destroy(t_path *path)
-{
-	if (path->next != NULL)
-	{
-		ft_strdel(&path->path);
-		ft_destroy(path->next);
-	}
-	free(path);
-}
 
 static void	ft_free_env_pipes(t_pipes **pipes)
 {
@@ -80,6 +70,16 @@ void		ft_clear_gnl(t_env *env)
 			ft_strdel(&env->buff);
 		ft_strdel(&env->buff);
 	}
+}
+
+static void	ft_destroy(t_path *path)
+{
+	if (path->next != NULL)
+	{
+		ft_strdel(&path->path);
+		ft_destroy(path->next);
+	}
+	free(path);
 }
 
 void		ft_path_clear(t_path **begin_path)

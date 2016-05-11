@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 11:51:37 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/10 21:52:07 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/11 12:15:12 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ SROOMS	*ft_mult_pipe(t_env *env, t_path *path, t_pipes *pipes, t_rooms *rooms)
 	{
 		if (rooms->weight < ft_find_room(ROOMS, pipes->id)->weight)
 		{
-			if (!ft_strstr(path->path, pipes->id)
-				&& path->moves_max < path->moves + 1)
+			ft_printf("{r}%d{0} vs {b}%d{0}\n", path->moves_max, path->moves + 1);
+			if ((ft_isstrstr(path->path, pipes->id) == 0 && path->moves_max < path->moves + 1) || (!ft_isstrstr(path->path, env->end->name) && path->moves_max > path->moves + 1))
 			{
 				tmp = ft_strinit(path->path);
 				tmp = ft_push_path(&tmp, ft_find_room(ROOMS, pipes->id)->name);
@@ -71,12 +71,10 @@ SROOMS	*ft_mult_pipe(t_env *env, t_path *path, t_pipes *pipes, t_rooms *rooms)
 	if (r)
 	{
 		end_room = ft_one_pipe(env, path, r, rooms);
-		// ft_strdel(&r);
 		return (end_room);
 	}
 	else
 		return (ft_error_pipe(path));
-	// return (r ? ft_one_pipe(env, path, r, rooms) : ft_error_pipe(path));
 }
 
 void	ft_find_path(t_env *env, t_path *path)

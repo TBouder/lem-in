@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 19:34:00 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/10 22:19:02 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/11 12:17:22 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,4 @@ void		ft_find(t_env *env)
 	ft_print_map(env->map);
 	// ft_print_infos(env);
 	ft_putendl(env->path);
-
-	// str = ft_strsplit(env->path, ' ');
-	// ft_mv_ants(env, str, ft_dbstrlen(str) - 1);
-	// ft_dbstrdel(str);
 }
