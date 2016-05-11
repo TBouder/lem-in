@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 19:34:10 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/11 12:47:24 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/11 13:19:41 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@
 int		ft_weight(t_rooms *origin, t_rooms *rooms, int id);
 void	ft_purge_rooms(t_rooms **begin_rooms, t_rooms **origin);
 void	ft_algo(t_env *env);
-void	ft_find_path(t_env *env, t_path *path, t_path *origin);
-// void	ft_find_path(t_env *env, t_path *path);
+void	ft_find_path(t_env *env, t_path *path);
 
 char	*ft_push_path(char **s1, char *s2);
 void 	ft_path_remove_if_error(t_path **begin_path, char *str);

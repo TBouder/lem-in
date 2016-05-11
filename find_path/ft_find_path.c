@@ -6,28 +6,13 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 11:51:37 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/11 12:47:57 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/11 13:19:46 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_find.h"
 
 #define SROOMS static t_rooms
-
-// void ft_remove_path_one(t_path *begin_path)
-// {
-// 	t_path		*to_free;
-// 	//
-// 	// if (begin_path && *begin_path && (*begin_path)->next)
-// 	// 	ft_remove_path_one(&(*begin_path)->next);
-// 	// else
-// 	// {
-// 		to_free = *begin_path;
-// 		*begin_path = (*begin_path)->next;
-// 		ft_strdel(&to_free->path);
-// 		free(to_free);
-// 	// }
-// }
 
 SROOMS	*ft_error_pipe(t_path *path)
 {
@@ -71,7 +56,6 @@ SROOMS	*ft_mult_pipe(t_env *env, t_path *path, t_pipes *pipes, t_rooms *rooms)
 	{
 		if (rooms->weight < ft_find_room(ROOMS, pipes->id)->weight)
 		{
-			ft_printf("{r}%d{0} vs {b}%d{0}\n", path->moves_max, path->moves + 1);
 			if ((ft_isstrstr(path->path, pipes->id) == 0 && path->moves_max < path->moves + 1) || (!ft_isstrstr(path->path, env->end->name) && path->moves_max > path->moves + 1))
 			{
 				tmp = ft_strinit(path->path);
@@ -92,7 +76,7 @@ SROOMS	*ft_mult_pipe(t_env *env, t_path *path, t_pipes *pipes, t_rooms *rooms)
 		return (ft_error_pipe(path));
 }
 
-void	ft_find_path(t_env *env, t_path *path, t_path *origin)
+void	ft_find_path(t_env *env, t_path *path)
 {
 	t_rooms *rooms;
 	t_pipes *pipes;
@@ -109,7 +93,4 @@ void	ft_find_path(t_env *env, t_path *path, t_path *origin)
 			rooms = ft_mult_pipe(env, path, rooms->pipes, rooms);
 	}
 	ft_strdel(&end);
-
-	ft_path_remove_if_error(&origin, "ERROR");
-
 }
