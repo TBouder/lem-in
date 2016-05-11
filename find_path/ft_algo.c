@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/02 12:07:02 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/11 12:49:39 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/11 13:19:59 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	ft_verif_same_path(t_path *path)
 		mv = start->next;
 		while (mv)
 		{
-			if (ft_strcmp(start->path, mv->path) == 0)
+			if (ft_strequ(start->path, mv->path))
 				mv->path = ft_push_path(&mv->path, "ERROR");
 			mv = mv->next;
 		}
@@ -73,92 +73,20 @@ void		ft_algo(t_env *env)
 	path = NULL;
 	ft_pathsend(&path, ft_find_start(ROOMS)->name);
 	origin = path;
-	// while (path)
-	// {
-	// 	ft_find_path(env, path);
-	// 	ft_put_max_path(origin, ft_found_less_path(origin, env));
-	// 	ft_print_path(path);
-	// 	path = path->next;
-	// }
-// ft_putendl("----------");
-	if (path)
+	while (path)
 	{
-		ft_find_path(env, path, origin);
+		ft_find_path(env, path);
 		ft_put_max_path(origin, ft_found_less_path(origin, env));
-		ft_print_path(path);
+		if (path->next == NULL)
+			break ;
 		path = path->next;
 	}
-ft_putendl("----------\n");
-	if (path)
-	{
-		ft_find_path(env, path, origin);
-		ft_put_max_path(origin, ft_found_less_path(origin, env));
-		ft_print_path(path);
-		path = path->next;
-	}
-	ft_putendl("----------\n");
-	if (path)
-	{
-		ft_find_path(env, path, origin);
-		ft_put_max_path(origin, ft_found_less_path(origin, env));
-		ft_print_path(path);
-		path = path->next;
-	}
-	ft_putendl("----------\n");
-	if (path)
-	{
-		ft_find_path(env, path, origin);
-		ft_put_max_path(origin, ft_found_less_path(origin, env));
-		ft_print_path(path);
-		path = path->next;
-	}
-	ft_putendl("----------\n");
-	if (path)
-	{
-		ft_find_path(env, path, origin);
-		ft_put_max_path(origin, ft_found_less_path(origin, env));
-		ft_print_path(path);
-		path = path->next;
-	}
-	ft_putendl("----------\n");
-	if (path)
-	{
-		ft_find_path(env, path, origin);
-		ft_put_max_path(origin, ft_found_less_path(origin, env));
-		ft_print_path(path);
-		path = path->next;
-	}
-	ft_putendl("----------\n");
-	if (path)
-	{
-		ft_find_path(env, path, origin);
-		ft_put_max_path(origin, ft_found_less_path(origin, env));
-		ft_print_path(path);
-		path = path->next;
-	}
-	ft_putendl("----------\n");
-	if (path)
-	{
-		ft_find_path(env, path, origin);
-		ft_put_max_path(origin, ft_found_less_path(origin, env));
-		ft_print_path(path);
-		path = path->next;
-	}
-	ft_putendl("----------\n");
-	if (path)
-	{
-		ft_find_path(env, path, origin);
-		ft_put_max_path(origin, ft_found_less_path(origin, env));
-		ft_print_path(path);
-		path = path->next;
-	}
-	ft_putendl("----------\n");
-
-
 	path = origin;
 	ft_verif_same_path(path);
 	ft_path_remove_if_error(&path, "ERROR");
-	// ft_print_path(path);
+	// ft_putendl("----------");
+	// ft_print_path(origin);
+	// ft_putendl("----------\n");
 	env->path = ft_strinit(path->path);
-	ft_path_clear(&path);
+	ft_path_clear(&origin);
 }
