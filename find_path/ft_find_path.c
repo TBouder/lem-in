@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 11:51:37 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/11 13:19:46 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/11 15:14:30 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 SROOMS	*ft_error_pipe(t_path *path)
 {
-	path->path = ft_push_path(&path->path, "ERROR");
+	path->path = ft_push_path(&path->path, "LERR");
 	return (NULL);
 }
 

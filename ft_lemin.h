@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:14:46 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/10 22:15:22 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/11 15:02:46 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct		s_env
 	char			*map;
 	char			*path;
 	char			*buff;
+	struct s_rooms	*start;
 	struct s_rooms	*end;
 	struct s_rooms	*rooms;
 }					t_env;
