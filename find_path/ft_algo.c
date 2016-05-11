@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/02 12:07:02 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/11 14:50:43 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/11 15:20:18 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	ft_verif_same_path(t_path *path)
 		while (mv)
 		{
 			if (ft_strequ(start->path, mv->path))
-				mv->path = ft_push_path(&mv->path, "ERROR");
+				mv->path = ft_push_path(&mv->path, "LERR");
 			mv = mv->next;
 		}
 		start = start->next;
@@ -65,15 +65,16 @@ static int	ft_found_less_path(t_path *path, t_env *env)
 	return (i);
 }
 
- void	ft_verif_collision(t_path *path, t_path	*tmp)
+ void	ft_verif_collision(t_env *env, t_path *path)
 {
 	int		i;
 	char	**s1;
 	char	**s2;
+	t_path	*tmp;
 
 	while (path)
 	{
-		ft_printf("{r}%s{0}\n", path->path);
+		// ft_printf("{r}%s{0}\n", path->path);
 		tmp = path->next;
 		s1 = ft_strsplit(path->path, ' ');
 		while (tmp)
@@ -82,9 +83,12 @@ static int	ft_found_less_path(t_path *path, t_env *env)
 			s2 = ft_strsplit(tmp->path, ' ');
 			while (s1[i] && s2[i])
 			{
-				// while (ft_isstrstr(s1[i], s2[i]))
-				if (ft_isstrstr(s1[i], s2[i]))
-					tmp->path = ft_push_path(&tmp->path, "ERROR");
+				if (ft_strequ(s1[i], env->start->name) || ft_strequ(s1[i], env->end->name))
+					;
+				else if (ft_strequ(s1[i], "LERR") || ft_strequ(s2[i], "LERR"))
+					break ;
+				else if (ft_isstrstr(s1[i], s2[i]))
+					tmp->path = ft_push_path(&tmp->path, "LERR");
 				i++;
 			}
 			tmp = tmp->next;
@@ -101,7 +105,7 @@ void		ft_algo(t_env *env)
 	t_path	*origin;
 
 	path = NULL;
-	ft_pathsend(&path, ft_find_start(ROOMS)->name);
+	ft_pathsend(&path, env->start->name);
 	origin = path;
 	while (path)
 	{
@@ -113,11 +117,11 @@ void		ft_algo(t_env *env)
 	}
 
 	ft_verif_same_path(origin);
-	ft_verif_collision(origin, NULL);
-	ft_path_remove_if_error(&origin, "ERROR");
-	ft_putendl("----------");
-	ft_print_path(origin);
-	ft_putendl("----------\n");
+	ft_verif_collision(env, origin);
+	ft_path_remove_if_error(&origin, "LERR");
+	// ft_putendl("----------");
+	// ft_print_path(origin);
+	// ft_putendl("----------\n");
 	env->path = ft_strinit(origin->path);
 	path = origin;
 	while (path)
