@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 19:34:00 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/11 16:42:17 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/11 16:58:53 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,8 @@ void		ft_find(t_env *env)
 	ft_purge_rooms(&ROOMS, &ROOMS);
 	if (env->end->weight == -1)
 		ft_error(env, "Pipe {r}error{0} : no access to end room");
-	ft_algo(env);
+	ft_algo(env, NULL);
 	ft_print_map(env->map);
-	// FT_TMP(env->paths);
+	FT_TMP(env->paths);
 	// ft_print_infos(env);
-	// ft_putendl(env->path);
 }
