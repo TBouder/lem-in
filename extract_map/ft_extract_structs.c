@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 11:23:22 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/10 21:58:29 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/11 15:27:08 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ void			ft_set_env(t_env *env)
 	env->ant = 0;
 	env->buff = NULL;
 	env->map = NULL;
+	env->path = NULL;
 	env->id = 0;
 	ROOMS = NULL;
 }
