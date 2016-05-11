@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/02 12:07:02 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/11 16:30:14 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/11 16:58:43 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,12 +95,10 @@ static void	ft_verif_collision(t_env *env, t_path *path, t_path *tmp)
 	}
 }
 
-void		ft_algo(t_env *env)
+void		ft_algo(t_env *env, t_path *path)
 {
-	t_path	*path;
 	t_path	*origin;
 
-	path = NULL;
 	ft_pathsend(&path, env->start->name);
 	origin = path;
 	while (path)

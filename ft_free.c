@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 19:11:55 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/11 16:48:59 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/11 16:58:56 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,15 @@ static void	ft_free_env_pipes(t_pipes **pipes)
 	pipes = NULL;
 }
 
+static void	ft_free_path(t_path *path, t_env **env)
+{
+	while (path)
+	{
+		ft_strdel(&path->path);
+		path = path->next;
+	}
+	ft_path_clear(&(*env)->paths);
+}
 
 void		ft_free_env(t_env **env, int i)
 {
@@ -43,8 +52,7 @@ void		ft_free_env(t_env **env, int i)
 	t_rooms	*temp;
 
 	ft_strdel(&(*env)->map);
-	ft_path_clear(&(*env)->paths);
-	// ft_strdel(&(*env)->path); //FAIRE FONCTION DE FREE DE PATH
+	ft_free_path((*env)->paths, env);
 	if (*env && i && (*env)->rooms != NULL)
 	{
 		free_list = (*env)->rooms;
@@ -61,17 +69,6 @@ void		ft_free_env(t_env **env, int i)
 	}
 	(*env)->rooms = NULL;
 	free(*env);
-}
-
-void		ft_clear_gnl(t_env *env)
-{
-	if (env && env->map)
-	{
-		ft_strdel(&env->buff);
-		while (get_next_line(env->fd, &env->buff) == 1)
-			ft_strdel(&env->buff);
-		ft_strdel(&env->buff);
-	}
 }
 
 static void	ft_destroy(t_path *path)
