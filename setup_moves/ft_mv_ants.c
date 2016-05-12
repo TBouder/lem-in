@@ -6,11 +6,13 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 11:47:18 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/10 22:20:08 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/12 13:27:03 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_moves.h"
+#define CURRENT ft_find_room(ROOMS, str[i])
+#define NEXT ft_find_room(ROOMS, str[i + 1])
 
 t_rooms	*ft_find_last_ant(t_rooms *rooms, char **str)
 {
@@ -45,14 +47,48 @@ t_rooms	*ft_find_alast_ant(t_rooms *rooms, char **str)
 
 void	ft_mv_ants(t_env *env, char **str)
 {
-	t_rooms	*n;
-	t_rooms	*n_plus;
+	int		i;
+	int		j;
+	int		verif;
 
-	n = ft_find_last_ant(ROOMS, str);
-	n_plus = ft_find_alast_ant(ROOMS, str);
-	n->ant -= 1;
-	n_plus->ant_id = (n->ant_id == 0 ? 1 : n->ant_id);
-	n->ant_id = 0;
-	n_plus->ant += 1;
-	ft_display_move(n_plus->ant_id, n_plus->name);
+	i = 0;
+	verif = 0;
+	while (str[i])
+	{
+		ft_putstr(CURRENT->name); ft_putchar(' ');
+		ft_putnbr(CURRENT->ant); ft_putchar('\n');
+		i++;
+	}
+
+ft_putchar('\n');
+
+	i = 0;
+	j = 0;
+	verif = 0;
+	while (str[i])
+	{
+		if (str[i] != NULL && CURRENT->ant >= 1)
+		{
+			if (str[i + 1] && NEXT->ant == 0)
+			{
+				NEXT->ant += 1;
+				CURRENT->ant -= 1;
+				// i = 0;
+			}
+			ft_putstr(CURRENT->name); ft_putchar(' ');
+			ft_putnbr(CURRENT->ant); ft_putchar('\n');
+		}
+		// if (str[i + 1] && NEXT->ant == 0 && CURRENT->ant >= 1 && verif == 0)
+		// {
+		// 	NEXT->ant += 1;
+		// 	CURRENT->ant -= 1;
+		// 	verif++;
+		// }
+		// ft_putstr(CURRENT->name); ft_putchar(' ');
+		// ft_putnbr(CURRENT->ant); ft_putchar(' ');
+		// ft_nbrendl(CURRENT->ant_id);
+		i++;
+	}
+	if (0)
+		env->ant = 0;
 }
