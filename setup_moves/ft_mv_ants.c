@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 11:47:18 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/12 18:03:07 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/12 18:38:55 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,37 +48,18 @@ t_rooms	*ft_find_alast_ant(t_rooms *rooms, char **str)
 void	ft_mv_ants(t_env *env, char **str)
 {
 	int		i;
-	int		j;
+	int		id;
 
 	i = 0;
-	j = 0;
-
-	if (str[i] != NULL && CURRENT->ant >= 1)
+	id = 1;
+	while (str[i])
 	{
-		if (str[i + 1] && NEXT->ant == 0)
+		if (str[i + 1] && CURRENT->ant >= 1 && NEXT->ant == 0)
 		{
-			NEXT->ant += 1;
+			ft_display_move(id, NEXT->name);
 			CURRENT->ant -= 1;
-			// i = 0;
-		}
-	}
-ft_putstr(CURRENT->name); ft_putchar(' ');
-ft_putnbr(CURRENT->ant); ft_putchar('\n');
-	i++;
-ft_putstr(CURRENT->name); ft_putchar(' ');
-ft_putnbr(CURRENT->ant); ft_putchar('\n');
-	if (str[i] != NULL && CURRENT->ant >= 1)
-	{
-		if (str[i + 1] && NEXT->ant == 0)
-		{
 			NEXT->ant += 1;
-			CURRENT->ant -= 1;
-			// i = 0;
 		}
+		i++;
 	}
-ft_putstr(CURRENT->name); ft_putchar(' ');
-ft_putnbr(CURRENT->ant); ft_putchar('\n');
-	i++;
-ft_putstr(CURRENT->name); ft_putchar(' ');
-ft_putnbr(CURRENT->ant); ft_putchar('\n');
 }
