@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 22:10:56 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/10 22:15:27 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/16 15:52:17 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 
 # include "../ft_lemin.h"
 
-void	ft_mv_ants(t_env *env, char **str);
+int		*ft_init_tab(t_env *env);
+void	ft_print_moves(t_env *env, int *nbr, char **str);
 
 void	ft_display_move(int ant_id, char *room_name);
 
