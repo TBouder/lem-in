@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 22:12:20 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/12 12:17:17 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/16 15:52:02 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,14 @@
 
 void	ft_moves(t_env *env)
 {
-	ft_putendl("\n");
-
-	// ft_putendl(env->paths->path);
 	char	**str;
+	int		*nbr;
 
-	env->start->ant = env->ant;
-
+	nbr = ft_init_tab(env);
 	str = ft_strsplit(env->paths->path, ' ');
-	ft_mv_ants(env, str);
+	ft_print_moves(env, nbr, str);
 	ft_dbstrdel(str);
+	free(nbr);
 	ft_clear_gnl(env);
 	ft_free_env(&env, 1);
 }
