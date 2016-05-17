@@ -6,13 +6,13 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 11:47:18 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/17 12:35:33 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/17 18:36:51 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_moves.h"
 
-int		*ft_init_tab(t_env *env)
+int		*ft_init_tab(int ant)
 {
 	int		*nbr;
 	int		i;
@@ -20,8 +20,8 @@ int		*ft_init_tab(t_env *env)
 
 	i = 0;
 	j = 1;
-	!(nbr = (int *)malloc(sizeof(int) * env->ant)) ? exit(1) : 0;
-	while (i < env->ant)
+	!(nbr = (int *)malloc(sizeof(int) * ant)) ? exit(1) : 0;
+	while (i < ant)
 	{
 		nbr[i] = j;
 		j--;
