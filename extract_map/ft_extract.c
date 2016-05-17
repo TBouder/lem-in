@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:16:28 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/10 19:08:03 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/17 12:56:30 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,14 +67,22 @@ static int	ft_zero(int	i, t_env **env)
 static int	ft_more(int ac, char **av, t_env **env)
 {
 	int		i;
+	int		mode;
 
 	i = 0;
+	mode = 0;
+	if (ft_strequ(av[1], "-s"))
+	{
+		i++;
+		mode = 1;
+	}
 	while (++i < ac)
 	{
 		(!(*env = (t_env *)malloc(sizeof(t_env)))) ? exit(1) : 0;
 		ft_set_env(*env);
 		if (((*env)->fd = open(av[i], O_RDONLY)) == -1)
 			ft_error(*env, "Opening {r}error{0} : wrong map");
+		(*env)->mode = mode;
 		ft_open(*env);
 		ft_extract_map(*env, NULL);
 	}
@@ -85,8 +93,10 @@ void		ft_extract(int ac, char **av, t_env **env)
 {
 	if (ac == 1)
 		ft_zero(0, env);
+	else if (ac == 2 && ft_strequ(av[1], "-s"))
+		ft_zero(1, env);
 	else if (ac >= 2)
-		ft_strequ(av[1], "-s") ? ft_zero(1, env) : ft_more(ac, av, env);
+		ft_more(ac, av, env);
 	else
 		ft_putchar('\n');
 }
