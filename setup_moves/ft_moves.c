@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 22:12:20 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/17 19:56:38 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/17 20:11:38 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,8 @@ int		*ft_init_mult_tab(int ant, int len)
 	while (i < ant)
 	{
 		nbr[i] = j;
-		if (i % len)
+		// ft_printf("%d vs %d = %d\n",i, len - 1, i % (len));
+		if ((i % len && i > len))
 			j--;
 		i++;
 	}
