@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 22:12:20 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/17 20:11:38 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/17 21:50:16 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,10 @@ void	ft_print_mult_moves(t_env *env, int *nbr, char ***str)
 				nbr[j] += 1;
 				j++;
 				k++;
+				if (j == env->ant)
+					break ;
 			}
+			// j++;
 		}
 		v != 0 ? ft_putchar('\n') : 0;
 		i++;
@@ -72,8 +75,7 @@ int		*ft_init_mult_tab(int ant, int len)
 	while (i < ant)
 	{
 		nbr[i] = j;
-		// ft_printf("%d vs %d = %d\n",i, len - 1, i % (len));
-		if ((i % len && i > len))
+		if ((i + 1) % len == 0)
 			j--;
 		i++;
 	}
@@ -96,7 +98,7 @@ void	ft_move_mult(t_env *env)
 		path = path->next;
 		i++;
 	}
-	nbr = ft_init_mult_tab(env->ant, ft_path_len(env->paths));
+	nbr = ft_init_mult_tab(env->ant, i);
 	ft_print_mult_moves(env, nbr, str);
 	// ft_dbstrdel(str);
 	free(nbr);
