@@ -6,42 +6,11 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 22:12:20 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/17 18:49:20 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/17 19:28:13 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_moves.h"
-
-void	ft_print_mult_moves(t_env *env, int *nbr, char ***str)
-{
-	int		i;
-	int		j;
-	int		v;
-
-	i = 0;
-	while (i < (env->ant * env->ant))
-	{
-		j = 0;
-		v = 0;
-		while (j < env->ant)
-		{
-			if (nbr[j] >= 1 && nbr[j] < ft_dbstrlen(str[0]))
-			{
-				ft_display_move(j + 1, str[0][nbr[j]]);
-				v++;
-			}
-			if (j + 1 < env->ant && nbr[j] >= 1 && nbr[j] < ft_dbstrlen(str[1]))
-			{
-				ft_display_move(j + 2, str[1][nbr[j]]);
-				v++;
-			}
-			nbr[j] += 1;
-			j++;
-		}
-		v != 0 ? ft_putchar('\n') : 0;
-		i++;
-	}
-}
 
 int		ft_path_len(t_path *path)
 {
@@ -56,6 +25,58 @@ int		ft_path_len(t_path *path)
 		i++;
 	}
 	return (i);
+}
+
+
+void	ft_print_mult_moves(t_env *env, int *nbr, char ***str)
+{
+	int		i;
+	int		j;
+	int		k;
+	int		v;
+
+	i = 0;
+	while (i < (env->ant * env->ant))
+	{
+		j = 0;
+		v = 0;
+		while (j < env->ant)
+		{
+			k = 0;
+			while (k < ft_path_len(env->paths))
+			{
+				if (nbr[j] >= 1 && nbr[j] < ft_dbstrlen(str[k]))
+				{
+					ft_display_move(j + 1, str[k][nbr[j]]);
+					v++;
+				}
+				nbr[j] += 1;
+				j++;
+				k++;
+			}
+		}
+		v != 0 ? ft_putchar('\n') : 0;
+		i++;
+	}
+}
+
+int		*ft_init_mult_tab(int ant)
+{
+	int		*nbr;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 1;
+	!(nbr = (int *)malloc(sizeof(int) * ant)) ? exit(1) : 0;
+	while (i < ant)
+	{
+		nbr[i] = j;
+		if (!(j % 2) && j != 1)
+			j--;
+		i++;
+	}
+	return (nbr);
 }
 
 void	ft_move_mult(t_env *env)
@@ -74,8 +95,7 @@ void	ft_move_mult(t_env *env)
 		path = path->next;
 		i++;
 	}
-	nbr = ft_init_tab(env->ant);
-	// nbr = ft_init_tab(env->ant / 2);
+	nbr = ft_init_mult_tab(env->ant);
 	ft_print_mult_moves(env, nbr, str);
 	// ft_dbstrdel(str);
 	free(nbr);
