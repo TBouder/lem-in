@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 11:47:18 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/16 15:52:09 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/17 12:35:33 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	ft_print_moves(t_env *env, int *nbr, char **str)
 		v = 0;
 		while (j < env->ant)
 		{
-			if (nbr[j] >= 1 && nbr[j] <= env->ant)
+			if (nbr[j] >= 1 && nbr[j] < ft_dbstrlen(str))
 			{
 				ft_display_move(j + 1, str[nbr[j]]);
 				v++;
