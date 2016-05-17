@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 11:51:37 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/13 00:25:28 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/17 19:41:30 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ SROOMS	*ft_mult_pipe(t_env *env, t_path *path, t_pipes *pipes, t_rooms *rooms)
 		if (rooms->weight < ft_find_room(ROOMS, pipes->id)->weight || ft_isstrstr(ft_find_room(ROOMS, pipes->id)->name, env->end->name))
 		{
 			if ((ft_isstrstr(path->path, pipes->id) == 0 && path->moves_max < path->moves + 1)
-				|| (!ft_isstrstr(path->path, env->end->name) && path->moves_max > path->moves + 1))
+				|| (!ft_isstrstr(path->path, env->end->name) && path->moves_max > path->moves))
 			{
 				tmp = ft_strinit(path->path);
 				tmp = ft_push_path(&tmp, ft_find_room(ROOMS, pipes->id)->name);

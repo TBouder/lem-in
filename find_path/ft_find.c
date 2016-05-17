@@ -6,12 +6,13 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 19:34:00 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/17 13:04:31 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/17 19:34:14 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_find.h"
 
+//////////////////////////////////////
 void		FT_TMP(t_path *origin)
 {
 	t_path	*paths;
@@ -23,6 +24,7 @@ void		FT_TMP(t_path *origin)
 		paths = paths->next;
 	}
 }
+//////////////////////////////////////
 
 void		ft_find(t_env *env)
 {
