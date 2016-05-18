@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 18:22:57 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/18 16:59:29 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/18 20:30:41 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,12 @@
 int			main(int ac, char **av)
 {
 	t_env	*env;
-
+if (0)	{
 	env = NULL;
 	ft_extract(ac, av, &env);
 	ft_find(env);
 	ft_moves(env);
+}
+	ft_printf("{A}\n");
 	return (0);
 }
