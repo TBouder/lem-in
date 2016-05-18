@@ -6,25 +6,11 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 19:34:00 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/18 12:29:09 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/18 15:40:01 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_find.h"
-
-//METTRE DES COULEURS DANS L'AFFICHAGE DU CHEMIN AVEC OPTION -c
-void		ft_display_paths(t_path *origin)
-{
-	t_path	*paths;
-
-	paths = origin;
-	while (paths)
-	{
-		ft_putendl(paths->path);
-		paths = paths->next;
-	}
-	ft_putstr("\n");
-}
 
 void		ft_find(t_env *env)
 {

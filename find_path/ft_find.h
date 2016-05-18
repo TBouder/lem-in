@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 19:34:10 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/11 16:58:31 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/18 15:40:26 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	ft_find_path(t_env *env, t_path *path);
 
 char	*ft_push_path(char **s1, char *s2);
 void 	ft_path_remove_if_error(t_path **begin_path, char *str);
+void	ft_display_paths(t_path *origin);
 
 void	ft_pathsend(t_path **path, char *datas);
 
