@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 22:13:10 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/18 16:35:05 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/18 18:40:53 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,19 @@ void	ft_display_move_color(int ant_id, char *room_name, int room, int color)
 		ft_printf("L%d-{p}%s{0} ", ant_id, room_name);
 	else
 		ft_printf("L%d-%s ", ant_id, room_name);
+}
+
+int		ft_path_len(t_path *path)
+{
+	t_path	*tmp;
+	int		i;
+
+	tmp = path;
+	i = 0;
+	while (tmp)
+	{
+		tmp = tmp->next;
+		i++;
+	}
+	return (i);
 }
