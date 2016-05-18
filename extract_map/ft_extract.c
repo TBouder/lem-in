@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:16:28 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/18 12:20:52 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/18 12:43:12 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,14 @@ static int	ft_more(int ac, char **av, t_env **env)
 	f_soft = 0;
 	if (av[1][0] == '-')
 	{
-		i++;
 		ft_strequ(av[1], "-s") ? (*env)->f_soft = 1 : 0;
 		ft_strequ(av[1], "-p") ? (*env)->f_path = 1 : 0;
+		i++;
+		if (i + 1 == ac)
+		{
+			ft_printf("No maps");
+			exit(0);
+		}
 	}
 	while (++i < ac)
 	{
@@ -90,6 +95,25 @@ static int	ft_more(int ac, char **av, t_env **env)
 	}
 	return (1);
 }
+
+// /*
+int		ft_extract_flg(char **str, t_env *env, int i, int j)
+{
+	while (str[i] && str[i][0] == '-' && ft_isalpha(str[i][1]))
+	{
+		j = 1;
+		while (str[i][j] && ft_isalpha(str[i][j]))
+		{
+			str[i][j] == 's' ? env->f_soft += 1 : 0;
+			str[i][j] == 'p' ? env->f_path += 1 : 0;
+			//str[i][j] == 'c' ? env->f_color = 1 : 0;
+			j++;
+		}
+		i++;
+	}
+	return (i);
+}
+// */
 
 void		ft_extract(int ac, char **av, t_env **env)
 {
