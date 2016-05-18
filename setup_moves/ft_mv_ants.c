@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 11:47:18 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/17 18:36:51 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/18 16:34:59 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,9 @@ int		*ft_init_tab(int ant)
 	return (nbr);
 }
 
+//NOTE : J = Id de la fourmie
+//NOTE : nbr[j] = id de la salle
+
 void	ft_print_moves(t_env *env, int *nbr, char **str)
 {
 	int		i;
@@ -45,7 +48,9 @@ void	ft_print_moves(t_env *env, int *nbr, char **str)
 		{
 			if (nbr[j] >= 1 && nbr[j] < ft_dbstrlen(str))
 			{
-				ft_display_move(j + 1, str[nbr[j]]);
+				// ft_printf("L%d-%s (%d) ", j + 1, str[nbr[j]], nbr[j]);
+				// ft_display_move(j + 1, str[nbr[j]]);
+				ft_display_move_color(j + 1, str[nbr[j]], nbr[j], env->f_color);
 				v++;
 			}
 			nbr[j] += 1;

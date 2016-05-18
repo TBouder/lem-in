@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 19:47:13 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/18 15:40:28 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/18 16:21:16 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,16 +51,19 @@ void 		ft_path_remove_if_error(t_path **begin_path, char *str)
 	}
 }
 
-//METTRE DES COULEURS DANS L'AFFICHAGE DU CHEMIN AVEC OPTION -c
-void		ft_display_paths(t_path *origin)
+void		ft_display_paths(t_path *origin, int color)
 {
 	t_path	*paths;
+	char	**str;
 
 	paths = origin;
 	while (paths)
 	{
-		ft_putendl(paths->path);
+		str = ft_strsplit(paths->path, ' ');
+		ft_colors(str, color);
+		ft_printf("\n");
 		paths = paths->next;
+		ft_dbstrdel(str);
 	}
-	ft_putstr("\n");
+	ft_printf("\n");
 }
