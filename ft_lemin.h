@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:14:46 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/18 16:21:13 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/18 16:58:34 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "ft_printf/ft_printf.h"
 # include <fcntl.h>
 # define ROOMS env->rooms
+# define END env->end
 
 typedef struct		s_pipes
 {
@@ -89,7 +90,6 @@ void				ft_path_clear(t_path **begin_path);
 */
 void				ft_print_pipes(t_pipes *pipes);
 void				ft_print_map(char *str);
-void				ft_print_infos(t_env *env);
 void				ft_print_path(t_path *path);
 
 /*

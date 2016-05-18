@@ -6,12 +6,11 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/18 15:03:35 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/18 15:32:27 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/18 16:44:17 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_extract.h"
-
 
 void	ft_set_flg(t_env *env, t_flg flg)
 {
@@ -26,7 +25,6 @@ void	ft_init_flg(t_flg *flg)
 	flg->f_path = 0;
 	flg->f_color = 0;
 	flg->nb = 0;
-
 }
 
 int		ft_extract_flg(char **str, t_flg *flg, int i, int j)

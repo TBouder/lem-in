@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 22:12:20 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/18 16:42:53 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/18 16:59:44 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void	ft_moves(t_env *env)
 	if (env->paths && env->paths->next == NULL)
 	{
 		str = ft_strsplit(env->paths->path, ' ');
-		if (ft_strequ(str[1], env->end->name))
+		if (ft_strequ(str[1], END->name))
 			nbr = ft_nbrnew(env->ant);
 		else
 			nbr = ft_init_tab(env->ant);
@@ -117,5 +117,4 @@ void	ft_moves(t_env *env)
 		ft_move_mult(env);
 	ft_clear_gnl(env);
 	ft_free_env(&env, 1);
-
 }
