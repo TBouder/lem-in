@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 22:12:20 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/18 12:13:40 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/18 16:42:53 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ int		ft_path_len(t_path *path)
 	return (i);
 }
 
-
 void	ft_print_mult_moves(t_env *env, int *nbr, char ***str)
 {
 	int		i;
@@ -35,31 +34,25 @@ void	ft_print_mult_moves(t_env *env, int *nbr, char ***str)
 	int		k;
 	int		v;
 
-	i = 0;
-	while (i < (env->ant * env->ant))
+	i = -1;
+	while (++i < (env->ant * env->ant))
 	{
 		j = 0;
 		v = 0;
 		while (j < env->ant)
 		{
-			k = 0;
-			while (k < ft_path_len(env->paths))
+			k = -1;
+			while (++k < ft_path_len(env->paths))
 			{
-				if (nbr[j] >= 1 && nbr[j] < ft_dbstrlen(str[k]))
-				{
-					ft_display_move(j + 1, str[k][nbr[j]]);
-					v++;
-				}
+				if (nbr[j] >= 1 && nbr[j] < ft_dbstrlen(str[k]) && ++v)
+					ft_display_move_color(j + 1, str[k][nbr[j]],
+						nbr[j], env->f_color);
 				nbr[j] += 1;
-				j++;
-				k++;
-				if (j == env->ant)
+				if (++j == env->ant)
 					break ;
 			}
-			// j++;
 		}
 		v != 0 ? ft_putchar('\n') : 0;
-		i++;
 	}
 }
 

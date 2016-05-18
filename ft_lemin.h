@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:14:46 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/18 15:05:45 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/18 16:21:13 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,10 @@ void				ft_moves(t_env *env);
 /*
 ** Tools
 */
-
 void				ft_error(t_env *env, char *str);
 long				ft_atoi_onum(char *str);
 int					ft_pipeslen(t_pipes *pipes);
+void				ft_colors(char **str, int color);
 
 /*
 ** Clear
@@ -95,7 +95,6 @@ void				ft_print_path(t_path *path);
 /*
 ** Specific rooms
 */
-
 t_rooms				*ft_find_start(t_rooms *rooms);
 t_rooms				*ft_find_end(t_rooms *rooms);
 t_rooms				*ft_find_room(t_rooms *rooms, char *datas);

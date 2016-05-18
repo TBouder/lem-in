@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 19:34:00 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/18 15:40:01 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/18 15:59:38 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,5 @@ void		ft_find(t_env *env)
 	ft_algo(env, NULL);
 	ft_print_map(env->map);
 	if (env->f_path == 1)
-		ft_display_paths(env->paths);
+		ft_display_paths(env->paths, env->f_color);
 }
