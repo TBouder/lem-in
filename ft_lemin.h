@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:14:46 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/18 12:16:24 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/18 15:05:45 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct		s_env
 	int				fd;
 	int				f_soft;
 	int				f_path;
+	int				f_color;
 	char			*map;
 	char			*buff;
 	struct s_path	*paths;
