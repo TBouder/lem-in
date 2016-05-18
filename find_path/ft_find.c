@@ -6,14 +6,14 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 19:34:00 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/18 11:33:59 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/18 12:29:09 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_find.h"
 
-//////////////////////////////////////
-void		FT_TMP(t_path *origin)
+//METTRE DES COULEURS DANS L'AFFICHAGE DU CHEMIN AVEC OPTION -c
+void		ft_display_paths(t_path *origin)
 {
 	t_path	*paths;
 
@@ -23,8 +23,8 @@ void		FT_TMP(t_path *origin)
 		ft_putendl(paths->path);
 		paths = paths->next;
 	}
+	ft_putstr("\n");
 }
-//////////////////////////////////////
 
 void		ft_find(t_env *env)
 {
@@ -36,5 +36,6 @@ void		ft_find(t_env *env)
 		ft_error(env, "Pipe {r}error{0} : no access to end room");
 	ft_algo(env, NULL);
 	ft_print_map(env->map);
-	// FT_TMP(env->paths); ft_putstr("\n");
+	if (env->f_path == 1)
+		ft_display_paths(env->paths);
 }
