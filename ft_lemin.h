@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:14:46 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/11 16:23:55 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/18 12:16:24 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ typedef struct		s_env
 	long			ant;
 	int				id;
 	int				fd;
-	int				mode;
+	int				f_soft;
+	int				f_path;
 	char			*map;
 	char			*buff;
 	struct s_path	*paths;

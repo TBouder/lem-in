@@ -12,7 +12,7 @@
 
 #include "ft_extract.h"
 
-static int		ft_pipes_push(t_datas datas, t_rooms **rooms, int mode)
+static int		ft_pipes_push(t_datas datas, t_rooms **rooms, int f_soft)
 {
 	t_rooms		*tmp_one;
 	t_rooms		*tmp_two;
@@ -23,7 +23,7 @@ static int		ft_pipes_push(t_datas datas, t_rooms **rooms, int mode)
 		tmp_one = tmp_one->next;
 	while (tmp_two && CMP(datas.name_two, tmp_two->name))
 		tmp_two = tmp_two->next;
-	if (!mode && (ft_dup_pipes(*tmp_one, datas)
+	if (!f_soft && (ft_dup_pipes(*tmp_one, datas)
 		|| ft_dup_pipes(*tmp_two, datas)))
 		return (1);
 	ft_pipesend(&tmp_one->pipes, datas);
@@ -72,7 +72,7 @@ int				ft_put_pipes(t_datas datas, t_env *env)
 			return (1);
 		!CMP(datas.name, tmp->name) ? i++ : 0;
 		!CMP(datas.name_two, tmp->name) ? j++ : 0;
-		if (i == 1 && j == 1 && ft_pipes_push(datas, &ROOMS, env->mode) == 1)
+		if (i == 1 && j == 1 && ft_pipes_push(datas, &ROOMS, env->f_soft) == 1)
 			return (1);
 		tmp = tmp->next;
 	}
