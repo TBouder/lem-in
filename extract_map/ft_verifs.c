@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/27 17:58:34 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/10 21:56:46 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/18 16:44:36 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,5 @@ void		ft_verif_launcher(t_env *env)
 		ft_verif_rooms(env);
 	}
 	else
-	ft_error(env, "Room {r}error{0} : No rooms");
-
+		ft_error(env, "Room {r}error{0} : No rooms");
 }

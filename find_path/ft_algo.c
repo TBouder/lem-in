@@ -58,7 +58,7 @@ static int	ft_found_less_path(t_path *path, t_env *env)
 	{
 		if (tmp->moves < i || i == 0)
 		{
-			if (ft_isstrstr(tmp->path, env->end->name))
+			if (ft_isstrstr(tmp->path, END->name))
 				i = tmp->moves;
 		}
 		tmp = tmp->next;
@@ -82,8 +82,8 @@ static void	ft_verif_collision(t_env *env, t_path *path, t_path *tmp)
 			s2 = ft_strsplit(tmp->path, ' ');
 			while (s1[i] && s2[i])
 			{
-				if (EQU(s1[i], s2[i]) && !(EQU(s1[i], env->end->name)
-					|| EQU(s2[i], env->end->name)))
+				if (EQU(s1[i], s2[i]) && !(EQU(s1[i], END->name)
+					|| EQU(s2[i], END->name)))
 					tmp->path = ft_push_path(&tmp->path, "LERR");
 				i++;
 			}

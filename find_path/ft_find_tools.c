@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 19:47:13 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/18 16:21:16 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/18 16:45:33 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char		*ft_push_path(char **s1, char *s2)
 	return (str);
 }
 
-void 		ft_path_remove_if_error(t_path **begin_path, char *str)
+void		ft_path_remove_if_error(t_path **begin_path, char *str)
 {
 	t_path		*to_free;
 

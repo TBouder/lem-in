@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/02 16:54:28 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/10 21:59:38 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/18 16:45:14 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static t_path	*ft_pathnew(char *datas)
 	return (path);
 }
 
-void	ft_pathsend(t_path **path, char *datas)
+void			ft_pathsend(t_path **path, char *datas)
 {
 	t_path	*new_path;
 

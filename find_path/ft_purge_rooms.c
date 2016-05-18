@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/04 22:29:54 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/10 21:43:44 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/18 16:46:04 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	ft_dead_end(t_rooms *rooms)
 	return (0);
 }
 
-static void ft_useless_pipe_remove_if(t_pipes **begin_pipes, char *str)
+static void	ft_useless_pipe_remove_if(t_pipes **begin_pipes, char *str)
 {
 	t_pipes		*to_free;
 
@@ -44,7 +44,6 @@ static void	ft_rooms_remove_if(t_rooms **begin_rooms, t_rooms **origin, int *i)
 
 	if (*begin_rooms)
 	{
-
 		if (ft_dead_end(*begin_rooms) && (*begin_rooms)->pos == 1)
 		{
 			if (ft_pipeslen((*begin_rooms)->pipes) == 1)

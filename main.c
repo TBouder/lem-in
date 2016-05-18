@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 18:22:57 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/18 12:16:14 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/18 16:59:29 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 ** BONUS
 ** - Lecture plusieurs fichiers a la fois (Neccessite OPEN)
 ** - Explicits errors
-** - Possibility to use -s for soft mode (for the map extract) (Allows same pipe)
-** - Possibility to use -p for path mode (Display the differents paths used for the algo)
+** - Possibility to use -s for soft mode (for the map extract) (Ok same pipe)
+** - Possibility to use -p for path mode (Display the differents paths used)
 */
 
 int			main(int ac, char **av)
