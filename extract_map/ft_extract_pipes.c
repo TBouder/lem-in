@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/25 13:27:41 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/10 19:22:18 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/19 18:14:45 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ static int		ft_pipes_push(t_datas datas, t_rooms **rooms, int f_soft)
 		tmp_one = tmp_one->next;
 	while (tmp_two && CMP(datas.name_two, tmp_two->name))
 		tmp_two = tmp_two->next;
-	if (!f_soft && (ft_dup_pipes(*tmp_one, datas)
-		|| ft_dup_pipes(*tmp_two, datas)))
+	if (!f_soft && (ft_dup_pipes(*tmp_one, datas)))
 		return (1);
 	ft_pipesend(&tmp_one->pipes, datas);
 	ft_rev_datas(&datas);

@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 11:23:22 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/19 14:28:54 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/19 18:14:41 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@ static t_rooms	*ft_roomsnew(t_rooms *prev, t_datas datas)
 {
 	t_rooms	*rooms;
 
-	if (!(rooms = (t_rooms *)malloc(sizeof(t_rooms))))
-		return (NULL);
+	!(rooms = (t_rooms *)malloc(sizeof(t_rooms))) ? exit(1) : 0;
 	rooms->id = datas.id;
 	rooms->name = ft_strinit(datas.name);
 	rooms->pos = datas.pos;
@@ -26,7 +25,6 @@ static t_rooms	*ft_roomsnew(t_rooms *prev, t_datas datas)
 	rooms->x = datas.x;
 	rooms->y = datas.y;
 	rooms->pipes = NULL;
-	rooms->pipes_prev = NULL;
 	rooms->next = NULL;
 	rooms->prev = prev;
 	return (rooms);

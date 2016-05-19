@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 19:11:55 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/11 16:58:56 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/19 17:35:26 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ void		ft_free_env(t_env **env, int i)
 			free_list = free_list->next;
 			ft_strdel(&temp->name);
 			ft_free_env_pipes(&temp->pipes);
-			ft_free_env_pipes(&temp->pipes_prev);
 			free(temp);
 		}
 		(*env)->rooms = NULL;
