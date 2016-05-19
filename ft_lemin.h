@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:14:46 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/18 16:58:34 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/19 16:00:43 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,12 @@ typedef struct		s_pipes
 
 typedef struct		s_rooms
 {
+	ULL				ant;
 	int				id;
 	int				pos;
 	int				weight;
 	int				x;
 	int				y;
-	int				ant_id;
-	long			ant;
 	char			*name;
 	struct s_pipes	*pipes;
 	struct s_pipes	*pipes_prev;
@@ -52,7 +51,7 @@ typedef struct		s_path
 
 typedef struct		s_env
 {
-	long			ant;
+	ULL				ant;
 	int				id;
 	int				fd;
 	int				f_soft;
@@ -74,7 +73,7 @@ void				ft_moves(t_env *env);
 ** Tools
 */
 void				ft_error(t_env *env, char *str);
-long				ft_atoi_onum(char *str);
+ULL					ft_atoi_onum(char *str);
 int					ft_pipeslen(t_pipes *pipes);
 void				ft_colors(char **str, int color);
 

@@ -6,14 +6,14 @@
 #    By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/04/22 12:12:36 by tbouder           #+#    #+#              #
-#    Updated: 2016/05/19 13:30:57 by tbouder          ###   ########.fr        #
+#    Updated: 2016/05/19 15:11:57 by tbouder          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 		= 	lem-in
 
 CC			= 	gcc
-CFLAGS		= 	-Wall -Werror -Wextra
+CFLAGS		= 	-Wall -Werror -Wextra -g
 OPTI		=	-g -O3
 
 EXTRACT		=	$(wildcard extract_map/*.c)
@@ -35,8 +35,8 @@ all: $(NAME)
 .SILENT : $(NAME) $(OBJ)
 $(NAME): $(OBJ)
 	# $(MAKE) re -C ft_printf
-	# $(CC) $(CFLAGS) $(OPTI) -c $(SRC)
-	$(CC) $(CFLAGS) $(OPTI) -o $@ $(OBJ) $(LIB)
+	$(CC) $(CFLAGS) $(OPTI) -c $(SRC)
+	# $(CC) $(CFLAGS) $(OPTI) -o $@ $(OBJ) $(LIB)
 	$(CC) -o $@ $(OBJ) $(LIB)
 
 .SILENT : clean
