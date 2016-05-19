@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:16:28 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/18 15:39:40 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/19 16:29:05 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,12 @@ static void	ft_open(t_env *env)
 		if ((BUFF[0] == '#' || BUFF[0] != '#') && BUFF[1] != '#')
 			ft_init_buff(env, &str);
 		if (BUFF[0] != '#' && !ft_isdigit(BUFF[0]))
-			ft_error(env, "Ant {r}error{0} : must be number > to 0");
+			ft_error(env, "Ant {r}error{0} : must be > 0 && < 4294967296");
 		else if (BUFF[0] != '#')
 		{
 			env->ant = ft_atoi_onum(BUFF);
-			if (env->ant == -1)
-				ft_error(env, "Ant {r}error{0} : must be number > to 0");
+			if (env->ant < 1)
+				ft_error(env, "Ant {r}error{0} : must be > 0 && < 4294967296");
 		}
 		ft_strdel(&BUFF);
 	}

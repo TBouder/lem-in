@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 11:47:18 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/18 18:41:15 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/19 16:00:39 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ int		*ft_init_mult_tab(int ant, int len)
 
 void	ft_print_mult_moves(t_env *env, int *nbr, char ***str)
 {
-	int		i;
-	int		j;
+	ULL		i;
+	ULL		j;
 	int		k;
 	int		v;
 
