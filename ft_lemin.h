@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:14:46 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/19 16:00:43 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/19 18:14:52 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ typedef struct		s_rooms
 	int				y;
 	char			*name;
 	struct s_pipes	*pipes;
-	struct s_pipes	*pipes_prev;
 	struct s_rooms	*prev;
 	struct s_rooms	*next;
 }					t_rooms;
