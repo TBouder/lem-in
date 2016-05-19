@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 18:22:57 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/18 20:30:41 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/19 13:29:50 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,16 @@
 ** - Explicits errors
 ** - Possibility to use -s for soft mode (for the map extract) (Ok same pipe)
 ** - Possibility to use -p for path mode (Display the differents paths used)
+** - Possibility to use -c for color mode
 */
 
 int			main(int ac, char **av)
 {
 	t_env	*env;
-if (0)	{
+
 	env = NULL;
 	ft_extract(ac, av, &env);
 	ft_find(env);
 	ft_moves(env);
-}
-	ft_printf("{A}\n");
 	return (0);
 }
