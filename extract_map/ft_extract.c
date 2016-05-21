@@ -6,12 +6,11 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:16:28 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/19 18:14:38 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/19 18:40:27 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_extract.h"
-
 #define BUFF env->buff
 
 static void	ft_init_buff(t_env *env, char **str)
