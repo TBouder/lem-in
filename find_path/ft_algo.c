@@ -6,12 +6,11 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/02 12:07:02 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/19 13:25:20 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/24 14:12:43 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_find.h"
-#define EQU ft_strequ
 
 static void	ft_verif_same_path(t_path *path)
 {
