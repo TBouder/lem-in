@@ -5,12 +5,59 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/05/10 19:47:13 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/18 16:45:33 by tbouder          ###   ########.fr       */
+/*   Created: 2016/05/24 19:02:42 by tbouder           #+#    #+#             */
+/*   Updated: 2016/05/25 18:45:58 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_find.h"
+
+int		ft_hpipelen(t_hroom *hash)
+{
+	int		i;
+	t_hpipe	*tmp;
+
+	i = 0;
+	tmp = hash->pipe;
+	while (tmp)
+	{
+		if (tmp->room->weight > hash->weight)
+			i++;
+		tmp = tmp->next;
+	}
+	return (i);
+}
+
+t_hroom	*ft_find_room(t_env *env, char *datas)
+{
+	t_hroom	*ret;
+	char	**str;
+	char	*s;
+
+	ret = NULL;
+	str = ft_strsplit(datas, ' ');
+	s = ft_strinit(str[ft_dbstrlen(str) - 1]);
+	ft_dbstrdel(str);
+	ret = env->hash[ft_hash_djbtwo(s, env->room_len)];
+	while (CMP(s, ret->id))
+		ret = ret->next;
+	ft_strdel(&s);
+	return (ret);
+}
+
+t_hroom	*ft_find_good_pipe(t_hroom *room)
+{
+	t_hpipe	*pipe;
+
+	pipe = room->pipe;
+	while (pipe)
+	{
+		if (pipe->room->weight > room->weight)
+			break ;
+		pipe = pipe->next;
+	}
+	return (pipe->room);
+}
 
 char		*ft_push_path(char **s1, char *s2)
 {
@@ -30,40 +77,4 @@ char		*ft_push_path(char **s1, char *s2)
 		ft_strdel(s1);
 	}
 	return (str);
-}
-
-void		ft_path_remove_if_error(t_path **begin_path, char *str)
-{
-	t_path		*to_free;
-
-	if (begin_path && *begin_path)
-	{
-		if (ft_isstrstr((*begin_path)->path, str))
-		{
-			to_free = *begin_path;
-			*begin_path = (*begin_path)->next;
-			ft_strdel(&to_free->path);
-			free(to_free);
-			ft_path_remove_if_error(begin_path, str);
-		}
-		else
-			ft_path_remove_if_error(&(*begin_path)->next, str);
-	}
-}
-
-void		ft_display_paths(t_path *origin, int color)
-{
-	t_path	*paths;
-	char	**str;
-
-	paths = origin;
-	while (paths)
-	{
-		str = ft_strsplit(paths->path, ' ');
-		ft_colors(str, color);
-		ft_printf("\n");
-		paths = paths->next;
-		ft_dbstrdel(str);
-	}
-	ft_printf("\n");
 }

@@ -5,96 +5,61 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/04/23 11:23:22 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/19 18:14:41 by tbouder          ###   ########.fr       */
+/*   Created: 2016/05/22 18:19:32 by tbouder           #+#    #+#             */
+/*   Updated: 2016/05/23 15:36:19 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_extract.h"
 
-static t_rooms	*ft_roomsnew(t_rooms *prev, t_datas datas)
+static t_hroom	*ft_hroomnew(char *str)
 {
-	t_rooms	*rooms;
+	t_hroom	*hlist;
 
-	!(rooms = (t_rooms *)malloc(sizeof(t_rooms))) ? exit(1) : 0;
-	rooms->id = datas.id;
-	rooms->name = ft_strinit(datas.name);
-	rooms->pos = datas.pos;
-	rooms->weight = -1;
-	rooms->ant = 0;
-	rooms->x = datas.x;
-	rooms->y = datas.y;
-	rooms->pipes = NULL;
-	rooms->next = NULL;
-	rooms->prev = prev;
-	return (rooms);
+	!(hlist = (t_hroom *)malloc(sizeof(t_hroom))) ? exit(1) : 0;
+	hlist->id = ft_strinit(str);
+	hlist->weight = -1;
+	hlist->next = NULL;
+	hlist->pipe = NULL;
+	return (hlist);
 }
 
-void			ft_roomsend(t_rooms **rooms, t_datas datas)
+void			ft_hroomend(t_hroom **hlist, char *str)
 {
-	t_rooms	*new_rooms;
-	t_rooms	**tmp;
+	t_hroom	*new_hlist;
 
-	new_rooms = *rooms;
-	if (new_rooms)
+	new_hlist = *hlist;
+	if (new_hlist)
 	{
-		tmp = &new_rooms;
-		while (new_rooms->next != NULL)
-		{
-			tmp = &new_rooms;
-			new_rooms = new_rooms->next;
-		}
-		new_rooms->next = ft_roomsnew(*tmp, datas);
+		while (new_hlist->next != NULL)
+			new_hlist = new_hlist->next;
+		new_hlist->next = ft_hroomnew(str);
 	}
 	else
-		*rooms = ft_roomsnew(NULL, datas);
+		*hlist = ft_hroomnew(str);
 }
 
-static t_pipes	*ft_pipesnew(t_pipes *prev, t_datas datas)
+static t_hpipe	*ft_hpipenew(t_hroom **str)
 {
-	t_pipes	*pipes;
-	char	*str;
+	t_hpipe	*hlist;
 
-	if (!(pipes = (t_pipes *)malloc(sizeof(t_pipes))))
-		return (NULL);
-	str = ft_strinit(datas.name_two);
-	pipes->id = ft_strinit(str);
-	pipes->occuped = 0;
-	pipes->next = NULL;
-	pipes->prev = prev;
-	ft_strdel(&str);
-	return (pipes);
+	!(hlist = (t_hpipe *)malloc(sizeof(t_hpipe))) ? exit(1) : 0;
+	hlist->room = *str;
+	hlist->next = NULL;
+	return (hlist);
 }
 
-void			ft_pipesend(t_pipes **pipes, t_datas datas)
+void			ft_hpipesend(t_hpipe **hlist, t_hroom *str)
 {
-	t_pipes	*new_pipes;
-	t_pipes	**tmp;
+	t_hpipe	*new_hlist;
 
-	new_pipes = *pipes;
-	if (new_pipes)
+	new_hlist = *hlist;
+	if (new_hlist)
 	{
-		tmp = &new_pipes;
-		while (new_pipes->next != NULL)
-		{
-			tmp = &new_pipes;
-			new_pipes = new_pipes->next;
-		}
-		new_pipes->next = ft_pipesnew(*tmp, datas);
+		while (new_hlist->next != NULL)
+			new_hlist = new_hlist->next;
+		new_hlist->next = ft_hpipenew(&str);
 	}
 	else
-		*pipes = ft_pipesnew(NULL, datas);
-}
-
-void			ft_init_env(t_env *env)
-{
-	env->ant = 0;
-	env->buff = NULL;
-	env->map = NULL;
-	env->paths = NULL;
-	env->id = 0;
-	env->f_soft = 0;
-	env->f_path = 0;
-	env->f_color = 0;
-	ROOMS = NULL;
+		*hlist = ft_hpipenew(&str);
 }

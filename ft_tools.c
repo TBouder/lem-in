@@ -6,22 +6,13 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 15:51:08 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/19 16:26:05 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/25 12:43:57 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_lemin.h"
 
-void	ft_error(t_env *env, char *str)
-{
-	ft_printf("%s\n", str);
-	ft_clear_gnl(env);
-	if (!env)
-		ft_free_env(&env, 0);
-	exit(EXIT_FAILURE);
-}
-
-ULL		ft_atoi_onum(char *str)
+ULL			ft_atoi_onum(char *str)
 {
 	ULL		result;
 
@@ -41,33 +32,36 @@ ULL		ft_atoi_onum(char *str)
 	return (result);
 }
 
-int		ft_pipeslen(t_pipes *pipes)
-{
-	t_pipes	*tmp;
-	int		i;
-
-	i = 0;
-	tmp = pipes;
-	while (tmp)
-	{
-		i++;
-		tmp = tmp->next;
-	}
-	return (i);
-}
-
-void	ft_clear_gnl(t_env *env)
+void		ft_clear_gnl(t_env *env)
 {
 	if (env && env->map)
 	{
 		ft_strdel(&env->buff);
-		while (get_next_line(env->fd, &env->buff) == 1)
+		while (get_next_line_num(env->fd, &env->buff, NULL) == 1)
 			ft_strdel(&env->buff);
 		ft_strdel(&env->buff);
 	}
 }
 
-void	ft_colors(char **str, int color)
+int			ft_nbline_gnl(char *str, int x)
+{
+	int		i;
+	int		r;
+
+	i = 0;
+	r = 0;
+	while (str[i])
+	{
+		if (str[i] == '-' && x == 1)
+			break ;
+		if (str[i] == '\n')
+			r++;
+		i++;
+	}
+	return (r);
+}
+
+void		ft_colors(char **str, int color)
 {
 	int		i;
 

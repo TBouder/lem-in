@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 11:47:18 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/19 16:27:12 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/25 17:49:10 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,18 @@ void	ft_print_moves(t_env *env, ULL *nbr, char **str)
 		{
 			if (nbr[j] >= 1 && nbr[j] < (ULL)ft_dbstrlen(str))
 			{
-				ft_display_move_color(j + 1, str[nbr[j]], nbr[j], env->f_color);
-				ft_isstrstr(str[nbr[j]], END->name) ? END->ant++ : 0;
+				ft_display(env, j + 1, str[nbr[j]], nbr[j], env->f_color);
+				ft_isstrstr(str[nbr[j]], env->r_end->id) ? env->r_end->ant++ : 0;
 				v++;
+				// nbr[j + 1] % env->ant != 0 ? ft_putchar(' ') : 0;
 			}
 			nbr[j++] += 1;
+			// v && j < env->ant && nbr[j] < 1 ? ft_printf("{155}[%d]{0}", nbr[j]) : 0;
+			v && j < env->ant && (long long)nbr[j] > 0 ? ft_putchar(' ') : 0;
+
 		}
-		if (END->ant == env->ant)
+		// v && nbr[j] > 0 ? ft_putchar(' ') : 0;
+		if (env->r_end->ant == env->ant)
 			break ;
 		v != 0 ? ft_putchar('\n') : 0;
 		i++;
