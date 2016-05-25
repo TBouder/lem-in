@@ -5,83 +5,67 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/05/05 14:00:22 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/19 17:58:45 by tbouder          ###   ########.fr       */
+/*   Created: 2016/05/24 14:10:55 by tbouder           #+#    #+#             */
+/*   Updated: 2016/05/25 12:29:57 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_find.h"
 
-static int		ft_pipeslen_w(t_rooms *origin, t_pipes *pipes, int id)
+static int		ft_pipelen(t_hroom *hash)
 {
-	t_pipes	*tmp;
-	int		prev_id;
 	int		i;
+	t_hpipe	*tmp;
 
-	id = 0;
 	i = 0;
-	tmp = pipes;
+	tmp = hash->pipe;
 	while (tmp)
 	{
-		prev_id = ft_find_room(origin, tmp->id)->weight;
-		if (prev_id == -1)
+		if (tmp->room->weight == -1)
 			i++;
 		tmp = tmp->next;
 	}
 	return (i);
 }
 
-static t_rooms	*ft_pipesgo_w(t_rooms *origin, t_pipes *pipes)
+static void		ft_apply_to_empty(t_hpipe *pipe, int id)
 {
-	t_pipes	*tmp;
-	int		prev_id;
+	t_hpipe	*tmp;
 
-	tmp = pipes;
+	tmp = pipe;
 	while (tmp)
 	{
-		prev_id = ft_find_room(origin, tmp->id)->weight;
-		if (prev_id == -1)
-			return (ft_find_room(origin, tmp->id));
+		if (tmp->room->weight == -1 || tmp->room->weight > id)
+			tmp->room->weight = id + 1;
 		tmp = tmp->next;
 	}
-	return (NULL);
 }
 
-static void		ft_apply_pipes(t_pipes *pipes, t_rooms *origin, int id)
+int				ft_weight(t_env *env, t_hroom *start, int id, t_hroom *room)
 {
-	while (pipes)
-	{
-		if (ft_find_room(origin, pipes->id)->weight == -1
-			|| ft_find_room(origin, pipes->id)->weight > id)
-			ft_find_room(origin, pipes->id)->weight = id + 1;
-		pipes = pipes->next;
-	}
-}
+	t_hpipe *pipe;
 
-int				ft_weight(t_rooms *origin, t_rooms *rooms, int id)
-{
-	t_pipes		*pipes;
-	int			prev_id;
-
-	if (rooms == NULL)
-		return (0);
-	if (ft_pipeslen_w(origin, rooms->pipes, id) == 1)
+	room = start;
+	if (ft_pipelen(room) == 1)
 	{
-		rooms->weight = id;
-		ft_weight(origin, ft_pipesgo_w(origin, rooms->pipes), id + 1);
+		pipe = room->pipe;
+		while (pipe->room->weight != -1)
+			pipe = pipe->next;
+		ft_apply_to_empty(pipe, id);
+		ft_weight(env, pipe->room, id + 1, NULL);
 	}
 	else
 	{
-		rooms->weight = id;
-		pipes = rooms->pipes;
-		ft_apply_pipes(pipes, origin, id);
-		while (pipes)
+		pipe = room->pipe;
+		ft_apply_to_empty(pipe, id);
+		while (pipe)
 		{
-			prev_id = ft_find_room(origin, pipes->id)->weight;
-			if (prev_id == id + 1)
-				ft_weight(origin, ft_find_room(origin, pipes->id), id + 1);
-			pipes = pipes->next;
+			if (pipe->room->weight == id + 1
+				&& (env->r_end->weight != -1 ? id <= env->r_end->weight : 1))
+				ft_weight(env, pipe->room, id + 1, NULL);
+			pipe = pipe->next;
 		}
+		room = room->next;
 	}
 	return (1);
 }

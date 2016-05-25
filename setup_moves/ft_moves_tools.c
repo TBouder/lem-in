@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 22:13:10 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/19 16:32:50 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/25 17:53:34 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,26 +17,44 @@ void	ft_display_move(int ant_id, char *room_name)
 	ft_printf("L%d-%s ", ant_id, room_name);
 }
 
-void	ft_display_move_color(int ant_id, char *room_name, int room, int color)
+int		ft_select_color(int id)
 {
-	if (color && room % 8 == 0)
-		ft_printf("L%d-{27}%s{0} ", ant_id, room_name);
-	else if (color && room % 6 == 0)
-		ft_printf("L%d-{39}%s{0} ", ant_id, room_name);
-	else if (color && room % 5 == 0)
-		ft_printf("L%d-{51}%s{0} ", ant_id, room_name);
-	else if (color && room % 4 == 0)
-		ft_printf("L%d-{75}%s{0} ", ant_id, room_name);
-	else if (color && room % 3 == 0)
-		ft_printf("L%d-{81}%s{0} ", ant_id, room_name);
-	else if (color && room % 2 == 0)
-		ft_printf("L%d-{105}%s{0} ", ant_id, room_name);
-	else if (color && room % 1 == 0)
-		ft_printf("L%d-{123}%s{0} ", ant_id, room_name);
-	else if (color)
-		ft_printf("L%d-{147}%s{0} ", ant_id, room_name);
+	int		tmp;
+
+	tmp = id;
+	if (tmp > 27 && tmp < 118)
+	{
+		if (tmp > 51 && tmp < 64)
+			tmp += 18;
+		if (tmp > 87 && tmp < 100)
+			tmp += 18;
+	}
 	else
-		ft_printf("L%d-%s ", ant_id, room_name);
+	{
+		tmp = tmp % 118;
+		tmp += 28;
+		tmp = ft_select_color(tmp);
+	}
+	return (tmp);
+}
+
+void	ft_display(t_env *env, int ant_id, char *room_name, int room, int color)
+{
+	int		id;
+room=0;
+	id = (ant_id / ft_path_len(env->paths)) + 27;
+	id = ft_select_color(id);
+	if (color && env->ant)
+	{
+		ft_printf("\e[38;5;%dm", id);
+		ft_printf("L%d{0}-", ant_id);
+		// ft_printf("\e[38;5;%dm", color);
+		ft_printf("\e[38;5;%dm", ft_hash_djbtwo(room_name, env->room_len) % 15 + 196);
+		ft_printf("%s", room_name);
+		ft_printf("{0}");
+	}
+	else
+		ft_printf("L%d-%s", ant_id, room_name);
 }
 
 int		ft_path_len(t_path *path)

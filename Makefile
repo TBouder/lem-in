@@ -6,7 +6,7 @@
 #    By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/04/22 12:12:36 by tbouder           #+#    #+#              #
-#    Updated: 2016/05/19 18:09:05 by tbouder          ###   ########.fr        #
+#    Updated: 2016/05/24 22:13:11 by tbouder          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ OPTI		=	-g -O3 -O2
 EXTRACT		=	$(wildcard extract_map/*.c)
 FIND		=	$(wildcard find_path/*.c)
 MOVES		=	$(wildcard setup_moves/*.c)
-SHARED		=	main.c ft_tools.c ft_free.c ft_print.c ft_find_specific_room.c
+SHARED		=	main.c ft_tools.c FT_TEMP.c ft_free.c ft_errors.c ft_gnl_num.c
 SRC			=	$(EXTRACT) $(FIND) $(MOVES) $(SHARED)
 
 LIB			=	-Lft_printf -lftprintf

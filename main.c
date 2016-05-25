@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 18:22:57 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/21 11:25:20 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/25 18:52:39 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,13 @@ int			main(int ac, char **av)
 
 	env = NULL;
 	ft_extract(ac, av, &env);
-	// ft_find(env);
-	// ft_moves(env);
+	ft_find(env);
+	1 ? ft_print_map(env) : 0;
+	0 ? ft_print_map_pipes(env) : 0;
+	0 ? ft_print_map_weight(env) : 0;
+	0 ? ft_print_path(env) : 0;
+	ft_moves(env);
+	// ft_free_env(&env, 0);
+	// ft_printf("{A}");
 	return (0);
 }
