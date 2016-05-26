@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 11:47:18 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/26 16:33:14 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/26 18:00:33 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,10 @@ ULL		*ft_init_tab(ULL ant)
 
 void	ft_print_moves(t_env *env, ULL *nbr, char **str)
 {
-	ULL		i;
 	ULL		j;
 	ULL		v;
 
-	i = -1;
-	while (++i < (env->ant * 2))
+	while (env->r_end->ant != env->ant)
 	{
 		j = 0;
 		v = 0;

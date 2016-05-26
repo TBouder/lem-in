@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 11:51:37 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/26 15:06:28 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/26 18:54:28 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,7 @@ static t_hroom	*ft_one_pipe(t_env *env, t_path *path, t_hpipe *pipe,
 		r = ft_strinit(str[ft_dbstrlen(str) - 1]);
 		end_room = env->hash[ft_hash_djbtwo(r, env->room_len)];
 		while (CMP(end_room->id, r))
-		{
 			end_room = end_room->next;
-		}
 		ft_strdel(&r);
 		ft_dbstrdel(str);
 	}
@@ -91,9 +89,10 @@ void			ft_find_path(t_env *env, t_path *path)
 		pipe = current->pipe;
 		while (pipe && pipe->room->weight < current->weight)
 			pipe = pipe->next;
-		if (ft_hpipelen(current) == 1)
-			current = ft_one_pipe(env, path, pipe, current);
-		else if (ft_hpipelen(current) >= 1)
+		// if (ft_hpipelen(current) == 1)
+		// 	current = ft_one_pipe(env, path, pipe, current);
+		// else
+		if (ft_hpipelen(current) >= 1)
 			current = ft_mult_pipe(env, path, pipe, current);
 		else
 			current = ft_error_pipe(path);
