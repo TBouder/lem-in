@@ -14,12 +14,12 @@
 
 static void	ft_check_errors(t_env *env)
 {
-	env->start == 0 ? ft_err_nopath(env, ERR3) : 0;
-	env->end == 0 ? ft_err_nopath(env, ERR4) : 0;
-	env->r_start->pipe == NULL ? ft_err_nopath(env, ERR18) : 0;
-	env->r_end->pipe == NULL ? ft_err_nopath(env, ERR19) : 0;
-	env->if_pipe != 1 ? ft_err_nopath(env, ERR14) : 0;
-	env->verif_fd == -1 ? ft_err_nopath(env, ERR0) : 0;
+	env->start == 0 ? ft_err_nopath(env, ERR13) : 0;
+	env->end == 0 ? ft_err_nopath(env, ERR14) : 0;
+	env->r_start->pipe == NULL ? ft_err_nopath(env, ERR15) : 0;
+	env->r_end->pipe == NULL ? ft_err_nopath(env, ERR16) : 0;
+	env->if_pipe != 1 ? ft_err_nopath(env, ERR17) : 0;
+	env->verif_fd == -1 ? ft_err_nopath(env, ERR00) : 0;
 }
 
 static int	ft_extended_get_map(t_env *env, int *lines)
@@ -47,7 +47,7 @@ static int	ft_extended_get_map(t_env *env, int *lines)
 	else if (env->get_pipe == 1)
 		return (1);
 	else
-		ft_err_nopath(env, ERR16);
+		ft_err_nopath(env, ERR08);
 	return (0);
 }
 

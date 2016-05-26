@@ -26,7 +26,7 @@ void	ft_get_diaiz(t_env *env, int *lines)
 		if (env->start >= 1)
 		{
 			free(lines);
-			ft_err_nopath(env, ERR1);
+			ft_err_nopath(env, ERR02);
 		}
 		env->start += 1;
 		ft_put_map(env, BUFF);
@@ -36,7 +36,7 @@ void	ft_get_diaiz(t_env *env, int *lines)
 		if (env->end >= 1)
 		{
 			free(lines);
-			ft_err_nopath(env, ERR2);
+			ft_err_nopath(env, ERR03);
 		}
 		env->end += 1;
 		ft_put_map(env, BUFF);

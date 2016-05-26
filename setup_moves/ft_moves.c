@@ -6,13 +6,13 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 22:12:20 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/25 12:16:48 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/26 16:07:22 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_moves.h"
 
-ULL		*ft_nbrnew_ULL(ULL size)
+static ULL	*ft_nbrnew_ull(ULL size)
 {
 	ULL			*buffer;
 	ULL			i;
@@ -51,16 +51,17 @@ static void	ft_move_mult(t_env *env)
 	free(nbr);
 }
 
-void	ft_moves(t_env *env)
+void		ft_moves(t_env *env)
 {
 	char	**str;
 	ULL		*nbr;
 
+	env->r_end->ant = 0;
 	if (env->paths && env->paths->next == NULL)
 	{
 		str = ft_strsplit(env->paths->path, ' ');
 		if (ft_strequ(str[1], env->r_end->id))
-			nbr = ft_nbrnew_ULL(env->ant);
+			nbr = ft_nbrnew_ull(env->ant);
 		else
 			nbr = ft_init_tab(env->ant);
 		ft_print_moves(env, nbr, str);
@@ -69,6 +70,4 @@ void	ft_moves(t_env *env)
 	}
 	else
 		ft_move_mult(env);
-	ft_clear_gnl(env);
-	ft_free_env(&env, 1);
 }

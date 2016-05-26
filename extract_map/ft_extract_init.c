@@ -71,5 +71,5 @@ void		ft_malloc_env(t_env *env, int *line)
 		ft_initnew(env, line[1]);
 	}
 	if (!env->map || !env->hash || !env->hash_coo)
-		ft_error(env, ERR17);
+		ft_error(env, ERR01);
 }

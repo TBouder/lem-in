@@ -6,13 +6,13 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/24 19:02:42 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/25 18:45:58 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/26 15:02:51 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_find.h"
 
-int		ft_hpipelen(t_hroom *hash)
+int			ft_hpipelen(t_hroom *hash)
 {
 	int		i;
 	t_hpipe	*tmp;
@@ -28,7 +28,7 @@ int		ft_hpipelen(t_hroom *hash)
 	return (i);
 }
 
-t_hroom	*ft_find_room(t_env *env, char *datas)
+t_hroom		*ft_find_room(t_env *env, char *datas)
 {
 	t_hroom	*ret;
 	char	**str;
@@ -45,7 +45,7 @@ t_hroom	*ft_find_room(t_env *env, char *datas)
 	return (ret);
 }
 
-t_hroom	*ft_find_good_pipe(t_hroom *room)
+t_hroom		*ft_find_good_pipe(t_hroom *room)
 {
 	t_hpipe	*pipe;
 
