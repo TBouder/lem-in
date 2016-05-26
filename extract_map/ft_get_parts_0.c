@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/21 10:51:20 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/25 12:38:19 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/26 15:33:51 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static void		ft_get_coo(t_env *env, char **s, int *lines)
 		{
 			free(lines);
 			ft_strdel(&coo);
-			ft_err_clr(s, env, ERR13);
+			ft_err_clr(s, env, ERR04);
 		}
 	}
 	ft_hroomend(&env->hash_coo[hash], coo);
@@ -70,12 +70,12 @@ void			ft_get_room(t_env *env, int *lines)
 	if (ft_dbstrlen(s) == 3)
 	{
 		if (s[0][0] == 'L')
-			ft_err_clr(s, env, ERR5);
+			ft_err_clr(s, env, ERR12);
 		if (!ft_isstrnum(s[1]) || !ft_isstrnum(s[2]))
-			ft_err_clr(s, env, ERR9);
+			ft_err_clr(s, env, ERR09);
 		hash = ft_hash_djbtwo(s[0], env->room_len);
 		if (env->hash[hash] != NULL)
-			ft_find_elem(env->hash[hash], s[0]) ? ft_err_clr(s, env, ERR12) : 0;
+			ft_find_elem(env->hash[hash], s[0]) ? ft_err_clr(s, env, ERR04) : 0;
 		ft_get_coo(env, s, lines);
 		ft_hroomend(&env->hash[hash], s[0]);
 		env->start == 1 || env->end == 1 ? ft_extract_s_e(env, hash, s[0]) : 0;
@@ -84,7 +84,7 @@ void			ft_get_room(t_env *env, int *lines)
 	else
 	{
 		free(lines);
-		ft_err_clr(s, env, ERR8);
+		ft_err_clr(s, env, ERR07);
 	}
 	ft_dbstrdel(s);
 }

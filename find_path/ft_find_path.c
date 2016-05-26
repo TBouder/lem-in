@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 11:51:37 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/25 22:35:12 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/26 15:06:28 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ static t_hroom	*ft_error_pipe(t_path *path)
 	return (NULL);
 }
 
-static t_hroom	*ft_one_pipe(t_env *env, t_path *path, t_hpipe *pipe, t_hroom *room)
+static t_hroom	*ft_one_pipe(t_env *env, t_path *path, t_hpipe *pipe,
+	t_hroom *room)
 {
 	t_hroom	*tmp;
 	t_hroom	*end_room;
@@ -29,9 +30,7 @@ static t_hroom	*ft_one_pipe(t_env *env, t_path *path, t_hpipe *pipe, t_hroom *ro
 
 	end_room = NULL;
 	pipe = NULL;
-	// tmp = ft_find_room(env, pipe->room->id);
 	tmp = ft_find_good_pipe(room);
-	// ft_putendl(tmp->id);
 	if (EQU(tmp->id, env->r_end->id))
 		return (env->r_end);
 	if (room->weight < tmp->weight)
@@ -41,14 +40,10 @@ static t_hroom	*ft_one_pipe(t_env *env, t_path *path, t_hpipe *pipe, t_hroom *ro
 		str = ft_strsplit(PATH, ' ');
 		r = ft_strinit(str[ft_dbstrlen(str) - 1]);
 		end_room = env->hash[ft_hash_djbtwo(r, env->room_len)];
-		// ft_printf("{32}%s{0} vs {49}%s{0}\n", end_room->id, r);
 		while (CMP(end_room->id, r))
 		{
-			// ft_putendl("YEYGUWFGHUREGHFJK\n\n\n\ndyuewgfgheuj");
-			// ft_printf("{32}%s{0} vs {49}%s{0}\n", end_room->id, r);
 			end_room = end_room->next;
 		}
-		// if (end_room->next)
 		ft_strdel(&r);
 		ft_dbstrdel(str);
 	}
@@ -59,7 +54,6 @@ static t_hroom	*ft_mult_pipe(t_env *env, t_path *path, t_hpipe *pipe,
 	t_hroom *room)
 {
 	t_hroom	*tmp;
-	t_hroom	*end_room;
 	char	*str;
 	int		i;
 	int		j;
@@ -71,7 +65,6 @@ static t_hroom	*ft_mult_pipe(t_env *env, t_path *path, t_hpipe *pipe,
 		tmp = ft_find_room(env, pipe->room->id);
 		if (EQU(tmp->id, env->r_end->id))
 			return (env->r_end);
-		// if ((room->weight < tmp->weight || SAME(tmp->id, env->r_end->id)) && (!SAME(PATH, pipe->room->id) || !SAME(PATH, env->r_end->id)))
 		if (room->weight < tmp->weight)
 		{
 			str = ft_strinit(PATH);
@@ -79,17 +72,11 @@ static t_hroom	*ft_mult_pipe(t_env *env, t_path *path, t_hpipe *pipe,
 			i ? ft_pathsend(&path, str) : 0;
 			!j ? j++ : 0;
 			ft_strdel(&str);
-			end_room = ft_find_room(env, room->id);
 		}
 		i++;
 		pipe = pipe->next;
 	}
-	j ? end_room = ft_one_pipe(env, path, pipe, room) : 0;
-	// ft_printf("{9}%s{0} : ", room->id);
-	// ft_printf("{155}%s{0} OR ", end_room->id);
-	// ft_printf("{155}%s{0}\n", PATH);
-
-	return (j ? end_room : ft_error_pipe(path));
+	return (j ? ft_one_pipe(env, path, pipe, room) : ft_error_pipe(path));
 }
 
 void			ft_find_path(t_env *env, t_path *path)
@@ -104,10 +91,9 @@ void			ft_find_path(t_env *env, t_path *path)
 		pipe = current->pipe;
 		while (pipe && pipe->room->weight < current->weight)
 			pipe = pipe->next;
-		// if (ft_hpipelen(current) == 1)
-		// 	current = ft_one_pipe(env, path, pipe, current);
-		// else
-		if (ft_hpipelen(current) >= 1)
+		if (ft_hpipelen(current) == 1)
+			current = ft_one_pipe(env, path, pipe, current);
+		else if (ft_hpipelen(current) >= 1)
 			current = ft_mult_pipe(env, path, pipe, current);
 		else
 			current = ft_error_pipe(path);

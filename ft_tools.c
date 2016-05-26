@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 15:51:08 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/25 12:43:57 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/26 15:23:45 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,33 +59,4 @@ int			ft_nbline_gnl(char *str, int x)
 		i++;
 	}
 	return (r);
-}
-
-void		ft_colors(char **str, int color)
-{
-	int		i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (color && ((i + 1) % 8) == 0)
-			ft_printf("{27}%s{0} ", str[i]);
-		else if (color && ((i + 1) % 7) == 0)
-			ft_printf("{39}%s{0} ", str[i]);
-		else if (color && ((i + 1) % 6) == 0)
-			ft_printf("{51}%s{0} ", str[i]);
-		else if (color && ((i + 1) % 5) == 0)
-			ft_printf("{75}%s{0} ", str[i]);
-		else if (color && ((i + 1) % 4) == 0)
-			ft_printf("{81}%s{0} ", str[i]);
-		else if (color && ((i + 1) % 3) == 0)
-			ft_printf("{105}%s{0} ", str[i]);
-		else if (color && ((i + 1) % 2) == 0)
-			ft_printf("{123}%s{0} ", str[i]);
-		else if (color && ((i + 1) % 1) == 0)
-			ft_printf("{147}%s{0} ", str[i]);
-		else
-			ft_printf("%s ", str[i]);
-		i++;
-	}
 }

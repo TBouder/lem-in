@@ -6,13 +6,13 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/23 15:09:41 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/25 22:20:02 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/26 15:02:37 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_find.h"
 
-void		ft_path_remove_if_error(t_path **begin_path, char *str)
+static void			ft_path_remove_if_error(t_path **begin_path, char *str)
 {
 	t_path		*to_free;
 

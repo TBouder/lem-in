@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/24 21:46:17 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/25 11:37:03 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/26 15:22:16 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,56 +53,6 @@ static void	ft_free_map(t_env **env)
 		i++;
 	}
 	free((*env)->map);
-}
-
-static void	ft_free_env_hash(t_hroom **hash)
-{
-	t_hroom	*free_hash;
-	t_hroom	*temp;
-	t_hpipe	*free_pipe;
-	t_hpipe	*pipe;
-
-	if (hash != NULL)
-	{
-		free_hash = *hash;
-		while (free_hash)
-		{
-			temp = free_hash;
-			ft_strdel(&temp->id);
-			pipe = temp->pipe;
-			while (pipe)
-			{
-				free_pipe = pipe;
-				pipe = pipe->next;
-				free(free_pipe);
-			}
-			free_hash = free_hash->next;
-			free(temp);
-		}
-		*hash = NULL;
-	}
-	hash = NULL;
-}
-
-static void	ft_free_hash(t_hroom **hash, int len)
-{
-	int		i;
-
-	i = 0;
-	if (hash)
-	{
-		while (i < len * 50)
-		{
-			if (hash[i])
-			{
-				ft_free_env_hash(&hash[i]);
-				hash[i] = NULL;
-				free(hash[i]);
-			}
-			i++;
-		}
-		free(hash);
-	}
 }
 
 void		ft_free_env(t_env **env, int i)
