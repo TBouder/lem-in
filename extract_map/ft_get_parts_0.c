@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/21 10:51:20 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/26 15:33:51 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/26 19:17:55 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,25 @@ static t_hroom	*ft_find_elem(t_hroom *base, char *data)
 		tmp = tmp->next;
 	}
 	return (NULL);
+}
+
+ int		ft_check_if_already_exist(t_env *env, int hash[2], char **s)
+{
+	t_hpipe	*debug;
+	int		v;
+
+	v = 0;
+	debug = ft_find_elem(env->hash[hash[1]], s[1])->pipe;
+	while (debug)
+	{
+		if (EQU(debug->room->id, ft_find_elem(env->hash[hash[0]], s[0])->id))
+		{
+			v++;
+			break ;
+		}
+		debug = debug->next;
+	}
+	return (v);
 }
 
 static void		ft_extract_s_e(t_env *env, int hash, char *str)
@@ -102,10 +121,9 @@ int				ft_get_pipe(t_env *env, int v)
 		hash[0] = ft_hash_djbtwo(s[0], env->room_len);
 		hash[1] = ft_hash_djbtwo(s[1], env->room_len);
 		!env->hash[hash[0]] || !env->hash[hash[1]] ? v++ : 0;
-		!v ? ft_hpipesend(&ft_find_elem(env->hash[hash[0]], s[0])->pipe,
-			ft_find_elem(env->hash[hash[1]], s[1])) : 0;
-		!v ? ft_hpipesend(&ft_find_elem(env->hash[hash[1]], s[1])->pipe,
-			ft_find_elem(env->hash[hash[0]], s[0])) : 0;
+		!v ? v = ft_check_if_already_exist(env, hash, s) : 0;
+		!v ? ft_hpipesend(&ft_find_elem(env->hash[hash[0]], s[0])->pipe, ft_find_elem(env->hash[hash[1]], s[1])) : 0;
+		!v ? ft_hpipesend(&ft_find_elem(env->hash[hash[1]], s[1])->pipe, ft_find_elem(env->hash[hash[0]], s[0])) : 0;
 		!v ? ft_put_map(env, BUFF) : 0;
 	}
 	else

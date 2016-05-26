@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/26 15:30:10 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/26 15:42:10 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/26 16:43:20 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # define ERR07 "Map {9}error{0} : room not well formated"
 # define ERR08 "Map {9}error{0} : map not well formated"
 # define ERR09 "Coo {9}error{0} : not a number"
-# define ERR10 "Ant {9}error{0} : must be > 0 && < 4294967296"
+# define ERR10 "Ant {9}error{0} : must be > 0 && < 2147483648"
 # define ERR11 "Map {9}error{0} : empty line"
 # define ERR12 "Room {9}error{0} : room name cannot start with 'L'"
 # define ERR13 "Room {9}error{0} : no start room"

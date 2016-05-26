@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 15:51:08 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/26 15:23:45 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/26 16:42:48 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ ULL			ft_atoi_onum(char *str)
 		result = (result + *str++ - '0');
 		if (ft_isnumber(*str))
 			result *= 10;
-		if (result > 4294967295)
+		if (result > 2147483647)
 			return (0);
 	}
 	if ((!(ft_isnumber(*str)) && *str != '\0') || (result == 0))
