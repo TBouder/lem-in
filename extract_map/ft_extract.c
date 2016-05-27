@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:16:28 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/26 18:56:29 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/27 14:16:44 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,16 @@ static int	ft_extended_get_map(t_env *env, int *lines)
 	return (0);
 }
 
-static void	ft_get_map(t_env *env)
+static int	ft_zero(t_env **env, t_flg *flg)
+{
+	(!(*env = (t_env *)malloc(sizeof(t_env)))) ? exit(1) : 0;
+	ft_init_env(*env);
+	ft_set_flg(*env, *flg);
+	ft_get_map(*env);
+	return (1);
+}
+
+void		ft_get_map(t_env *env)
 {
 	int		*lines;
 
@@ -69,32 +78,6 @@ static void	ft_get_map(t_env *env)
 	}
 	free(lines);
 	ft_check_errors(env);
-}
-
-int			ft_more(int ac, char **av, t_env **env, t_flg *flg)
-{
-	int		i;
-
-	i = flg->nb;
-	while (++i < ac)
-	{
-		(!(*env = (t_env *)malloc(sizeof(t_env)))) ? exit(1) : 0;
-		ft_init_env(*env);
-		if (((*env)->fd = open(av[i], O_RDONLY)) == -1)
-			ft_error(*env, "Opening {r}error{0} : wrong map");
-		ft_set_flg(*env, *flg);
-		ft_get_map(*env);
-	}
-	return (1);
-}
-
-int			ft_zero(t_env **env, t_flg *flg)
-{
-	(!(*env = (t_env *)malloc(sizeof(t_env)))) ? exit(1) : 0;
-	ft_init_env(*env);
-	ft_set_flg(*env, *flg);
-	ft_get_map(*env);
-	return (1);
 }
 
 void		ft_extract(int ac, char **av, t_env **env)
