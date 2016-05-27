@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/26 15:42:54 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/26 15:42:54 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/27 14:18:05 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void			ft_extract(int ac, char **av, t_env **env);
 /*
 **Ft_get_parts
 */
+void			ft_get_map(t_env *env);
 void			ft_get_ant(t_env *env);
 void			ft_get_diaiz(t_env *env, int *lines);
 void			ft_get_room(t_env *env, int *lines);
@@ -53,8 +54,11 @@ int				ft_extract_flg(char **str, t_flg *flg, int i, int j);
 /*
 **Ft_extract_tools
 */
+void			ft_more(int ac, char **av, t_env **env, t_flg *flg);
 void			ft_put_map(t_env *env, char *str);
 char			*ft_join(char *s1, char *s2);
+t_hroom			*ft_find_elem(t_hroom *base, char *data);
+int				ft_check_if_already_exist(t_env *env, int hash[2], char **s);
 
 /*
 **Ft_extract_struct
