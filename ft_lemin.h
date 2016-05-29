@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:14:46 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/29 16:06:41 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/29 23:52:30 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct		s_hpipe
 typedef struct		s_hroom
 {
 	char			*id;
+	char			*coo_id;
 	int				weight;
 	ULL				ant;
 	struct s_hpipe	*pipe;

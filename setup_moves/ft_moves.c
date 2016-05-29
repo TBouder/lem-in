@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 22:12:20 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/29 16:14:46 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/29 23:34:21 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,5 @@ void		ft_moves(t_env *env)
 	}
 	else
 		ft_move_mult(env);
-	// env->flag.f_dist == 1 ? ft_min_dist(env) : 0;
+	env->flag.f_dist == 1 ? ft_min_dist(env) : 0;
 }

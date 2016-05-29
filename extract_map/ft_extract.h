@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/26 15:42:54 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/29 16:03:10 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/30 00:01:36 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ int				ft_check_if_already_exist(t_env *env, int hash[2], char **s);
 */
 void			ft_hroomend(t_env *env, t_hroom **hlist, char *str, char **s);
 void			ft_hpipesend(t_hpipe **hlist, t_hroom *str);
+void			ft_hcooend(t_hroom **hlist, char **s);
 
 /*
 **Ft_extract_init

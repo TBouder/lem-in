@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/21 10:51:20 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/29 16:00:18 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/30 00:18:51 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void		ft_get_coo(t_env *env, char **s, int *lines)
 			ft_err_clr(s, env, ERR04);
 		}
 	}
-	ft_hroomend(env, &env->hash_coo[hash], coo, NULL);
+	ft_hcooend(&env->hash_coo[hash], s);
 	ft_strdel(&coo);
 }
 

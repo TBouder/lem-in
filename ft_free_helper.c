@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/24 21:46:17 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/26 15:22:06 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/30 00:23:01 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ static void	ft_free_env_hash(t_hroom **hash)
 		{
 			temp = free_hash;
 			ft_strdel(&temp->id);
+			ft_strdel(&temp->coo_id);
 			pipe = temp->pipe;
 			while (pipe)
 			{
