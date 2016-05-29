@@ -6,25 +6,32 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/22 18:19:32 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/23 15:36:19 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/29 12:43:44 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_extract.h"
 
-static t_hroom	*ft_hroomnew(char *str)
+static t_hroom	*ft_hroomnew(t_env *env, char *str, char **s)
 {
 	t_hroom	*hlist;
+	char	*coo;
 
 	!(hlist = (t_hroom *)malloc(sizeof(t_hroom))) ? exit(1) : 0;
 	hlist->id = ft_strinit(str);
 	hlist->weight = -1;
 	hlist->next = NULL;
 	hlist->pipe = NULL;
+	if (s != NULL)
+	{
+		coo = ft_join(s);
+		hlist->coo = env->hash_coo[ft_hash_djbtwo(coo, env->room_len)];
+		free(coo);
+	}
 	return (hlist);
 }
 
-void			ft_hroomend(t_hroom **hlist, char *str)
+void			ft_hroomend(t_env *env, t_hroom **hlist, char *str, char **s)
 {
 	t_hroom	*new_hlist;
 
@@ -33,10 +40,10 @@ void			ft_hroomend(t_hroom **hlist, char *str)
 	{
 		while (new_hlist->next != NULL)
 			new_hlist = new_hlist->next;
-		new_hlist->next = ft_hroomnew(str);
+		new_hlist->next = ft_hroomnew(env, str, s);
 	}
 	else
-		*hlist = ft_hroomnew(str);
+		*hlist = ft_hroomnew(env, str, s);
 }
 
 static t_hpipe	*ft_hpipenew(t_hroom **str)

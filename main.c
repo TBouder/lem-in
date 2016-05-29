@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 18:22:57 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/27 14:08:06 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/29 16:01:39 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 ** BONUS
 ** - Lecture plusieurs fichiers a la fois (Neccessite OPEN)
 ** - Explicits errors
-** - Possibility to use -s for soft mode (for the map extract) (Ok same pipe)
+** - Possibility to use -s for soft mode (neither same pipes, nor pipe-to-itself
+**		room are an error)
 ** - Possibility to use -p for path mode (Display the differents paths used)
 ** - Possibility to use -c for color mode
 */
@@ -29,7 +30,7 @@ int			main(int ac, char **av)
 	ft_extract(ac, av, &env);
 	ft_find(env);
 	ft_print_map(env);
-	env->f_path ? ft_print_path(env) : 0;
+	env->flag.f_path ? ft_print_path(env) : 0;
 	ft_moves(env);
 	ft_free_env(&env, 0);
 	return (0);

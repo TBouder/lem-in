@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 22:13:10 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/26 16:08:06 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/29 16:10:23 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	ft_display(t_env *env, int ant_id, char *room_name, int color)
 {
 	int		id;
 
-	id = (ant_id / ft_path_len(env->paths)) + 27;
+	id = (ant_id / env->path_len) + 27;
 	id = ft_select_color(id);
 	if (color && env->ant)
 	{
@@ -74,7 +74,7 @@ void	ft_free_tr(t_env *env, char ***str)
 	int		k;
 
 	k = 0;
-	while (k < ft_path_len(env->paths))
+	while (k < env->path_len)
 	{
 		ft_dbstrdel(str[k]);
 		k++;

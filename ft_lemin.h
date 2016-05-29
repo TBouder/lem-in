@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:14:46 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/26 15:52:46 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/29 16:06:41 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,16 @@ typedef struct		s_hroom
 	ULL				ant;
 	struct s_hpipe	*pipe;
 	struct s_hroom	*next;
+	struct s_hroom	*coo;
 }					t_hroom;
+
+typedef struct		s_flag
+{
+	int				f_soft;
+	int				f_path;
+	int				f_color;
+	int				f_dist;
+}					t_flag;
 
 typedef struct		s_env
 {
@@ -52,23 +61,20 @@ typedef struct		s_env
 	int				end;
 	int				map_id;
 	int				room_len;
+	int				path_len;
 
 	int				get_ant;
 	int				get_room;
 	int				get_pipe;
 	int				if_pipe;
 
-	int				f_soft;
-	int				f_path;
-	int				f_color;
-
-	t_hroom			**hash;
-	t_hroom			**hash_coo;
-	t_path			*paths;
 	char			**map;
-	char			*null;
 	char			*buff;
 
+	t_flag			flag;
+	t_path			*paths;
+	t_hroom			**hash;
+	t_hroom			**hash_coo;
 	t_hroom			*r_start;
 	t_hroom			*r_end;
 }					t_env;

@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 11:47:18 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/26 17:57:21 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/29 16:09:57 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,12 @@ static int	ft_print_mult_helper(t_env *env, ULL *j, int *nbr, char ***str)
 
 	v = 0;
 	k = 0;
-	while (k < ft_path_len(env->paths))
+	while (k < env->path_len)
 	{
 		x = 0;
 		if (nbr[*j] >= 1 && nbr[*j] < ft_dbstrlen(str[k]))
 		{
-			ft_display(env, *j + 1, str[k][nbr[*j]], env->f_color);
+			ft_display(env, *j + 1, str[k][nbr[*j]], env->flag.f_color);
 			v++;
 			x++;
 		}

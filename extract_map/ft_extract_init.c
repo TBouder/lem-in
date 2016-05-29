@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/22 18:20:40 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/25 12:28:01 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/29 16:11:11 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,17 @@ void		ft_init_env(t_env *env)
 	env->end = 0;
 	env->map_id = 0;
 	env->room_len = 0;
+	env->path_len = 0;
 	env->get_ant = 0;
 	env->get_room = 0;
 	env->get_pipe = 0;
 	env->if_pipe = 0;
-	env->f_soft = 0;
-	env->f_path = 0;
-	env->f_color = 0;
+	env->flag.f_soft = 0;
+	env->flag.f_path = 0;
+	env->flag.f_color = 0;
 	env->r_start = NULL;
 	env->r_end = NULL;
 	env->buff = NULL;
-	env->null = NULL;
 	env->hash = NULL;
 	env->hash_coo = NULL;
 	env->map = NULL;
