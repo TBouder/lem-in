@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/26 15:42:54 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/27 14:18:05 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/29 16:03:10 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct	s_flg
 	int			f_soft;
 	int			f_path;
 	int			f_color;
+	int			f_dist;
 	int			nb;
 }				t_flg;
 
@@ -56,14 +57,14 @@ int				ft_extract_flg(char **str, t_flg *flg, int i, int j);
 */
 void			ft_more(int ac, char **av, t_env **env, t_flg *flg);
 void			ft_put_map(t_env *env, char *str);
-char			*ft_join(char *s1, char *s2);
+char			*ft_join(char **s);
 t_hroom			*ft_find_elem(t_hroom *base, char *data);
 int				ft_check_if_already_exist(t_env *env, int hash[2], char **s);
 
 /*
 **Ft_extract_struct
 */
-void			ft_hroomend(t_hroom **hlist, char *str);
+void			ft_hroomend(t_env *env, t_hroom **hlist, char *str, char **s);
 void			ft_hpipesend(t_hpipe **hlist, t_hroom *str);
 
 /*

@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 22:12:20 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/26 18:00:15 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/29 16:14:46 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	ft_move_mult(t_env *env)
 	int		*nbr;
 	int		i;
 
-	if (!(str = (char ***)malloc(sizeof(char **) * ft_path_len(env->paths))))
+	if (!(str = (char ***)malloc(sizeof(char **) * env->path_len)))
 		exit(1);
 	path = env->paths;
 	i = 0;
@@ -57,6 +57,7 @@ void		ft_moves(t_env *env)
 	ULL		*nbr;
 
 	env->r_end->ant = 0;
+	env->path_len = ft_path_len(env->paths);
 	if (env->paths && env->paths->next == NULL)
 	{
 		str = ft_strsplit(env->paths->path, ' ');
@@ -70,4 +71,5 @@ void		ft_moves(t_env *env)
 	}
 	else
 		ft_move_mult(env);
+	// env->flag.f_dist == 1 ? ft_min_dist(env) : 0;
 }

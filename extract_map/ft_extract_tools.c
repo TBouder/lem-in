@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/21 09:24:55 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/27 14:15:31 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/29 15:56:55 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,16 @@ void	ft_put_map(t_env *env, char *str)
 	env->map_id += 1;
 }
 
-char	*ft_join(char *s1, char *s2)
+char	*ft_join(char **s)
 {
 	char	*str;
 
-	str = ft_strnew(ft_strlen(s1) + ft_strlen(s2) + 2);
-	ft_strcpy(str, s1);
-	ft_strcat(str, "+");
-	ft_strcat(str, s2);
+	str = ft_strnew(ft_strlen(s[0]) + ft_strlen(s[1]) + ft_strlen(s[2]) + 3);
+	ft_strcpy(str, s[0]);
+	ft_strcat(str, " ");
+	ft_strcat(str, s[1]);
+	ft_strcat(str, " ");
+	ft_strcat(str, s[2]);
 	return (str);
 }
 
@@ -77,7 +79,7 @@ void	ft_more(int ac, char **av, t_env **env, t_flg *flg)
 		ft_get_map(*env);
 		ft_find(*env);
 		ft_print_map(*env);
-		(*env)->f_path ? ft_print_path(*env) : 0;
+		(*env)->flag.f_path ? ft_print_path(*env) : 0;
 		ft_moves(*env);
 		ft_free_env(env, 0);
 		i + 1 != ac ? ft_printf("\n\n{155}--------NEXT MAP--------{0}\n\n") : 0;

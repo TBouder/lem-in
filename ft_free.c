@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/24 21:46:17 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/26 15:22:16 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/29 16:06:11 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ static void	ft_free_map(t_env **env)
 void		ft_free_env(t_env **env, int i)
 {
 	ft_strdel(&(*env)->buff);
-	ft_strdel(&(*env)->null);
 	ft_free_map(env);
 	ft_free_hash((*env)->hash, (*env)->room_len);
 	ft_free_hash((*env)->hash_coo, (*env)->room_len);
