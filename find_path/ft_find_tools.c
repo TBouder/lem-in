@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/24 19:02:42 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/26 15:02:51 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/30 13:03:37 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,24 +57,4 @@ t_hroom		*ft_find_good_pipe(t_hroom *room)
 		pipe = pipe->next;
 	}
 	return (pipe->room);
-}
-
-char		*ft_push_path(char **s1, char *s2)
-{
-	char	*str;
-
-	if (s1 != NULL)
-	{
-		str = ft_strnew(ft_strlen(*s1) + ft_strlen(s2) + 1);
-		ft_strcpy(str, *s1);
-		ft_strcat(str, " ");
-		ft_strcat(str, s2);
-		ft_strdel(s1);
-	}
-	else
-	{
-		str = ft_strinit(s2);
-		ft_strdel(s1);
-	}
-	return (str);
 }
