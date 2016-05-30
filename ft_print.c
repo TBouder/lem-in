@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/23 13:36:46 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/26 18:39:41 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/30 14:44:59 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,28 @@ void	ft_print_path(t_env *env)
 		if (!ft_strstr(path->path, "LERR")
 			&& ft_strstr(path->path, env->r_end->id))
 			ft_putendl(path->path);
+		path = path->next;
+	}
+	ft_putchar('\n');
+}
+
+void	ft_print_path_dist(t_env *env, int *dist)
+{
+	t_path	*path;
+	int		i;
+
+	path = env->paths;
+	i = 0;
+	while (path)
+	{
+		if (dist[i] == -42)
+			i++;
+		if (!ft_strstr(path->path, "LERR")
+			&& ft_strstr(path->path, env->r_end->id))
+		{
+			ft_printf("%s : %d units\n", path->path, dist[i]);
+			i++;
+		}
 		path = path->next;
 	}
 	ft_putchar('\n');

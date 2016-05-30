@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:14:46 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/30 13:03:27 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/30 14:43:19 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ int					get_next_line_num(int const fd, char **line, int **x);
 int					ft_nbline_gnl(char *str, int x);
 void				ft_clear_gnl(t_env *env);
 char				*ft_push_path(char **s1, char *s2);
+void				ft_path_remove_if_error(t_path **begin_path, char *str);
 
 /*
 ** Errors (ft_errors)
@@ -121,6 +122,7 @@ void				ft_err_nopath(t_env *env, char *str);
 */
 void				ft_print_map(t_env *env);
 void				ft_print_path(t_env *env);
-void				ft_min_dist(t_env *env);
+void				ft_print_path_dist(t_env *env, int *dist);
+void				ft_find_min_dist(t_env *env);
 
 #endif

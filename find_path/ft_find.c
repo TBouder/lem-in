@@ -6,30 +6,11 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/23 15:09:41 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/26 18:39:45 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/30 14:39:24 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_find.h"
-
-static void			ft_path_remove_if_error(t_path **begin_path, char *str)
-{
-	t_path		*to_free;
-
-	if (begin_path && *begin_path)
-	{
-		if (ft_isstrstr((*begin_path)->path, str))
-		{
-			to_free = *begin_path;
-			*begin_path = (*begin_path)->next;
-			ft_strdel(&to_free->path);
-			free(to_free);
-			ft_path_remove_if_error(begin_path, str);
-		}
-		else
-			ft_path_remove_if_error(&(*begin_path)->next, str);
-	}
-}
 
 static void			ft_verif_col_helper(t_env *env, t_path *origin, t_path *tmp)
 {

@@ -6,16 +6,15 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/24 21:46:17 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/30 00:23:01 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/30 14:54:05 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_lemin.h"
 
-static void	ft_free_env_hash(t_hroom **hash)
+static void	ft_free_env_hash(t_hroom **hash, t_hroom *temp)
 {
 	t_hroom	*free_hash;
-	t_hroom	*temp;
 	t_hpipe	*free_pipe;
 	t_hpipe	*pipe;
 
@@ -53,7 +52,7 @@ void		ft_free_hash(t_hroom **hash, int len)
 		{
 			if (hash[i])
 			{
-				ft_free_env_hash(&hash[i]);
+				ft_free_env_hash(&hash[i], NULL);
 				hash[i] = NULL;
 				free(hash[i]);
 			}

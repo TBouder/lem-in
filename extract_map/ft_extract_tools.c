@@ -78,7 +78,7 @@ void	ft_more(int ac, char **av, t_env **env, t_flg *flg)
 		ft_find(*env);
 		ft_print_map(*env);
 		(*env)->flag.f_path ? ft_print_path(*env) : 0;
-		(*env)->flag.f_path ? ft_min_dist(*env) : 0;
+		(*env)->flag.f_path ? ft_find_min_dist(*env) : 0;
 		ft_moves(*env);
 		ft_free_env(env, 0);
 		i + 1 != ac ? ft_printf("\n\n{155}--------NEXT MAP--------{0}\n\n") : 0;

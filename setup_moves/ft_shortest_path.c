@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/29 15:17:36 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/30 14:30:34 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/30 14:56:36 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,55 +57,6 @@ static void		ft_ext_dist(int *dist, int ***nbr, t_path *origin)
 	}
 }
 
-static int		***ft_init_trplnbr(t_path *origin)
-{
-	int		j;
-	int		k;
-	int		len;
-	int		***nbr;
-	t_path	*path;
-
-	path = origin;
-	!(nbr = (int ***)malloc(sizeof(int **) * ft_path_len(path))) ? exit(1) : 0;
-	j = 0;
-	while (path)
-	{
-		len = ft_strcountchar(path->path, ' ');
-		!(nbr[j] = (int **)malloc(sizeof(int *) * len)) ? exit(1) : 0;
-		k = 0;
-		while (k < len)
-		{
-			nbr[j][k] = ft_nbrnew(2);
-			k++;
-		}
-		j++;
-		path = path->next;
-	}
-	return (nbr);
-}
-
-static void		ft_free_trplnbr(t_path *origin, int ***nbr)
-{
-	int		j;
-	int		k;
-	int		len;
-	t_path	*path;
-
-	path = origin;
-	j = 0;
-	while (path)
-	{
-		len = ft_strcountchar(path->path, ' ');
-		k = 0;
-		while (k < len - 1)
-			free(nbr[j][k++]);
-		free(nbr[j]);
-		j++;
-		path = path->next;
-	}
-	free(nbr);
-}
-
 static void		ft_find_min(t_env *env, int ***nbr, t_path *path, int *j)
 {
 	int		i;
@@ -118,7 +69,8 @@ static void		ft_find_min(t_env *env, int ***nbr, t_path *path, int *j)
 		s = ft_strsplit(path->path, ' ');
 		while (s[i])
 		{
-			t = ft_strsplit(ft_find_good(env->hash[ft_hash_djbtwo(s[i], env->room_len)]->coo, s[i])->id, ' ');
+			t = ft_strsplit(ft_find_good(env->hash[ft_hash_djbtwo(s[i],
+				env->room_len)]->coo, s[i])->id, ' ');
 			nbr[*j][i][0] = ft_atoi(t[0]);
 			nbr[*j][i][1] = ft_atoi(t[1]);
 			ft_dbstrdel(t);
@@ -128,28 +80,6 @@ static void		ft_find_min(t_env *env, int ***nbr, t_path *path, int *j)
 		*j += 1;
 		path = path->next;
 	}
-}
-
-static void		ft_print_path_dist(t_env *env, int *dist)
-{
-	t_path	*path;
-	int		i;
-
-	path = env->paths;
-	i = 0;
-	while (path)
-	{
-		if (dist[i] == -42)
-			i++;
-		if (!ft_strstr(path->path, "LERR")
-			&& ft_strstr(path->path, env->r_end->id))
-		{
-			ft_printf("%s : %d units\n", path->path, dist[i]);
-			i++;
-		}
-		path = path->next;
-	}
-	ft_putchar('\n');
 }
 
 static void		ft_find_shortest_path(t_env *env, int *dist, int *j)
@@ -172,7 +102,6 @@ static void		ft_find_shortest_path(t_env *env, int *dist, int *j)
 			{
 				path->path = ft_push_path(&path->path, "LERR");
 				dist[i] = -42;
-				// *j += 1;
 			}
 			i++;
 		}
@@ -181,26 +110,7 @@ static void		ft_find_shortest_path(t_env *env, int *dist, int *j)
 	env->paths = o;
 }
 
-static void			ft_path_remove_if_error(t_path **begin_path, char *str) //EXISTE DEJA
-{
-	t_path		*to_free;
-
-	if (begin_path && *begin_path)
-	{
-		if (ft_isstrstr((*begin_path)->path, str))
-		{
-			to_free = *begin_path;
-			*begin_path = (*begin_path)->next;
-			ft_strdel(&to_free->path);
-			free(to_free);
-			ft_path_remove_if_error(begin_path, str);
-		}
-		else
-			ft_path_remove_if_error(&(*begin_path)->next, str);
-	}
-}
-
-void		ft_min_dist(t_env *env)
+void			ft_find_min_dist(t_env *env)
 {
 	t_path	*path;
 	int		***nbr;
@@ -212,7 +122,6 @@ void		ft_min_dist(t_env *env)
 	nbr = ft_init_trplnbr(env->paths);
 	path = env->paths;
 	ft_find_min(env, nbr, path, &j);
-
 	dist = ft_nbrnew(j);
 	ft_ext_dist(dist, nbr, env->paths);
 	ft_find_shortest_path(env, dist, &j);
