@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/29 15:17:36 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/30 14:56:36 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/30 19:17:22 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,28 @@ static t_hroom	*ft_find_good(t_hroom *room, char *str)
 	return (room);
 }
 
+#include <math.h>
+int		ft_pow(double nb, double power)
+{
+	int		i;
+
+	i = 0;
+	while (i < power)
+
+	if (power < 0)
+		return (0);
+	if (power == 0)
+		return (1);
+	return (nb * ft_power(nb, power - 1));
+}
+
 static void		ft_ext_dist(int *dist, int ***nbr, t_path *origin)
 {
 	t_path	*path;
-	int		x;
+	double	x;
 	int		i;
 	int		j;
-	int		a;
+	double	a;
 
 	path = origin;
 	j = 0;
@@ -46,11 +61,18 @@ static void		ft_ext_dist(int *dist, int ***nbr, t_path *origin)
 		x = 0;
 		while (i < ft_strcountchar(path->path, ' ') - 1)
 		{
-			a = ft_power(nbr[j][i][1] - nbr[j][i][0], 2);
-			a += ft_power(nbr[j][i + 1][1] - nbr[j][i + 1][0], 2);
+			a = ft_power(nbr[j][i + 1][0] - nbr[j][i][0], 2);
+			ft_printf("{9}PART 1 : %f{0}\n", a);
+			a += ft_power(nbr[j][i + 1][1] - nbr[j][i][0], 2);
+			ft_printf("{10}PART 2 : %f{0}\n", a);
+			ft_printf("{12}PART 2.5 : %f{0}\n", ft_pow(a, 0.5));
+
 			a = ft_sqrt(a);
+
+			ft_printf("{11}PART 3 : %f{0}\n", a);
 			i++;
 			x += a;
+			ft_putendl("ft_ext_dist_0");
 		}
 		dist[j++] = x;
 		path = path->next;
@@ -79,6 +101,7 @@ static void		ft_find_min(t_env *env, int ***nbr, t_path *path, int *j)
 		ft_dbstrdel(s);
 		*j += 1;
 		path = path->next;
+		ft_putendl("ft_find_min");
 	}
 }
 
@@ -110,6 +133,22 @@ static void		ft_find_shortest_path(t_env *env, int *dist, int *j)
 	env->paths = o;
 }
 
+int		*ft_nbrnew_ull(ULL size)
+{
+	int			*buffer;
+	ULL		i;
+
+	i = 0;
+	if (!(buffer = (int *)malloc(sizeof(ULL) * size)))
+		return (NULL);
+	while (i < size)
+	{
+		buffer[i] = 0;
+		i++;
+	}
+	return (buffer);
+}
+
 void			ft_find_min_dist(t_env *env)
 {
 	t_path	*path;
@@ -122,7 +161,7 @@ void			ft_find_min_dist(t_env *env)
 	nbr = ft_init_trplnbr(env->paths);
 	path = env->paths;
 	ft_find_min(env, nbr, path, &j);
-	dist = ft_nbrnew(j);
+	dist = ft_nbrnew_ull(j);
 	ft_ext_dist(dist, nbr, env->paths);
 	ft_find_shortest_path(env, dist, &j);
 	ft_print_path_dist(env, dist);
