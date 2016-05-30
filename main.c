@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 18:22:57 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/30 15:38:37 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/30 16:05:55 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,5 @@ int			main(int ac, char **av)
 	env->flag.f_dist ? ft_find_min_dist(env) : 0;
 	ft_moves(env);
 	ft_free_env(&env, 0);
-
-	ft_printf("[%S]\n", "coucou");
 	return (0);
 }
