@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 11:47:18 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/30 16:13:52 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/30 16:28:19 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,23 +62,25 @@ void		ft_print_mult_moves(t_env *env, int *nbr, char ***str)
 	ULL		i;
 	ULL		j;
 	int		v;
-	int 	mv_number;
-	int test = 0;
+	int		mv_number;
+	int		mv_rounds;
 
 	i = -1;
 	mv_number = 0;
+	mv_rounds = 0;
 	while (++i < (env->ant * env->ant))
 	{
 		j = 0;
 		v = 0;
 		while (j < env->ant)
 			v += ft_print_mult_helper(env, &j, nbr, str);
-		if (v != 0)
-		{
-			ft_putchar('\n');
-			test++;
-		}
+		v != 0 ? ft_putchar('\n') : 0;
+		v != 0 ? mv_rounds++ : 0;
 		mv_number += v;
 	}
-	ft_printf("\n[%d moves]\t[%d rounds]\n", mv_number, test);
+	if (env->flag.f_info)
+	{
+		ft_printf("\n[{155}%ld{0} ants have moved with {168}%d{0} moves in \
+{172}%d{0} rounds]\n", env->ant, mv_number, mv_rounds);
+	}
 }
