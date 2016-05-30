@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:14:46 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/30 14:43:19 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/30 16:23:35 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct		s_flag
 	int				f_path;
 	int				f_color;
 	int				f_dist;
+	int				f_info;
 }					t_flag;
 
 typedef struct		s_env

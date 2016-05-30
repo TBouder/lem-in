@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/26 15:42:54 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/30 00:01:36 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/30 16:23:51 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct	s_flg
 	int			f_path;
 	int			f_color;
 	int			f_dist;
+	int			f_info;
 	int			nb;
 }				t_flg;
 

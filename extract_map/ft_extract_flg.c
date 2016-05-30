@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/18 15:03:35 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/29 16:03:11 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/30 16:24:06 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	ft_set_flg(t_env *env, t_flg flg)
 	env->flag.f_path = flg.f_path;
 	env->flag.f_color = flg.f_color;
 	env->flag.f_dist = flg.f_dist;
+	env->flag.f_info = flg.f_info;
 }
 
 void	ft_init_flg(t_flg *flg)
@@ -26,6 +27,7 @@ void	ft_init_flg(t_flg *flg)
 	flg->f_path = 0;
 	flg->f_color = 0;
 	flg->f_dist = 0;
+	flg->f_info = 0;
 	flg->nb = 0;
 }
 
@@ -40,6 +42,7 @@ int		ft_extract_flg(char **str, t_flg *flg, int i, int j)
 			str[i][j] == 'p' ? flg->f_path = 1 : 0;
 			str[i][j] == 'c' ? flg->f_color = 1 : 0;
 			str[i][j] == 'd' ? flg->f_dist = 1 : 0;
+			str[i][j] == 'i' ? flg->f_info = 1 : 0;
 			j++;
 		}
 		i++;
