@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 22:10:56 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/29 15:38:39 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/30 12:09:55 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,5 @@ void	ft_print_mult_moves(t_env *env, int *nbr, char ***str);
 void	ft_display_move(int ant_id, char *room_name);
 void	ft_display(t_env *env, int ant_id, char *room_name, int color);
 int		ft_path_len(t_path *path);
-
-void	ft_min_dist(t_env *env);
 
 #endif

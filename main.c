@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 18:22:57 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/29 16:01:39 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/30 14:31:50 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,10 @@ int			main(int ac, char **av)
 	ft_extract(ac, av, &env);
 	ft_find(env);
 	ft_print_map(env);
-	env->flag.f_path ? ft_print_path(env) : 0;
+	env->flag.f_path && !env->flag.f_dist ? ft_print_path(env) : 0;
+	env->flag.f_dist ? ft_min_dist(env) : 0;
 	ft_moves(env);
+
 	ft_free_env(&env, 0);
 	return (0);
 }

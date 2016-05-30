@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/23 15:09:51 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/25 12:54:50 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/30 13:03:33 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,5 @@ void		ft_pathsend(t_path **path, char *datas);
 int			ft_hpipelen(t_hroom *hash);
 t_hroom		*ft_find_room(t_env *env, char *datas);
 t_hroom		*ft_find_good_pipe(t_hroom *room);
-char		*ft_push_path(char **s1, char *s2);
 
 #endif
