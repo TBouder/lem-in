@@ -6,14 +6,14 @@
 #    By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/04/22 12:12:36 by tbouder           #+#    #+#              #
-#    Updated: 2016/05/27 14:04:05 by tbouder          ###   ########.fr        #
+#    Updated: 2016/05/30 15:33:04 by tbouder          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 		= 	lem-in
 
 CC			= 	gcc
-CFLAGS		= 	-Wall -Werror -Wextra -g
+# CFLAGS		= 	-Wall -Werror -Wextra -g
 OPTI		=	-g -O3 -O2
 
 EXTRACT		=	$(wildcard extract_map/*.c)

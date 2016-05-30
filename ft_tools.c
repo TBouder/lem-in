@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 15:51:08 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/30 13:03:41 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/30 14:39:03 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,23 @@ char		*ft_push_path(char **s1, char *s2)
 		ft_strdel(s1);
 	}
 	return (str);
+}
+
+void		ft_path_remove_if_error(t_path **begin_path, char *str)
+{
+	t_path		*to_free;
+
+	if (begin_path && *begin_path)
+	{
+		if (ft_isstrstr((*begin_path)->path, str))
+		{
+			to_free = *begin_path;
+			*begin_path = (*begin_path)->next;
+			ft_strdel(&to_free->path);
+			free(to_free);
+			ft_path_remove_if_error(begin_path, str);
+		}
+		else
+			ft_path_remove_if_error(&(*begin_path)->next, str);
+	}
 }

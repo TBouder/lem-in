@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 11:51:37 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/26 18:54:28 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/30 14:38:32 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,6 @@ void			ft_find_path(t_env *env, t_path *path)
 		pipe = current->pipe;
 		while (pipe && pipe->room->weight < current->weight)
 			pipe = pipe->next;
-		// if (ft_hpipelen(current) == 1)
-		// 	current = ft_one_pipe(env, path, pipe, current);
-		// else
 		if (ft_hpipelen(current) >= 1)
 			current = ft_mult_pipe(env, path, pipe, current);
 		else

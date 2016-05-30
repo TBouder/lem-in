@@ -6,16 +6,11 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 11:47:18 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/29 16:09:57 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/30 14:45:37 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_moves.h"
-
-/*
-** NOTE : J = Id de la fourmie
-** NOTE : nbr[j] = id de la salle
-*/
 
 int			*ft_init_mult_tab(int ant, int len)
 {

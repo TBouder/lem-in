@@ -6,17 +6,12 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 11:47:18 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/29 16:01:08 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/30 14:45:28 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_moves.h"
 #define SAME ft_isstrstr
-
-/*
-** NOTE : j = Id de la fourmie
-** NOTE : nbr[j] = id de la salle
-*/
 
 ULL		*ft_init_tab(ULL ant)
 {
