@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 18:22:57 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/25 18:10:24 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/06/01 00:04:14 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,14 @@
 
 /*
 ** BONUS
-** - Lecture plusieurs fichiers a la fois (Neccessite OPEN)
+** - Can read more multiple files one after the other (with open)
 ** - Explicits errors
-** - Possibility to use -s for soft mode (for the map extract) (Ok same pipe)
+** - Possibility to use -s for soft mode (neither same pipes, nor pipe-to-itself
+**		room are an error)
 ** - Possibility to use -p for path mode (Display the differents paths used)
 ** - Possibility to use -c for color mode
+** - Possibility to use -d for distance mode
+** - Possibility to use -i for info mode
 */
 
 int			main(int ac, char **av)
@@ -28,6 +31,10 @@ int			main(int ac, char **av)
 	env = NULL;
 	ft_extract(ac, av, &env);
 	ft_find(env);
+	ft_print_map(env);
+	env->flag.f_path && !env->flag.f_dist ? ft_print_path(env) : 0;
+	env->flag.f_dist ? ft_find_min_dist(env) : 0;
 	ft_moves(env);
+	ft_free_env(&env, 0);
 	return (0);
 }

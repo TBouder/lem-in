@@ -6,37 +6,47 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 22:13:10 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/19 16:32:50 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/31 14:10:02 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_moves.h"
 
-void	ft_display_move(int ant_id, char *room_name)
+int		ft_select_color(int id)
 {
-	ft_printf("L%d-%s ", ant_id, room_name);
+	int		tmp;
+
+	tmp = id;
+	if (tmp > 27 && tmp < 118)
+	{
+		if (tmp > 51 && tmp < 64)
+			tmp += 18;
+		if (tmp > 87 && tmp < 100)
+			tmp += 18;
+	}
+	else
+	{
+		tmp = tmp % 118;
+		tmp += 28;
+		tmp = ft_select_color(tmp);
+	}
+	return (tmp);
 }
 
-void	ft_display_move_color(int ant_id, char *room_name, int room, int color)
+void	ft_display(t_env *env, int ant_id, char *room_name, int color)
 {
-	if (color && room % 8 == 0)
-		ft_printf("L%d-{27}%s{0} ", ant_id, room_name);
-	else if (color && room % 6 == 0)
-		ft_printf("L%d-{39}%s{0} ", ant_id, room_name);
-	else if (color && room % 5 == 0)
-		ft_printf("L%d-{51}%s{0} ", ant_id, room_name);
-	else if (color && room % 4 == 0)
-		ft_printf("L%d-{75}%s{0} ", ant_id, room_name);
-	else if (color && room % 3 == 0)
-		ft_printf("L%d-{81}%s{0} ", ant_id, room_name);
-	else if (color && room % 2 == 0)
-		ft_printf("L%d-{105}%s{0} ", ant_id, room_name);
-	else if (color && room % 1 == 0)
-		ft_printf("L%d-{123}%s{0} ", ant_id, room_name);
-	else if (color)
-		ft_printf("L%d-{147}%s{0} ", ant_id, room_name);
+	int		id;
+
+	id = (ant_id / env->path_len) + 27;
+	id = ft_select_color(id);
+	if (color && env->ant)
+	{
+		ft_printf("\e[38;5;%dm", id);
+		ft_printf("L%d{0}-", ant_id);
+		ft_printf("%s", room_name);
+	}
 	else
-		ft_printf("L%d-%s ", ant_id, room_name);
+		ft_printf("L%d-%s", ant_id, room_name);
 }
 
 int		ft_path_len(t_path *path)
@@ -59,10 +69,33 @@ void	ft_free_tr(t_env *env, char ***str)
 	int		k;
 
 	k = 0;
-	while (k < ft_path_len(env->paths))
+	while (k < env->path_len)
 	{
 		ft_dbstrdel(str[k]);
 		k++;
 	}
 	free(str);
+}
+
+ULL		ft_sqrtt(ULL nb)
+{
+	ULL	i;
+	ULL	sqr;
+
+	sqr = 0;
+	i = 1 << 30;
+	while (i > nb)
+		i >>= 2;
+	while (i != 0)
+	{
+		if (nb >= sqr + i)
+		{
+			nb -= sqr + i;
+			sqr = (sqr >> 1) + i;
+		}
+		else
+			sqr >>= 1;
+		i >>= 2;
+	}
+	return (sqr);
 }

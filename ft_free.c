@@ -5,35 +5,31 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/04/26 19:11:55 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/19 17:35:26 by tbouder          ###   ########.fr       */
+/*   Created: 2016/05/24 21:46:17 by tbouder           #+#    #+#             */
+/*   Updated: 2016/05/29 16:06:11 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_lemin.h"
 
-/*
-** Free env, free GNL
-*/
-
-static void	ft_free_env_pipes(t_pipes **pipes)
+static void	ft_destroy(t_path *path)
 {
-	t_pipes	*free_list;
-	t_pipes	*temp;
-
-	if (pipes != NULL)
+	if (path->next != NULL)
 	{
-		free_list = *pipes;
-		while (free_list)
-		{
-			temp = free_list;
-			free_list = free_list->next;
-			ft_strdel(&temp->id);
-			free(temp);
-		}
-		*pipes = NULL;
+		ft_strdel(&path->path);
+		ft_destroy(path->next);
 	}
-	pipes = NULL;
+	free(path);
+}
+
+static void	ft_path_clear(t_path **begin_path)
+{
+	if (begin_path && *begin_path)
+	{
+		ft_strdel(&(*begin_path)->path);
+		ft_destroy(*begin_path);
+		*begin_path = NULL;
+	}
 }
 
 static void	ft_free_path(t_path *path, t_env **env)
@@ -46,46 +42,25 @@ static void	ft_free_path(t_path *path, t_env **env)
 	ft_path_clear(&(*env)->paths);
 }
 
+static void	ft_free_map(t_env **env)
+{
+	int		i;
+
+	i = 0;
+	while (i < (*env)->map_id)
+	{
+		ft_strdel(&(*env)->map[i]);
+		i++;
+	}
+	free((*env)->map);
+}
+
 void		ft_free_env(t_env **env, int i)
 {
-	t_rooms	*free_list;
-	t_rooms	*temp;
-
-	ft_strdel(&(*env)->map);
-	ft_free_path((*env)->paths, env);
-	if (*env && i && (*env)->rooms != NULL)
-	{
-		free_list = (*env)->rooms;
-		while (free_list)
-		{
-			temp = free_list;
-			free_list = free_list->next;
-			ft_strdel(&temp->name);
-			ft_free_env_pipes(&temp->pipes);
-			free(temp);
-		}
-		(*env)->rooms = NULL;
-	}
-	(*env)->rooms = NULL;
+	ft_strdel(&(*env)->buff);
+	ft_free_map(env);
+	ft_free_hash((*env)->hash, (*env)->room_len);
+	ft_free_hash((*env)->hash_coo, (*env)->room_len);
+	i == 1 || i == 0 ? ft_free_path((*env)->paths, env) : 0;
 	free(*env);
-}
-
-static void	ft_destroy(t_path *path)
-{
-	if (path->next != NULL)
-	{
-		ft_strdel(&path->path);
-		ft_destroy(path->next);
-	}
-	free(path);
-}
-
-void		ft_path_clear(t_path **begin_path)
-{
-	if (begin_path && *begin_path)
-	{
-		ft_strdel(&(*begin_path)->path);
-		ft_destroy(*begin_path);
-		*begin_path = NULL;
-	}
 }

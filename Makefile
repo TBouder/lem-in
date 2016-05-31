@@ -6,7 +6,7 @@
 #    By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/04/22 12:12:36 by tbouder           #+#    #+#              #
-#    Updated: 2016/05/19 18:09:05 by tbouder          ###   ########.fr        #
+#    Updated: 2016/05/30 18:19:50 by tbouder          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,8 +19,10 @@ OPTI		=	-g -O3 -O2
 EXTRACT		=	$(wildcard extract_map/*.c)
 FIND		=	$(wildcard find_path/*.c)
 MOVES		=	$(wildcard setup_moves/*.c)
-SHARED		=	main.c ft_tools.c ft_free.c ft_print.c ft_find_specific_room.c
+SHARED		=	$(wildcard ./*.c)
 SRC			=	$(EXTRACT) $(FIND) $(MOVES) $(SHARED)
+
+HEAD		=	ft_lemin.h ft_errors.h extract_map/ft_extract.h find_path/ft_find.h setup_moves/ft_moves.h
 
 LIB			=	-Lft_printf -lftprintf
 
@@ -33,10 +35,9 @@ DIRJUNCK	=	lem-in.dSYM
 all: $(NAME)
 
 .SILENT : $(NAME) $(OBJ)
-$(NAME): $(OBJ)
+$(NAME): $(OBJ) $(HEAD)
 	# $(MAKE) re -C ft_printf
 	$(CC) $(CFLAGS) $(OPTI) -c $(SRC)
-	# $(CC) $(CFLAGS) $(OPTI) -o $@ $(OBJ) $(LIB)
 	$(CC) -o $@ $(OBJ) $(LIB)
 
 .SILENT : clean

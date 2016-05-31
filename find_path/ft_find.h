@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/05/10 19:34:10 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/18 16:45:02 by tbouder          ###   ########.fr       */
+/*   Created: 2016/05/23 15:09:51 by tbouder           #+#    #+#             */
+/*   Updated: 2016/05/30 13:03:33 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,18 @@
 
 # include "../ft_lemin.h"
 
-int		ft_weight(t_rooms *origin, t_rooms *rooms, int id);
-void	ft_purge_rooms(t_rooms **begin_rooms, t_rooms **origin);
-void	ft_algo(t_env *env, t_path *path);
-void	ft_find_path(t_env *env, t_path *path);
+/*
+** Algo
+*/
+int			ft_weight(t_env *env, t_hroom *start, int id, t_hroom *room);
+void		ft_find_path(t_env *env, t_path *path);
+void		ft_pathsend(t_path **path, char *datas);
 
-char	*ft_push_path(char **s1, char *s2);
-void	ft_path_remove_if_error(t_path **begin_path, char *str);
-void	ft_display_paths(t_path *origin, int color);
-
-void	ft_pathsend(t_path **path, char *datas);
+/*
+** Tools
+*/
+int			ft_hpipelen(t_hroom *hash);
+t_hroom		*ft_find_room(t_env *env, char *datas);
+t_hroom		*ft_find_good_pipe(t_hroom *room);
 
 #endif

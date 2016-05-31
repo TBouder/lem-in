@@ -5,46 +5,59 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/05/02 13:31:12 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/18 16:59:03 by tbouder          ###   ########.fr       */
+/*   Created: 2016/05/23 13:36:46 by tbouder           #+#    #+#             */
+/*   Updated: 2016/05/30 14:44:59 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_lemin.h"
 
-void		ft_print_pipes(t_pipes *pipes)
-{
-	t_pipes	*tmp;
-
-	tmp = pipes;
-	while (tmp)
-	{
-		ft_putendl(tmp->id);
-		tmp = tmp->next;
-	}
-}
-
-void		ft_print_map(char *str)
+void	ft_print_map(t_env *env)
 {
 	int		i;
 
 	i = 0;
-	while (str[i])
+	while (i < env->map_id)
 	{
-		if (str[i] == '\n' && str[i + 1] == '\0')
-			break ;
-		ft_putchar(str[i]);
+		ft_putendl(env->map[i]);
 		i++;
 	}
-	ft_putendl("\n");
+	ft_putchar('\n');
 }
 
-void		ft_print_path(t_path *path)
+void	ft_print_path(t_env *env)
 {
+	t_path	*path;
+
+	path = env->paths;
 	while (path)
 	{
-		ft_printf("%s : %d moves (max : %d)\n", path->path, path->moves,
-			path->moves_max);
+		if (!ft_strstr(path->path, "LERR")
+			&& ft_strstr(path->path, env->r_end->id))
+			ft_putendl(path->path);
 		path = path->next;
 	}
+	ft_putchar('\n');
+}
+
+void	ft_print_path_dist(t_env *env, int *dist)
+{
+	t_path	*path;
+	int		i;
+
+	path = env->paths;
+	i = 0;
+	while (path)
+	{
+		if (dist[i] == -42)
+			i++;
+		if (!ft_strstr(path->path, "LERR")
+			&& ft_strstr(path->path, env->r_end->id))
+		{
+			ft_printf("%s : %d units\n", path->path, dist[i]);
+			i++;
+		}
+		path = path->next;
+	}
+	ft_putchar('\n');
 }

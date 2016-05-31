@@ -5,43 +5,77 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/05/10 19:34:00 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/19 18:09:39 by tbouder          ###   ########.fr       */
+/*   Created: 2016/05/23 15:09:41 by tbouder           #+#    #+#             */
+/*   Updated: 2016/05/30 14:39:24 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_find.h"
 
-////
-void		ft_print_infos(t_rooms *rooms)
+static void			ft_verif_col_helper(t_env *env, t_path *origin, t_path *tmp)
 {
-	t_rooms	*tmp;
+	int		i;
+	char	**s1;
+	char	**s2;
 
-	tmp = rooms;
+	tmp = origin->next;
+	s1 = ft_strsplit(origin->path, ' ');
 	while (tmp)
 	{
-		ft_printf("{g}%s (%d) {0} : {145}%d{0}\n", tmp->name, tmp->id, tmp->weight);
-		while (tmp->pipes)
+		i = 1;
+		s2 = ft_strsplit(tmp->path, ' ');
+		while (s1[i] && s2[i])
 		{
-			ft_printf("\t{100}Next pipe{0} : %s\n", tmp->pipes->id);
-			tmp->pipes = tmp->pipes->next;
+			if (EQU(s1[i], s2[i]) && !(EQU(s1[i], env->r_end->id)
+				|| EQU(s2[i], env->r_end->id)))
+				tmp->path = ft_push_path(&tmp->path, "LERR");
+			i++;
 		}
 		tmp = tmp->next;
+		ft_dbstrdel(s2);
+	}
+	ft_dbstrdel(s1);
+}
+
+static void			ft_verif_collision(t_env *env, t_path *path)
+{
+	t_path	*origin;
+
+	origin = path;
+	while (origin)
+	{
+		if (!ft_strstr(origin->path, "LERR")
+			&& ft_strstr(origin->path, env->r_end->id))
+			ft_verif_col_helper(env, origin, NULL);
+		origin = origin->next;
 	}
 }
 
-
-void		ft_find(t_env *env)
+static t_path		*ft_algo(t_env *env)
 {
-	env->start = ft_find_start(ROOMS);
-	END = ft_find_end(ROOMS);
-	ft_weight(ROOMS, env->start, 0);
-	// ft_print_infos(env->rooms);
-	ft_purge_rooms(&ROOMS, &ROOMS);
-	if (END->weight == -1)
-		ft_error(env, "Pipe {r}error{0} : no access to end room");
-	ft_algo(env, NULL);
-	ft_print_map(env->map);
-	if (env->f_path == 1)
-		ft_display_paths(env->paths, env->f_color);
+	t_path	*origin;
+	t_path	*path;
+
+	path = NULL;
+	ft_pathsend(&path, env->r_start->id);
+	origin = path;
+	while (path)
+	{
+		ft_find_path(env, path);
+		if (path->next == NULL)
+			break ;
+		path = path->next;
+	}
+	return (origin);
+}
+
+void				ft_find(t_env *env)
+{
+	env->r_start->weight = 0;
+	ft_weight(env, env->r_start, 0, NULL);
+	if (env->r_end->weight == -1)
+		ft_err_nopath(env, "Pipe {9}error{0} : no access to end room");
+	env->paths = ft_algo(env);
+	ft_verif_collision(env, env->paths);
+	ft_path_remove_if_error(&env->paths, "LERR");
 }
