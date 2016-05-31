@@ -6,16 +6,11 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 22:13:10 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/29 16:10:23 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/31 14:10:02 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_moves.h"
-
-void	ft_display_move(int ant_id, char *room_name)
-{
-	ft_printf("L%d-%s ", ant_id, room_name);
-}
 
 int		ft_select_color(int id)
 {
@@ -80,4 +75,27 @@ void	ft_free_tr(t_env *env, char ***str)
 		k++;
 	}
 	free(str);
+}
+
+ULL		ft_sqrtt(ULL nb)
+{
+	ULL	i;
+	ULL	sqr;
+
+	sqr = 0;
+	i = 1 << 30;
+	while (i > nb)
+		i >>= 2;
+	while (i != 0)
+	{
+		if (nb >= sqr + i)
+		{
+			nb -= sqr + i;
+			sqr = (sqr >> 1) + i;
+		}
+		else
+			sqr >>= 1;
+		i >>= 2;
+	}
+	return (sqr);
 }
