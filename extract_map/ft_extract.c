@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:16:28 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/31 14:44:53 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/31 23:45:52 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void		ft_get_map(t_env *env)
 	int		*lines;
 
 	lines = ft_nbrnew(2);
-	while ((env->verif_fd = get_next_line_num(env->fd, &BUFF, &lines)) == 1)
+	while ((env->verif_fd = get_next_line_num(env->fd, &BUFF, &lines, 1)) == 1)
 	{
 		ft_malloc_env(env, lines);
 		env->room_len = lines[0] - 1;
