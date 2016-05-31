@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/24 21:46:17 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/30 14:54:05 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/31 18:32:02 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,16 @@ void		ft_free_hash(t_hroom **hash, int len)
 			i++;
 		}
 		free(hash);
+	}
+}
+
+void		ft_clear_gnl(t_env *env)
+{
+	if (env && env->map)
+	{
+		ft_strdel(&env->buff);
+		while (get_next_line_num(env->fd, &env->buff, NULL) == 1)
+			ft_strdel(&env->buff);
+		ft_strdel(&env->buff);
 	}
 }

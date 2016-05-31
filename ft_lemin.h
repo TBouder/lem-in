@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:14:46 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/30 18:17:08 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/31 18:41:38 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,9 +91,9 @@ void				ft_moves(t_env *env);
 ULL					ft_atoi_onum(char *str);
 int					get_next_line_num(int const fd, char **line, int **x);
 int					ft_nbline_gnl(char *str, int x);
-void				ft_clear_gnl(t_env *env);
 char				*ft_push_path(char **s1, char *s2);
 void				ft_path_remove_if_error(t_path **begin_path, char *str);
+int					ft_gnl_helper(int fd, t_list **lst, int j);
 
 /*
 ** Errors (ft_errors)
@@ -102,6 +102,7 @@ void				ft_error(t_env *env, char *str);
 void				ft_err_nopath(t_env *env, char *str);
 void				ft_err_noenv(t_env *env, char *str);
 void				ft_err_clr(char **err, t_env *env, char *str);
+void				ft_err_nothing(char *str);
 
 /*
 ** Clear (ft_free & ft_free_helper)

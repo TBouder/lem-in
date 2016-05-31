@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/30 14:46:11 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/30 17:16:15 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/31 14:27:05 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,32 @@ void	ft_free_trplnbr(t_path *origin, int ***nbr)
 	j = 0;
 	while (path)
 	{
-		len = ft_strcountchar(path->path, ' ');
-		ft_strstr(path->path, "LERR") ? len-- : 0;
-		k = 0;
-		while (k < len)
-			free(nbr[j][k++]);
-		free(nbr[j]);
-		j++;
+		if (ft_strstr(path->path, "LERR"))
+		{
+			len = ft_strcountchar(path->path, ' ') - 1;
+			k = 0;
+			while (k < len)
+				free(nbr[j][k++]);
+			free(nbr[j]);
+			j++;
+		}
 		path = path->next;
 	}
 	free(nbr);
+}
+
+int		*ft_nbrnew_ulls(ULL size)
+{
+	int		*buffer;
+	ULL		i;
+
+	i = 0;
+	if (!(buffer = (int *)malloc(sizeof(ULL) * size)))
+		return (NULL);
+	while (i < size)
+	{
+		buffer[i] = 0;
+		i++;
+	}
+	return (buffer);
 }

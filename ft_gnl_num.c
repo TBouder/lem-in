@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/17 11:59:39 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/30 18:17:58 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/31 19:30:55 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,14 +71,13 @@ static char		*ft_helper(char *str, char **line)
 
 static int		ft_extract_line(int const fd, t_list **s, t_list *lst, int **x)
 {
+	static int		j = 0;
 	int				i;
 	char			*buffer;
 	t_list			*tmp;
 
-	buffer = ft_strnew(BUFF_SIZE);
-	while ((i = read(fd, buffer, BUFF_SIZE)) && buffer[0] != '\0')
-		ft_lstend(&lst, buffer, i);
-	ft_strdel(&buffer);
+	i = ft_gnl_helper(fd, &lst, j);
+	j++;
 	if (i == -1)
 		return (-1);
 	buffer = ft_strnew(ft_lstcontentsize(lst) + 1);
@@ -130,7 +129,9 @@ int				get_next_line_num(int const fd, char **line, int **x)
 		return (-1);
 	if (!str)
 	{
-		if ((i = ft_extract_line(fd, &str, NULL, x)) == -1)
+		i = ft_extract_line(fd, &str, NULL, x);
+		ft_nbrendl(i);
+		if (i == -1)
 			return (-1);
 		str->content_size = (size_t)fd;
 	}
@@ -143,6 +144,9 @@ int				get_next_line_num(int const fd, char **line, int **x)
 		return (ft_freestr(&str, 0, NULL));
 	((char *)tmp->content)[0] == '\n' ? (tmp->content)++ : 0;
 	if (((char *)tmp->content)[0] == '\0')
+	{
+		// ft_printf("%d", i);
 		return (ft_freestr(&str, 1, NULL));
+	}
 	return (1);
 }
