@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 15:51:08 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/31 19:31:35 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/05/31 23:57:27 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int			ft_nbline_gnl(char *str, int x)
 	return (r);
 }
 
-int			ft_gnl_helper(int fd, t_list **lst, int j)
+int			ft_gnl_helper(int fd, t_list **lst, int j, int c)
 {
 	int				i;
 	char			*buffer;
@@ -58,20 +58,16 @@ int			ft_gnl_helper(int fd, t_list **lst, int j)
 
 	buffer = ft_strnew(BUFF_SIZE);
 	k = 0;
-	while ((i = read(fd, buffer, BUFF_SIZE)) && buffer[0] != '\0')
+	while (c && (i = read(fd, buffer, BUFF_SIZE)) && buffer[0] != '\0')
 	{
 		!ft_isnumber(buffer[0]) && j == 0 ? ft_err_nothing(ERR10) : 0;
 		if (i == 1 && buffer[0] == '\n')
-		{
-			ft_strdel(&buffer);
-			ft_putendl("COUCOU");
-			return (-2);
-		}
+			break ;
 		ft_lstend(lst, buffer, i);
 		j++;
 	}
 	ft_strdel(&buffer);
-	return (k == 1 ? -2 : i);
+	return (1);
 }
 
 char		*ft_push_path(char **s1, char *s2)
