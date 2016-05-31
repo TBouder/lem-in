@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:14:46 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/31 23:56:47 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/06/01 00:05:29 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,8 @@ void				ft_moves(t_env *env);
 ** Tools (ft_tools & ft_gnl_num)
 */
 ULL					ft_atoi_onum(char *str);
-// int					get_next_line_num(int const fd, char **line, int **x);
-int					get_next_line_num(int const fd, char **line, int **x, int c);
+int					get_next_line_num(int const fd, char **line, int **x,
+						int c);
 int					ft_nbline_gnl(char *str, int x);
 char				*ft_push_path(char **s1, char *s2);
 void				ft_path_remove_if_error(t_path **begin_path, char *str);

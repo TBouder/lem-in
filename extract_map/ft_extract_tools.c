@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/21 09:24:55 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/30 12:19:11 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/06/01 00:07:03 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,8 @@ void	ft_more(int ac, char **av, t_env **env, t_flg *flg)
 		ft_get_map(*env);
 		ft_find(*env);
 		ft_print_map(*env);
-		(*env)->flag.f_path ? ft_print_path(*env) : 0;
-		(*env)->flag.f_path ? ft_find_min_dist(*env) : 0;
+		(*env)->flag.f_path && !(*env)->flag.f_dist ? ft_print_path(*env) : 0;
+		(*env)->flag.f_dist ? ft_find_min_dist(*env) : 0;
 		ft_moves(*env);
 		ft_free_env(env, 0);
 		i + 1 != ac ? ft_printf("\n\n{155}--------NEXT MAP--------{0}\n\n") : 0;
