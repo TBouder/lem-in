@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/30 14:46:11 by tbouder           #+#    #+#             */
-/*   Updated: 2016/06/01 00:46:45 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/06/01 12:57:34 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,28 +41,22 @@ int		***ft_init_trplnbr(t_path *origin)
 
 void	ft_free_trplnbr(t_path *origin, int ***nbr)
 {
+
+	int		i;
 	int		j;
-	int		k;
 	int		len;
 	t_path	*path;
 
 	path = origin;
 	j = 0;
-	while (path) //path->next ?
+	while (path)
 	{
-		k = 0;
-		if (ft_strstr(path->path, "LERR"))
-			len = ft_strcountchar(path->path, ' ') - 1;
-		else
-			len = ft_strcountchar(path->path, ' ');
-
-		ft_printf("{155}%s{0} : %d\n", path->path, len);
-
-		while (k < len)
+		i = 0;
+		len = ft_strcountchar(path->path, ' ');
+		while (i < len)
 		{
-			free(nbr[j][k++]);
-			if (k == len)
-				break ;
+			free(nbr[j][i]);
+			i++;
 		}
 		free(nbr[j]);
 		j++;

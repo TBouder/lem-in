@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/29 15:17:36 by tbouder           #+#    #+#             */
-/*   Updated: 2016/06/01 00:12:47 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/06/01 11:26:23 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,9 +123,9 @@ void			ft_find_min_dist(t_env *env)
 	ft_find_min(env, nbr, path, &j);
 	dist = ft_nbrnew_ulls(j);
 	ft_ext_dist(dist, nbr, env->paths);
+	ft_free_trplnbr(env->paths, nbr);
 	ft_find_shortest_path(env, dist, &j);
 	ft_print_path_dist(env, dist);
 	ft_path_remove_if_error(&env->paths, "LERR");
 	free(dist);
-	ft_free_trplnbr(env->paths, nbr);
 }
