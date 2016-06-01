@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 18:22:57 by tbouder           #+#    #+#             */
-/*   Updated: 2016/06/01 00:04:14 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/06/01 14:37:38 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 ** - Possibility to use -c for color mode
 ** - Possibility to use -d for distance mode
 ** - Possibility to use -i for info mode
+** - Add usage
 */
 
 int			main(int ac, char **av)
