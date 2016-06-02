@@ -6,7 +6,7 @@
 #    By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/04/22 12:12:36 by tbouder           #+#    #+#              #
-#    Updated: 2016/06/01 14:38:02 by tbouder          ###   ########.fr        #
+#    Updated: 2016/06/02 11:23:29 by tbouder          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,6 @@ FIND		=	$(wildcard find_path/*.c)
 MOVES		=	$(wildcard setup_moves/*.c)
 SHARED		=	$(wildcard ./*.c)
 SRC			=	$(EXTRACT) $(FIND) $(MOVES) $(SHARED)
-
 HEAD		=	ft_lemin.h ft_errors.h extract_map/ft_extract.h find_path/ft_find.h setup_moves/ft_moves.h
 
 LIB			=	-Lft_printf -lftprintf

@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/30 14:46:11 by tbouder           #+#    #+#             */
-/*   Updated: 2016/06/01 12:57:34 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/06/02 11:24:07 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ int		***ft_init_trplnbr(t_path *origin)
 
 void	ft_free_trplnbr(t_path *origin, int ***nbr)
 {
-
 	int		i;
 	int		j;
 	int		len;
