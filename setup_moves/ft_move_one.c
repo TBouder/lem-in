@@ -6,7 +6,7 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 11:47:18 by tbouder           #+#    #+#             */
-/*   Updated: 2016/05/31 18:20:10 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/09/26 15:29:32 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,19 +33,19 @@ ULL			*ft_init_tab(ULL ant)
 
 static void	ft_print_moves_helper(t_env *env, ULL *nbr, char **str, ULL *v)
 {
-	ULL		j;
+	ULL		i;
 
-	j = 0;
-	while (j < env->ant)
+	i = 0;
+	while (i < env->ant)
 	{
-		if (nbr[j] >= 1 && nbr[j] < (ULL)ft_dbstrlen(str))
+		if (nbr[i] >= 1 && nbr[i] < (ULL)ft_dbstrlen(str))
 		{
-			ft_display(env, j + 1, str[nbr[j]], env->flag.f_color);
-			SAME(str[nbr[j]], env->r_end->id) ? env->r_end->ant++ : 0;
+			ft_display(env, i + 1, str[nbr[i]], env->flag.f_color);
+			SAME(str[nbr[i]], env->r_end->id) ? env->r_end->ant++ : 0;
 			*v += 1;
 		}
-		nbr[j++] += 1;
-		*v && j < env->ant && (long long)nbr[j] > 0 ? ft_putchar(' ') : 0;
+		nbr[i++] += 1;
+		*v && i < env->ant && (long long)nbr[i] > 0 ? ft_putchar(' ') : 0;
 	}
 }
 

@@ -6,14 +6,14 @@
 /*   By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/22 12:14:46 by tbouder           #+#    #+#             */
-/*   Updated: 2016/06/01 00:05:29 by tbouder          ###   ########.fr       */
+/*   Updated: 2016/09/26 15:18:52 by tbouder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_LEMIN_H
 # define FT_LEMIN_H
 
-# include "ft_printf/ft_printf.h"
+# include "libft/libft.h"
 # include "ft_errors.h"
 # include <fcntl.h>
 # define END env->end

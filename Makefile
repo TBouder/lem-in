@@ -6,7 +6,7 @@
 #    By: tbouder <tbouder@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/04/22 12:12:36 by tbouder           #+#    #+#              #
-#    Updated: 2016/06/02 11:23:29 by tbouder          ###   ########.fr        #
+#    Updated: 2016/09/26 15:18:39 by tbouder          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,8 @@ SHARED		=	$(wildcard ./*.c)
 SRC			=	$(EXTRACT) $(FIND) $(MOVES) $(SHARED)
 HEAD		=	ft_lemin.h ft_errors.h extract_map/ft_extract.h find_path/ft_find.h setup_moves/ft_moves.h
 
-LIB			=	-Lft_printf -lftprintf
+# LIB			=	-Lft_printf -lftprintf
+LIB			=	libft/libft.a
 
 OBJ			=	$(patsubst %.c,%.o, $(SRC))
 
@@ -35,19 +36,19 @@ all: $(NAME)
 
 .SILENT : $(NAME) $(OBJ)
 $(NAME): $(OBJ) $(HEAD)
-	$(MAKE) re -C ft_printf
+	$(MAKE) re -C libft
 	$(CC) $(CFLAGS) $(OPTI) -c $(SRC)
 	$(CC) -o $@ $(OBJ) $(LIB)
 
 .SILENT : clean
 clean:
-	$(MAKE) clean -C ft_printf
+	$(MAKE) clean -C libft
 	rm -f $(notdir $(OBJ)) $(OBJ) $(JUNCK)
 	rm -rf $(DIRJUNCK)
 
 .SILENT : fclean
 fclean: clean
-	$(MAKE) fclean -C ft_printf
+	$(MAKE) fclean -C libft
 	rm -f $(NAME)
 
 re: fclean all
